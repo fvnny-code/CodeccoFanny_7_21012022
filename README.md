@@ -1,1 +1,1 @@
-# CodeccoFanny_7_21012022
+Projet 7 : création d'un réseau social d'entreprise GROUPOMANIA
