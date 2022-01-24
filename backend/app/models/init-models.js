@@ -1,7 +1,7 @@
 var DataTypes = require("sequelize").DataTypes;
-var _comments = require("./comments");
-var _users = require("./users");
-var _posts = require("./posts");
+var _comments = require("./comments-model");
+var _users = require("./users-model");
+var _posts = require("./posts-model");
 
 function initModels(sequelize) {
   var comments = _comments(sequelize, DataTypes);

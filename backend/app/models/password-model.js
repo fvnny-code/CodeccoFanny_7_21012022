@@ -1,5 +1,5 @@
 // Import Paswword Validator package
-var passwordValidator = require.apply('password-validator');
+var passwordValidator = require('password-validator');
 
 // Schema to make password more secure
 var passwordSchema = new passwordValidator();
@@ -10,6 +10,6 @@ passwordSchema
 .has().uppercase() // must have uppercase letters 
 .has().lowercase() // must have lowercase letters
 .has().digits(2) // must have at least 2 digits
-has().not().spaces() // must not have spaces
+.has().not().spaces() // must not have spaces
 
 module.exports = passwordSchema;

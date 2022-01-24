@@ -25,9 +25,9 @@ app.use(helmet());
 app.use(cors());
 
 //Import user routes.
-const userRoutes = require('./routes/user');
+const userRoutes = require('./app/routes/user-route');
 //Import post routes.
-const postRoutes = require('./routes/post');
+const postRoutes = require('./app/routes/post-route');
 
 //To load files that are in the images directory.
 app.use('/images', express.static(path.join(__dirname, 'images')));
