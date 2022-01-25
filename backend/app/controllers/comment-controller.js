@@ -34,7 +34,7 @@ exports.modifyComment = (req, res, next) => {
 
 // Middelware to delete a comment
 exports.deleteComment = (req, res, next) => {
-  Comment.deleteOne({ where: { id: req.paramams.id } }, (err, data) => {
+  Comment.destroy({ where: { id: req.paramams.id } }, (err, data) => {
     if (err) {
       return res
         .status(400)

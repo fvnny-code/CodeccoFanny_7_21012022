@@ -86,7 +86,7 @@ exports.deletePost = (req, res, next) => {
     .then((post) => {
       let filename = post.media.split("/images/")[1];
       fs.unlink("images/" + filename, () => {
-        Post.deleteOne({ where: { id: req.params.id } })
+        Post.destroy({ where: { id: req.params.id } })
           .then(() =>
             res.status(200).json({ message: "Le post a été supprimé." })
           )

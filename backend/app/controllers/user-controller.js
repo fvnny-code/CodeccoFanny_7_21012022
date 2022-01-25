@@ -76,7 +76,7 @@ exports.deleteUser = (req, res, next) => {
       if (user.avatar != null) {
         const filename = user.avatar.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-          User.deleteOne({ where: { id: req.params.id } })
+          User.destroy({ where: { id: req.params.id } })
             .then(() =>
               res
                 .status(200)
