@@ -26,9 +26,12 @@ router.get('/:id', auth, postController.getAllPosts);
 
 // COMMENTS
 // Route to create a comment
-
+router.post('/:id/comments', auth, commentController.createComment);
 //Route to modify a comment
-
+router.put('/:id/comments/:id', auth, commentController.modifyComment);
 // Route to delete a comment
-
+router.delete('/:id/comment/:id', auth, commentController.deleteComment);
 // Route to get all comments
+router.get('/:id/comments', auth, commentController.getAllComments);
+
+module.exports = router;
