@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       media: {
         type: DataTypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         type: DataTypes.STRING(50),

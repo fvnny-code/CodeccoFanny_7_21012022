@@ -2,7 +2,8 @@
 const fs = require("fs");
 const { post } = require("../models");
 // Import data abse connection
-const db = require("../models");
+const dbc = require("../config/msyql-config");
+const db = dbc.getDB(); 
 
 const Post = db.post;
 

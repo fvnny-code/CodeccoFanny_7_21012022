@@ -150,6 +150,7 @@ exports.getOneUser = (req, res, next) => {
 
 // Middleware to get the list of all users accounts
 exports.getAllUsers = (req, res, next) => {
+  console.log(req);
   User.findAll({ attributes: ["id", "username", "avatar"] })
     .then((users) => {
       res.status(200).json(users);

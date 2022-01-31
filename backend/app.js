@@ -3,7 +3,7 @@ require('dotenv').config();
 
 //Import Express (Node JS Framework)
 const express = require('express');
-//Import Patch: To work with file and directory paths.
+//Import Path: To work with file and directory paths.
 const path = require('path');
 //Import Body Parser: To extract the Json object from the POST request.
 const bodyParser = require('body-parser');
