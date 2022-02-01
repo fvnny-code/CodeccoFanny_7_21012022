@@ -1,7 +1,7 @@
 // Import File System package to manage images downloads and uploads
 const fs = require("fs");
 const { post } = require("../models");
-// Import data abse connection
+// Import data base connection
 const dbc = require("../config/msyql-config");
 const db = dbc.getDB(); 
 
