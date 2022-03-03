@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const cors = require("cors");
-const morgan = require("morgan");
+const morgan = require('morgan');
 
 // Création de l'application express
 const app = express();
@@ -17,20 +17,20 @@ app.use(cors());
 //HTTP headers protection
 app.use(helmet());
 
-
 //Routes files
-// const postRouter = require('./routes/postRoute');
-// const userRouter = require('./routes/userRoute');
-// const adminRouter = require('./routes/adminRoute');
+const postRouter = require('./routes/postRoute');
+const userRouter = require('./routes/userRoute');
+const adminRouter = require('./routes/adminRoute');
 
 
 //Routes
-// app.use('/api/post', postRouter); // posts
-// app.use('/api/auth', userRouter); // users
-// app.use('/api/admin', adminRouter); // admin
+app.use('/api/post', postRouter); // posts
+app.use('/api/auth', userRouter); // users
+app.use('/api/admin', adminRouter); // admin
 
 //To load files that are in the images directory.
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
+
 
