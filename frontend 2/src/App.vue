@@ -1,27 +1,45 @@
 <template>
- 
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-   <img alt="Vue logo" src="./assets/logo.png">
+  <div id="app">
+    <div class="welcomeContainer">
+      <img class="logo" src="./assets/Groupomania_Logos+(3)/icon.png" />
+      <h1>{{ message }}</h1>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  data() {
+    return {
+      message: "Groupomagnagna",
+    };
+  },
+};
 </script>
 
-<style lang="scss">
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.welcomeContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.logo {
+  width: 4rem;
+  height: 4rem;
+  
 }
 </style>
