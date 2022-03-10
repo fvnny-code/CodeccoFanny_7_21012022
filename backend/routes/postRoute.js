@@ -13,13 +13,13 @@ apiRouter.post();
 apiRouter.put();
 apiRouter.delete();
 //likes
-apiRouter.get();
-apiRouter.post();
+// apiRouter.get();
+// apiRouter.post();
 //Comments
-apiRouter.get();
-apiRouter.post();
-apiRouter.put();
-apiRouter.delete();
+// apiRouter.get();
+// apiRouter.post();
+// apiRouter.put();
+// apiRouter.delete();
 
 
 } catch(error){
