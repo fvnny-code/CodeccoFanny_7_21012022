@@ -5,6 +5,40 @@
         src="../assets/Groupomania_Logos/icon-left-font-monochrome-black.png"
         alt="Logo Groupomania"
       />
+      <nav>
+        <router-link
+          aria-label="To home page"
+          tag="a"
+          to="/Home"
+          custom
+          v-slot="{ navigate }"
+          ><i class="fas fa-home" @click="navigate"></i
+        ></router-link>
+        |
+        <router-link
+          aria-label="To create post page"
+          tag="a"
+          to="/AddPost"
+          custom
+          v-slot="{ navigate }"
+          ><i class="far fa-envelope-open" @click="navigate"></i
+        ></router-link>
+        |
+        <router-link
+          aria-label="To my account"
+          tag="a"
+          to="/MyAccount"
+          custom
+          v-slot="{ navigate }"
+          ><i class="fas fa-cogs" @click="navigate"></i
+        ></router-link>
+        |
+        <i
+          aria-label="To disconnect"
+          class="fas fa-power-off"
+          @click="onDisconnect()"
+        ></i>
+      </nav>
     </div>
   </div>
 </template>
@@ -13,14 +47,50 @@
 
 </script>
 <style scoped>
-.header__container{
+.header__container {
+  width: 100%;
+  display: flex;
+}
+
+.header__banner{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
-.header__banner img{
+.header__banner img {
   height: 8rem;
-  width: 50vw;
+  width: 30vw;
   object-fit: cover;
+
+  margin-left: 2rem;
+}
+.header__banner nav {
+  font-size: 1.6rem;
+  list-style-type: none;
+padding: 3rem;
+  color: black;
+}
+
+.fa-power-off {
+  font-size: 2rem !important;
+  color: black;
+}
+.fa-home:hover,
+.fa-envelope-open:hover,
+.fa-cogs:hover,
+.fa-power-off:hover {
+  transform: scale(1.2);
+  transition: 0.6s;
+  cursor: pointer;
+  
+}
+.fa-home,
+.fa-envelope-open,
+.fa-cogs {
+  font-size: 2rem;
+}
+.fa-power-off:hover {
+  color: red;
+  
 }
 </style>
