@@ -1,27 +1,26 @@
 <template>
-  <div id="app">
-    <!-- <div class="welcomeContainer">
-      <img class="logo" src="./assets/Groupomania_Logos+(3)/icon.png" />
+  <div id="home">
+    <div class="welcomeContainer">
+      <img class="logo" src="../assets/Groupomania_Logos+(3)/icon.png" />
       <h1>{{ message }}</h1>
       <p>( "Piertotum Locomotor" 🪄)</p>
-    </div> -->
+    </div>
   </div>
 </template>
-
 <script>
-
 export default {
-  name: "App",
-  // data() {
-  //   return {
-  //     message: "Groupomagnagna",
-  //   };
-  // },
-};
+    name: "HomeFeed",
+
+    data() {
+    return {
+      message: "Groupomagnagna",
+    };
+  }
+}
 </script>
 
-<style>
-/* * {
+<style scoped>
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -48,5 +47,5 @@ export default {
 h1{
   color: #ffd7d7;
   margin-right: .5rem;
-} */
+}
 </style>
