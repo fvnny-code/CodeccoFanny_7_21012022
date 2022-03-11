@@ -6,7 +6,8 @@ import TheHeader from "./components/TheHeader";
 
 Vue.use(VueRouter);
 
-export default new VueRoute({
+export default new VueRouter({
+   
   routes: [
     {
       path: "/Home",

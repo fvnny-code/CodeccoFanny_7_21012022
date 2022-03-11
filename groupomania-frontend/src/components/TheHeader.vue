@@ -3,7 +3,7 @@
     <div class="banner">
       <img
         alt="groupomania logo"
-        src="./assets/Groupomania_Logos/icon-left-font-monochrome-black.png"
+        src="/assets/Groupomania_Logos/icon-left-font-monochrome-black.png"
       />
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-//   name: "TheHeader",
+  name: "TheHeader",
   data() {
     return {};
   },

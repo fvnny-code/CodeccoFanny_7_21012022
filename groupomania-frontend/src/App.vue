@@ -1,32 +1,25 @@
 <template>
   <div id="app">
-   
+   <router-view></router-view>
   </div>
 </template>
 
 <script>
-
-
-// import axios from "axios"
-
-//       const app = new Vue({
-//         el: '#app',
-//         data :{
-//             message: 'Bonjour 👋'
-//         },
-//         mounted(){
-//           axios.get("http://localhost:3000/api/post")
-//           .then(Response =>(console.log(Response)))
-//         }
-//       });
-
 export default {
   name: 'App',
-  data(){
-    return{}
-  },
+  
 }
 </script>
 
 <style>
+#app {
+  box-sizing: border-box;
+}
+body {
+  overflow-x: hidden;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>

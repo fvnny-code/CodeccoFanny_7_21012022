@@ -8,7 +8,7 @@
 import TheHeader from '../components/TheHeader.vue'
 
 export default{
-    name: 'Home',
+    name: 'HomeFeed',
     components: {
         TheHeader
     },
