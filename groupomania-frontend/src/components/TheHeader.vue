@@ -21,7 +21,7 @@
           to="/AddPost"
           custom
           v-slot="{ navigate }"
-          ><i class="far fa-envelope-open" @click="navigate"></i
+          ><i class="fas fa-pen" @click="navigate"></i
         ></router-link>
         |
         <router-link
@@ -30,7 +30,7 @@
           to="/MyAccount"
           custom
           v-slot="{ navigate }"
-          ><i class="fas fa-cogs" @click="navigate"></i
+          ><i class="fas solid fa-user" @click="navigate"></i
         ></router-link>
         |
         <i
@@ -43,54 +43,49 @@
   </div>
 </template>
 
-<script>
-
-</script>
+<script></script>
 <style scoped>
 .header__container {
   width: 100%;
   display: flex;
 }
 
-.header__banner{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.header__banner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .header__banner img {
   height: 8rem;
   width: 30vw;
   object-fit: cover;
-
   margin-left: 2rem;
 }
 .header__banner nav {
   font-size: 1.6rem;
   list-style-type: none;
-padding: 3rem;
-  color: black;
+  padding: 3rem;
+  color: rgb(51, 49, 49);
 }
 
 .fa-power-off {
   font-size: 2rem !important;
-  color: black;
+  color: rgb(51, 49, 49);
 }
 .fa-home:hover,
-.fa-envelope-open:hover,
-.fa-cogs:hover,
+.fa-pen:hover,
+.fa-user:hover,
 .fa-power-off:hover {
   transform: scale(1.2);
   transition: 0.6s;
   cursor: pointer;
-  
 }
 .fa-home,
-.fa-envelope-open,
-.fa-cogs {
+.fa-pen,
+.fa-user {
   font-size: 2rem;
 }
 .fa-power-off:hover {
   color: red;
-  
 }
 </style>
