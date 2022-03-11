@@ -18,9 +18,9 @@
     display: flex;
     justify-content: center;
 }
-.banner image{
-  height: 8.5rem;
-  width: 100vw;
+.header__banner img{
+  height: 8rem;
+  width: 50vw;
   object-fit: cover;
 }
 </style>
