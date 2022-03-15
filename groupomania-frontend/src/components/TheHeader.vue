@@ -43,7 +43,9 @@
   </div>
 </template>
 
-<script></script>
+<script>
+
+</script>
 <style scoped>
 .header__container {
   width: 100%;
@@ -57,14 +59,16 @@
 }
 .header__banner img {
   height: 8rem;
-  width: 30vw;
+  width: 50vw;
   object-fit: cover;
-  margin-left: 2rem;
+  margin: 0 2rem;
 }
 .header__banner nav {
+  
+  width: 20vw;  
   font-size: 1.6rem;
   list-style-type: none;
-  padding: 3rem;
+  padding: 3rem 0;
   color: rgb(51, 49, 49);
 }
 
@@ -88,4 +92,17 @@
 .fa-power-off:hover {
   color: red;
 }
+@media screen and (max-width: 480px) {
+    .header__banner nav {
+        
+        flex-direction: column;
+    }
+  .header__banner img {
+    height: 6.8rem;
+    width: 100vw;
+    object-fit: cover;
+  } 
+} 
+
+
 </style>

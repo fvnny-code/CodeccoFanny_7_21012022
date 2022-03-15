@@ -10,7 +10,7 @@ const db = dbc.getDB();
 exports.getOneUser = (req, res, next) => {
   const { id: userId } = req.params;
   let sql =
-    "SELECT * FROM user WHERE user.id =?";
+    "SELECT * FROM users WHERE user.id =?";
   db.query(sql, [userId], (err, result, fields) => {
     if (err) {
       res.status(404).json({ err });

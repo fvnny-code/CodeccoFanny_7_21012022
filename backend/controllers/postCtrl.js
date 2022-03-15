@@ -6,7 +6,7 @@ const db = dbc.getDB();
 // afficher tous les posts
 exports.getAllPosts = (req, res, next) => {
   let sql =
-    "SELECT * FROM post ORDER BY date_creation DESC";
+    "SELECT * FROM posts ORDER BY date_creation DESC";
   db.query(sql, (err, result) => {
     if (err) {
       // throw err // Erreur à traiter par la suite.
@@ -21,7 +21,7 @@ exports.getAllPosts = (req, res, next) => {
 // Afficher un post
 exports.getOnePost = (req, res, next) => {
   const { id: postId } = req.params;
-  let sql = `SELECT * FROM post AS p WHERE p.id = ${postId}`;
+  let sql = `SELECT * FROM posts AS p WHERE p.id = ${postId}`;
   db.query(sql, (err, result) => {
     if (err) {
       res.status(500).json({ err });
@@ -34,7 +34,7 @@ exports.getOnePost = (req, res, next) => {
 // supprimer un post
 exports.deleteOnePost = (req, res, next) => {
   const { id: postId } = req.params;
-  let sql = `DELETE FROM post AS p WHERE p.id = ${postId}`;
+  let sql = `DELETE FROM posts AS p WHERE p.id = ${postId}`;
   db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
@@ -45,7 +45,7 @@ exports.deleteOnePost = (req, res, next) => {
 
 // modifier un post
 exports.updatePost = (req, res, next) => {
-  let sql = "SELECT * FROM post ORDER BY date_creation DESC";
+  let sql = "SELECT * FROM posts ORDER BY date_creation DESC";
   db.query(sql, (err, result) => {
     if (err) {
       res.status(404).json({ err });
