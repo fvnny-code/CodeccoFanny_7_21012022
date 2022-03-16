@@ -65,7 +65,6 @@
   padding: 1rem;
 }
 .header__banner nav {
-  
   width: 25vw;  
   font-size: 1.6rem;
   list-style-type: none;
