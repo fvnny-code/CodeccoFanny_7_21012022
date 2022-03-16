@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthView from "../views/AuthView.vue";
+import ProfileView from "../views/ProfileView.vue";
 import TheHeader from "../components/TheHeader.vue";
 import LoginForm from "../components/LoginForm.vue";
 
@@ -17,6 +18,11 @@ const routes = [
     path: "/home",
     name: "HomeView",
     component: HomeView,
+  },
+  {
+    path: "/MyProfile",
+    name: "ProfileView",
+    component: ProfileView,
   },
   {
     path: "/login",

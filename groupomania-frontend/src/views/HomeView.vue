@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <TheHeader />
+    <hr>
     <FeedView />
    
   </div>

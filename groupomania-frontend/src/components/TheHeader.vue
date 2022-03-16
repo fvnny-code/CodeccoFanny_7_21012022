@@ -25,9 +25,9 @@
         ></router-link>
         
         <router-link
-          aria-label="To my account"
+          aria-label="To my profile"
           tag="a"
-          to="/MyAccount"
+          to="/MyProfile"
           custom
           v-slot="{ navigate }"
           ><i class="fas solid fa-user" @click="navigate"></i
