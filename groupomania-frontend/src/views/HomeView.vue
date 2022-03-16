@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <TheHeader></TheHeader>
-    <FeedView></FeedView>
+    <TheHeader />
+    <FeedView />
    
   </div>
 </template>

@@ -14,7 +14,7 @@
           v-slot="{ navigate }"
           ><i class="fas fa-home" @click="navigate"></i
         ></router-link>
-        |
+        
         <router-link
           aria-label="To create post page"
           tag="a"
@@ -23,7 +23,7 @@
           v-slot="{ navigate }"
           ><i class="fas fa-pen" @click="navigate"></i
         ></router-link>
-        |
+        
         <router-link
           aria-label="To my account"
           tag="a"
@@ -32,7 +32,7 @@
           v-slot="{ navigate }"
           ><i class="fas solid fa-user" @click="navigate"></i
         ></router-link>
-        |
+        
         <i
           aria-label="To disconnect"
           class="fas fa-power-off"
@@ -59,13 +59,14 @@
 }
 .header__banner img {
   height: 8rem;
-  width: 50vw;
+  width: 40vw;
   object-fit: cover;
   margin: 0 2rem;
+  padding: 1rem;
 }
 .header__banner nav {
   
-  width: 20vw;  
+  width: 25vw;  
   font-size: 1.6rem;
   list-style-type: none;
   padding: 3rem 0;
@@ -86,8 +87,10 @@
 }
 .fa-home,
 .fa-pen,
-.fa-user {
+.fa-user,
+.fa-power-off {
   font-size: 2rem;
+  padding: .5rem 1rem;
 }
 .fa-power-off:hover {
   color: red;
