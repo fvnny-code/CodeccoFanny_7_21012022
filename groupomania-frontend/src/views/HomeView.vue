@@ -3,7 +3,7 @@
     <TheHeader />
     <hr>
     <FeedView />
-   <hr>
+   
    <TheFooter />
   </div>
 </template>

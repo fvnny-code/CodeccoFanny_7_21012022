@@ -5,7 +5,6 @@
   <div>
     <p>Pouet ! Tu veux voir mon profil ?</p>
   </div>
-  <hr>
   <TheFooter/>
 </div>
 </template>
