@@ -5,17 +5,19 @@
   <div>
     <p>Pouet ! Tu veux voir mon profil ?</p>
   </div>
-  
+  <hr>
+  <TheFooter/>
 </div>
 </template>
 <script>
 import TheHeader from "../components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 
 export default {
     name: "ProfileView",
     components: {
     TheHeader,
-  
+    TheFooter
 },
 }
 

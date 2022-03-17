@@ -13,10 +13,12 @@
       </div>
     </div>
     <LoginForm />
+    <TheFooter />
   </div>
 </template>
 <script>
 import LoginForm from "../components/LoginForm.vue";
+import TheFooter from "@/components/TheFooter.vue";
 
 export default {
   name: "AuthView",
@@ -28,7 +30,7 @@ export default {
   compoents: {
     LoginForm,
   },
-  components: { LoginForm },
+  components: { LoginForm, TheFooter },
 };
 </script>
 <style scoped>
