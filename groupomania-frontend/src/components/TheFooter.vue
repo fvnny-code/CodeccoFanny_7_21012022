@@ -44,6 +44,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 
   width: 100%;
   font-family:Arial, Helvetica, sans-serif;
@@ -52,12 +53,10 @@ export default {
   border-top: 2px solid black;
 
 }
-.legal-notice {
-  margin-top: 1rem;
-}
+
+.legal-notice,
 .copyright {
-  margin-right: 5rem;
-  font-style: italic;
+  padding: 1rem;
 }
 
 </style>
