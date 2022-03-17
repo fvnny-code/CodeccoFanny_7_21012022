@@ -104,6 +104,14 @@
     width: 100vw;
     object-fit: cover;
   } 
+.fa-home,
+.fa-pen,
+.fa-user,
+.fa-power-off {
+  font-size: 1.5rem !important;
+  padding: .5rem 1rem;
+}
+
 } 
 
 
