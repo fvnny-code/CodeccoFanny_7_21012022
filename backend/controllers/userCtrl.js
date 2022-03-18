@@ -1,12 +1,10 @@
 const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 // const mysql = require("mysql");
 
 const dbc = require("../db-config");
 // const db = dbc.getDB();
-const UserManager = require("../sqlManagers/UserManager");
-
-
+const UserManager = require("../Managers/UserManager");
 
 // SignUp
 exports.signup = (req, res, next) => {
@@ -29,23 +27,62 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json(error));
 };
 // Login
-
+exports.login = (req, res, next) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  let sqlInserts = [email];
+  UserManager.login(sqlInserts, password)
+    .then((response) => {
+      res.status(200).json(JSON.stringify(response));
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
 // Afficher un utilisateur
-// exports.getOneUser = (req, res, next) => {
-//   const { id: userId } = req.params;
-//   let sql =
-//     "SELECT * FROM users WHERE user.id =?";
-//   db.query(sql, [userId], (err, result, fields) => {
-//     if (err) {
-//       res.status(404).json({ err });
-//       return;
-//     }
-//   //   delete result[0].user.password;
-//     res.status(200).json(result);
-//   });
-// };
+exports.getOneUser = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+  const userId = decodedToken.userId;
+  let sqlInserts = [userId];
+  UserManager.getOneUser(sqlInserts)
+    .then((response) => {
+      res.status(200).json(JSON.stringify(response));
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
 // Modifier un utilisateur
+exports.updateUser = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+  const userId = decodedToken.userId;
+  let userName = req.body.userName;
+  let email = req.body.email;
+  let sqlInserts = [userName, email, userId];
+  UserManager.updateUser(sqlInserts)
+    .then((response) => {
+      res.status(200).json(JSON.stringify(response));
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
 //Supprimer un utilisateur
+exports.deleteUser = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+  const userId = decodedToken.userId;
+  let sqlInserts = [userId];
+  UserManager.updateUser(sqlInserts)
+    .then((response) => {
+      res.status(200).json(JSON.stringify(response));
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};

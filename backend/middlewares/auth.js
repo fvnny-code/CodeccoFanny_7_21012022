@@ -2,7 +2,7 @@
 const jwt = require("jsonwebtoken");
 // DB connection
 const dbc = require("../db-config");
-const db = dbc.getDB();
+// const db = dbc.getDB();
 // mysql
 const mysql = require('mysql');
 

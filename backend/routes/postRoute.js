@@ -8,13 +8,15 @@ const postCtrl = require('../controllers/postCtrl')
 try{
 
 //Posts
-apiRouter.get();
-apiRouter.post();
-apiRouter.put();
-apiRouter.delete();
+// apiRouter.get();
+// apiRouter.post();
+// apiRouter.put();
+// apiRouter.delete();
+
 //likes
 // apiRouter.get();
 // apiRouter.post();
+
 //Comments
 // apiRouter.get();
 // apiRouter.post();
@@ -27,9 +29,9 @@ apiRouter.delete();
 }
 
 apiRouter.get('/', postCtrl.getAllPosts);
-apiRouter.get('/:id', postCtrl.getOnePost);
-apiRouter.delete('/:id', postCtrl.deleteOnePost);
-apiRouter.put('/:id', postCtrl.updatePost);
+// apiRouter.get('/:id', postCtrl.getOnePost);
+// apiRouter.delete('/:id', postCtrl.deleteOnePost);
+// apiRouter.put('/:id', postCtrl.updatePost);
 
 
 

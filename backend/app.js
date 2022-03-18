@@ -26,10 +26,10 @@ const adminRouter = require('./routes/adminRoute');
 //Routes
 app.use('/api/post', postRouter); // posts
 app.use('/api/auth', userRouter); // users
-app.use('/api/admin', adminRouter); // admin
+// app.use('/api/admin', adminRouter); // admin
 
 //To load files that are in the images directory.
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
 
