@@ -20,7 +20,7 @@ app.use(helmet());
 //Routes files
 const postRouter = require('./routes/postRoute');
 const userRouter = require('./routes/userRoute');
-const adminRouter = require('./routes/adminRoute');
+// const adminRouter = require('./routes/adminRoute');
 
 
 //Routes

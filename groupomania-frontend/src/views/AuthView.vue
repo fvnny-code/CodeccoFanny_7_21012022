@@ -34,6 +34,11 @@ export default {
 };
 </script>
 <style scoped>
+/* *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
 .auth__container {
   width: 100%;
   display: flex;
@@ -67,5 +72,13 @@ export default {
   transform: scale(1.2);
   transition: 0.6s;
   cursor: pointer;
+}
+@media screen and (max-width: 800px){
+ .auth__buttons{
+   margin-top: 1rem;
+ }
+  .auth__btn{
+    margin: .8rem 2rem; 
+  }
 }
 </style>

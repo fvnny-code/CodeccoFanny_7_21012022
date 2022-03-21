@@ -1,25 +1,28 @@
 <template>
-<div class="login__container">
-    <hr>
+  <div class="login__container">
+    <hr />
     <p>Coucou ici, la page de formulaire de login</p>
-
-
-</div>
+  </div>
 </template>
 <script>
-
-
 export default {
-    name: "LoginForm",
-   
-}
-
+  name: "LoginForm",
+};
 </script>
 <style scoped>
-p{
-    text-align: center;
+.login__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+p {
+  text-align: center;
+  padding: 2rem;
 }
 hr {
-    width: 75%;
+  width: 100%;
 }
+
 </style>

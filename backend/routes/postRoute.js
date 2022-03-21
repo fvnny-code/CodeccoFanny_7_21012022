@@ -8,10 +8,11 @@ const postCtrl = require('../controllers/postCtrl')
 try{
 
 //Posts
-// apiRouter.get();
-// apiRouter.post();
-// apiRouter.put();
-// apiRouter.delete();
+apiRouter.get('/', postCtrl.getAllPosts);
+apiRouter.get('/:id', postCtrl.getOnePost);
+apiRouter.post('/', auth, postCtrl.createPost);
+apiRouter.put('/:id', auth, postCtrl.updatePost);
+apiRouter.delete('/:id', auth, postCtrl.deletePost);
 
 //likes
 // apiRouter.get();
@@ -27,12 +28,6 @@ try{
 } catch(error){
     console.log(error);
 }
-
-apiRouter.get('/', postCtrl.getAllPosts);
-// apiRouter.get('/:id', postCtrl.getOnePost);
-// apiRouter.delete('/:id', postCtrl.deleteOnePost);
-// apiRouter.put('/:id', postCtrl.updatePost);
-
 
 
 module.exports = apiRouter;
