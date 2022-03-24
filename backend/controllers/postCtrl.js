@@ -1,7 +1,6 @@
 const dbc = require("../database/db-config");
 
 const jwt = require ("jsonwebtoken");
-
 // const postManager = require("../Managers/PostManager")
 
 // POSTS
@@ -12,7 +11,6 @@ exports.getAllPosts = (req, res, next) => {
   //   .then((response) => {
   //     res.status(200).json(JSON.stringify(response));
   //   });
-
   let sql = "SELECT * FROM posts ORDER BY date_creation DESC";
   let query = dbc.query (sql, (err, result)=>{
     if(err){
@@ -20,14 +18,18 @@ exports.getAllPosts = (req, res, next) => {
     }
   res.status(200).json (result)
   })
-    // .catch((error) => {
-    //   res.status(400).json({ error });
-    // });
 };
 // afficher un post 
 exports.getOnePost = (req, res, next)=>{
   console.log("getOnePost");
-  let 
+  console.log(req.params.id)
+  let sql = "select * from posts where id = ?";
+  dbc.query(sql, [req.params.id], (err, result, fields) => {
+    if (err) {
+      console.log(err)
+    }
+    res.status(200).json(result)
+  })
 }
 // Créer un post
 exports.createPost = (req, res, next) => {
@@ -44,9 +46,10 @@ exports.createPost = (req, res, next) => {
   //     res.status(400).json({ error });
   //   });
 let sql = "INSERT INTO posts (userId, title, content, image_url) VALUES(?, ?, ?, ?)";
-let query = dbc.query(sql, [req.body.userId, req.body.title, req.body.content, req.body.image_url], (err, results, fields)=>{
+// console.log("AAAAAAAAAAAAAAAAA =>", req.body);
+dbc.query(sql, [req.body.userId, req.body.title, req.body.content, req.body.image_url], (err, results, fields)=>{
   if (err){
-    throw err
+    console.log(err)
   }
   res.status(200).json (results)
 })

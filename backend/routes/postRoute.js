@@ -10,9 +10,9 @@ try{
 //Posts
 apiRouter.get('/', postCtrl.getAllPosts);
 apiRouter.get('/:id', postCtrl.getOnePost);
-apiRouter.post('/', auth, postCtrl.createPost);
-apiRouter.put('/:id', auth, postCtrl.updatePost);
-apiRouter.delete('/:id', auth, postCtrl.deletePost);
+apiRouter.post('/', postCtrl.createPost);
+apiRouter.put('/:id', postCtrl.updatePost);
+apiRouter.delete('/:id', postCtrl.deletePost);
 
 //likes
 // apiRouter.get();
