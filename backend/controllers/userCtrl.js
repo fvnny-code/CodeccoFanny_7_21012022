@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mysql = require("mysql");
 
-const dbc = require("../db-config");
+const dbc = require("../database/db-config");;
 // const db = dbc.getDB();
 // const UserManager = require("../Managers/UserManager");
 

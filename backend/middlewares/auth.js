@@ -1,7 +1,7 @@
 // Import of jsonWebToken package
 const jwt = require("jsonwebtoken");
 // DB connection
-const dbc = require("../db-config");
+const dbc = require("../database/db-config");;
 // const db = dbc.getDB();
 // mysql
 const mysql = require('mysql');

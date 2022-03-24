@@ -1,5 +1,5 @@
-const dbc = require("../db-config");
-// const db = dbc.getDB();
+const dbc = require("../database/db-config");
+
 const jwt = require ("jsonwebtoken");
 
 // const postManager = require("../Managers/PostManager")
@@ -25,7 +25,10 @@ exports.getAllPosts = (req, res, next) => {
     // });
 };
 // afficher un post 
-
+exports.getOnePost = (req, res, next)=>{
+  console.log("getOnePost");
+  let 
+}
 // Créer un post
 exports.createPost = (req, res, next) => {
   // let userId = req.body.userId;

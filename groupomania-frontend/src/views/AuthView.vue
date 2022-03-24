@@ -57,21 +57,8 @@ export default {
   },
   components: {},
   computed: {
-    validatedFields: function(){
-      if(this.mode == "create"){
-        if(this.email != "" && this.prenom != "" && this.nom != "" && this.password != ""){
-          return true;
-        } else{
-          return false;
-        }
-      } else{
-        if(this.email != "" && this.password != "") {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
+    
+    
   },
   methods:{
     switchToCreateAccount: function () {
@@ -80,18 +67,11 @@ export default {
     switchToLogin: function () {
       this.mode = "login";
     },
-    createAccount: function (){
-      // console.log(this.email, this.prenom, this.nom, this.password);
-      // this.$store.dispatch('createAccount', {
-      //   email : this.email,
-      //   prenom: this.prenom,
-      //   nom: this.nom,
-      //   password: this.password,
-
-      // })
-      },
+    // createAccount: function (){
+    //   console.log(this.email, this.prenom, this.nom, this.password);
+    //   },
     
-  } 
+  }
 };
 </script>
 <style scoped>
