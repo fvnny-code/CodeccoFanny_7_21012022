@@ -2,83 +2,164 @@
   <div id="auth">
     <div class="auth__container">
       <div class="header__banner">
-        <img
-          src="../assets/Groupomania_Logos/icon-left-font-monochrome-black.png"
-          alt="Logo Groupomania"
-        />
-      </div>
-      <div class="auth__buttons">
-        <button class="auth__btn">Se connecter</button>
-        <button class="auth__btn">S'inscrire</button>
-      </div>
+      <img
+        src="../assets/Groupomania_Logos/icon-left-font-monochrome-black.png"
+        alt="Logo Groupomania"
+      />
     </div>
-    <LoginForm />
-    <TheFooter />
+    <div class="card">
+    <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
+    <h1 class="card__title" v-else>Inscription</h1>
+    <p class="card__subtitle" v-if="mode == 'login'">Tu n'as pas encore de compte ? <span class="card__action" @click="switchToCreateAccount()">Créer un compte</span></p>
+    <p class="card__subtitle" v-else>Tu as déjà un compte ? <span class="card__action" @click="switchToLogin()">Se connecter</span></p>
+    
+      <div class="form-row">
+        <input v-model="email" class="form-row__input" type="text" placeholder="Adresse mail" />
+      </div>
+      <div class="form-row" v-if="mode == 'create'">
+        <input v-model="prenom" class="form-row__input" type="text" placeholder="Prénom" />
+        <input v-model="nom" class="form-row__input" type="text" placeholder="Nom" />
+      </div>
+      <div class="form-row">
+        <input v-model="password" class="form-row__input" type="password" placeholder="Mot de passe" />
+      </div>
+    <!-- <div class="form-row" v-if="mode == 'login' && status == 'error_login'">
+      Adresse mail et/ou mot de passe invalide
+    </div>
+    <div class="form-row" v-if="mode == 'create' && status == 'error_create'">
+      Adresse mail déjà utilisée
+    </div> -->
+      <div class="form-row">
+        <button class="button" :class="{'button--disabled' : !validatedFields}" v-if="mode == 'login' ">Connexion</button>
+        <button @click="createAccount()" class="button" :class="{'button--disabled' : !validatedFields}" v-else>Créer un compte</button>
+      </div>
+
+    </div>
+      <!-- <TheFooter /> -->
+    </div>
   </div>
 </template>
 <script>
-import LoginForm from "../components/LoginForm.vue";
-import TheFooter from "@/components/TheFooter.vue";
+// import LoginForm from "../components/LoginForm.vue";
+// import TheFooter from "@/components/TheFooter.vue";
+
 
 export default {
   name: "AuthView",
   data() {
     return {
-      component: "",
+      mode: "login",
+      email: "",
+      prenom: "",
+      nom: "",
+      password: "",
     };
   },
-  compoents: {
-    LoginForm,
+  components: {},
+  computed: {
+    validatedFields: function(){
+      if(this.mode == "create"){
+        if(this.email != "" && this.prenom != "" && this.nom != "" && this.password != ""){
+          return true;
+        } else{
+          return false;
+        }
+      } else{
+        if(this.email != "" && this.password != "") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
   },
-  components: { LoginForm, TheFooter },
+  methods:{
+    switchToCreateAccount: function () {
+      this.mode = "create";
+    },
+    switchToLogin: function () {
+      this.mode = "login";
+    },
+    createAccount: function (){
+      // console.log(this.email, this.prenom, this.nom, this.password);
+      // this.$store.dispatch('createAccount', {
+      //   email : this.email,
+      //   prenom: this.prenom,
+      //   nom: this.nom,
+      //   password: this.password,
+
+      // })
+      },
+    
+  } 
 };
 </script>
 <style scoped>
-/* *{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-} */
 .auth__container {
-  width: 100%;
+  text-align: center;
+  max-width: 100%;
   display: flex;
-  justify-content: space-between;
-  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   margin: 1rem;
 }
 .header__banner img {
-  height: 8rem;
-  width: 40vw;
+  width: 300px;
+  height: 150px;
   object-fit: cover;
-  margin: 0 2rem;
+ 
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  max-width: 60%;
+  margin: auto;
   padding: 1rem;
 }
-.auth__buttons {
+.form-row {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1.2rem;
+  gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
-  width: 40vw;
 }
-.auth__btn {
-  margin: 3rem 2rem;
-  /* width: 7rem;
-  height: 2rem; */
-  padding: .8rem;
-  border-radius: 2rem;
+.form-row__input {
+  padding: .5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f2f2f2;
+  font-weight: 500;
+  font-size: 1rem;
+  width: 100%;
+  color: black;
 }
-.auth__btn:hover {
-  transform: scale(1.2);
-  transition: 0.6s;
-  cursor: pointer;
+.form-row__input::placeholder {
+  color: #aaaaaa;
 }
-@media screen and (max-width: 800px){
- .auth__buttons{
-   margin-top: 1rem;
- }
-  .auth__btn{
-    margin: .8rem 2rem; 
-  }
+.button {
+  border: none;
+  margin: auto;
+  max-width: 100%;
+  min-width: 200px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 480px) {
+.header__banner img {
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+ 
+}
 }
 </style>

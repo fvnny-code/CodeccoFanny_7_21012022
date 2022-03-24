@@ -10,11 +10,12 @@ const db = mysql.createConnection({
   });
   
   // connexion à la DB
-  module.exports.getDB =function(){
-    return db
-  }
-  
+  // module.exports.getDB =function(){
+  //   return db
+  // }
+  module.exports = db;
+
   // déconnexion à la DB
-  module.exports.closeDB =function(){
-    db.end();
-  }
+  // module.exports.closeDB =function(){
+  //   db.end();
+  // }

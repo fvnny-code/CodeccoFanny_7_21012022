@@ -1,6 +1,17 @@
 const dbc = require("../db-config");
-const db = dbc.getDB();
+// const db = dbc.getDB();
+const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
 
+// Afficher tous les posts
+exports.getAllPosts = (req, res, next)=>{
+ const token = req.headers.authorization.split(' ')[1];
+ const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+ const isAdmin = decodedToken.moderation;
+ if(isAdmin == 1){
+  
+ }
+}
 
 
 // Afficher tous les utilisateurs

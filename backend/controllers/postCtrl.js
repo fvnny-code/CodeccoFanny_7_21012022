@@ -1,5 +1,5 @@
 const dbc = require("../db-config");
-const db = dbc.getDB();
+// const db = dbc.getDB();
 const jwt = require ("jsonwebtoken");
 
 // const postManager = require("../Managers/PostManager")
@@ -14,7 +14,7 @@ exports.getAllPosts = (req, res, next) => {
   //   });
 
   let sql = "SELECT * FROM posts ORDER BY date_creation DESC";
-  let query = db.query (sql, (err, result)=>{
+  let query = dbc.query (sql, (err, result)=>{
     if(err){
       throw err
     }
@@ -41,7 +41,7 @@ exports.createPost = (req, res, next) => {
   //     res.status(400).json({ error });
   //   });
 let sql = "INSERT INTO posts (userId, title, content, image_url) VALUES(?, ?, ?, ?)";
-let query = db.query(sql, [req.body.userId, req.body.title, req.body.content, req.body.image_url], (err, results, fields)=>{
+let query = dbc.query(sql, [req.body.userId, req.body.title, req.body.content, req.body.image_url], (err, results, fields)=>{
   if (err){
     throw err
   }
