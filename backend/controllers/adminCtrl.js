@@ -1,6 +1,6 @@
 const dbc = require("../database/db-config");
-// const db = dbc.getDB();
 const mysql = require("mysql");
+
 const jwt = require("jsonwebtoken");
 
 // Afficher tous les posts
