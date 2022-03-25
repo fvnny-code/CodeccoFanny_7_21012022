@@ -19,10 +19,10 @@ apiRouter.delete('/:id', postCtrl.deletePost);
 // apiRouter.post();
 
 //Comments
-// apiRouter.get();
-// apiRouter.post();
-// apiRouter.put();
-// apiRouter.delete();
+apiRouter.get('/:id/comments', postCtrl.getComments); // à quoi correspond '/:id' ici ? - Parce que sans id return [] et avec n'importe quel id on obtient tous les commentaires.
+apiRouter.post('/:id/comments', postCtrl.createComment);
+apiRouter.put('/comments/:id', postCtrl.updateComment);
+apiRouter.delete('/comments/:id', postCtrl.deleteComment);
 
 
 } catch(error){
