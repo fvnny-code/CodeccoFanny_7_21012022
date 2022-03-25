@@ -7,10 +7,10 @@ const apiRouter = express.Router();
 const adminCtrl = require('../controllers/adminCtrl');
 
 try{
-    apiRouter.get(); // comments
-    apiRouter.get(); // posts
-    apiRouter.delete(); //comment
-    apiRouter.delete(); //post
+    apiRouter.get('/posts', adminCtrl.getAllPosts); // posts
+    apiRouter.get('/comments', adminCtrl.getAllComments); // comments
+    apiRouter.delete('/comments/:id', adminCtrl.deleteCommentByAdmin); //comment
+    apiRouter.delete('/comments/:id', adminCtrl.deletePostByAdmin); //post
 
 } catch(error){
     console.log(error);
