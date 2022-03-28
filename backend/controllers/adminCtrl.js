@@ -3,9 +3,11 @@ const mysql = require("mysql");
 
 const jwt = require("jsonwebtoken");
 
+
 // Afficher tous les posts
 exports.getAllPosts = (req, res, next) => {
-  if (isAdmin == 1) {
+  // const admin = req.bdy.isAdmin;
+  if (admin == 1) {
     let sql = "SELECT * FROM posts ORDER BY date_creation DESC";
     dbc.query(sql, (err, result, fields) => {
       if (err) {
@@ -19,7 +21,8 @@ exports.getAllPosts = (req, res, next) => {
 };
 // Supprimer un post
 exports.deletePostByAdmin = (req, res, next) => {
-  if (isAdmin == 1) {
+  // const admin = req.bdy.isAdmin;
+  if (admin == 1) {
     let sql = "DELETE FROM posts WHERE id = ?";
     dbc.query =
       (sql,
@@ -37,7 +40,8 @@ exports.deletePostByAdmin = (req, res, next) => {
 };
 // Afficher tous les commentaires
 exports.getAllComments = (req, res, next) => {
-  if (isAdmin == 1) {
+  // const admin = req.bdy.isAdmin;
+  if (admin == 1) {
     let sql = "SELECT * FROM comments ORDER BY date_creation DESC";
     dbc.query(sql, (err, result, fields) => {
       if (err) {
@@ -51,7 +55,8 @@ exports.getAllComments = (req, res, next) => {
 };
 // Suprimer un commentaire
 exports.deleteCommentByAdmin = (req, res, next) => {
-  if (isAdmin == 1) {
+  // const admin = req.bdy.isAdmin;
+  if (admin == 1) {
     let sql = "DELETE FROM comments WHERE id = ?";
     dbc.query (sql, (err, result, fields) => {
         if (err) {
