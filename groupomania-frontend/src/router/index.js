@@ -5,7 +5,7 @@ import AuthView from "../views/AuthView.vue";
 import ProfileView from "../views/ProfileView.vue";
 
 import TheHeader from "../components/TheHeader.vue";
-import LoginForm from "../components/LoginForm.vue";
+// import LoginForm from "../components/LoginForm.vue";
 import TheFooter from "../components/TheFooter.vue";
 
 Vue.use(VueRouter);
@@ -26,11 +26,11 @@ const routes = [
     name: "ProfileView",
     component: ProfileView,
   },
-  {
-    path: "/login",
-    name: "LoginForm",
-    component:LoginForm,
-  },
+  // {
+  //   path: "/login",
+  //   name: "LoginForm",
+  //   component:LoginForm,
+  // },
   {
     path: "/TheHeader",
     name: "TheHeader",

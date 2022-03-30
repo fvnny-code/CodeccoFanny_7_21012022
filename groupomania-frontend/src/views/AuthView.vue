@@ -92,25 +92,23 @@ export default {
   name: "AuthView",
 
   mounted: function () {
-    if (this.$store.state.user.userId != -1) {
-      this.$router.push("/post");
-      return;
-    }
+    // if (this.$store.state.user.userId != -1) {
+    //   this.$router.push("/post");
+    //   return;
+    // }
   },
   data() {
     return {
       mode: "login",
 
-      dataSignup: {
-        email: "",
-        pseudo: "",
-        password: "",
-      },
+      email: "",
+      pseudo: "",
+      password: "",
+
+      dataSignup: {},
       dataSignupS: "",
-      dataLogin: {
-        email: "",
-        password: "",
-      },
+      
+      dataLogin: {},
       dataLoginS: "",
       form: true,
       msg: false,

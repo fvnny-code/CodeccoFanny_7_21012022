@@ -1,6 +1,6 @@
 <template>
   <div class="feed__container">
-    <h1>The wall</h1>
+    <h1>Le Mur</h1>
     <button v-on:click="getAllPosts()">Afficher les posts</button>
     <ul>
       <li v-for="post in posts" v-bind:key="post.id">
@@ -12,7 +12,7 @@
 <script>
 import axios from "axios";
 export default {
-  el: ".feed__container",
+
   name: "TheFeed",
   data() {
     return {
@@ -35,8 +35,9 @@ export default {
 .feed__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   width: 80%;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
 
@@ -44,7 +45,7 @@ export default {
 
 h1, button {
   width: fit-content;
-  margin: 1rem auto;
+  margin: 0 auto;
 }
 button:hover {
   transform: scale(1.2);
