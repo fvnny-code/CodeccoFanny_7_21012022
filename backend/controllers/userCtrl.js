@@ -21,22 +21,17 @@ exports.signup = (req, res, next) => {
             "INSERT INTO users SET ?";
           dbc.query(
             sql2,
-            [
-              req.body.userName,
-              req.body.email,
-              req.body.password,
-              req.body.avatar,
-              req.body.isAdmin,
-            ],
+            user,
             (err, results, fields) => {
               if (!results) {
-                res.status(400).json({ message: "email déjà utilisé" });
+                console.log(error)
+                res.status(400).json(error.sqlMessage);
               } else {
                 res
                   .status(201)
                   .json({
                     message:
-                      "utilisateur créé. Vous pouvez maintenant vous connecter.",
+                      "utilisateur créé. Vous êtes maintenant connecté.e.",
                   });
               }
             }
@@ -49,10 +44,11 @@ exports.signup = (req, res, next) => {
 // Login
 exports.login = (req, res, next) => {
   const userReq = req.body.userName;
+  const emailReq = req.body.email;
   const passReq = req.body.password;
-  if (userReq && passReq) {
+  if (emailReq && passReq) {
     const sql = "SELECT * FROM users WHERE email = ?";
-    dbc.query(sql, userReq, (err, results, fields) => {
+    dbc.query(sql, emailReq, (err, results, fields) => {
       if (results.length > 0) {
         bcrypt.compare(passReq, results[0].password).then((valid) => {
           if (!valid) {
@@ -117,17 +113,17 @@ exports.updateUser = (req, res, next) => {
 
 //Supprimer un compte utilisateur quand on est utilisateur
 exports.deleteUser = (req, res, next) => {
-  let sql1 = "SELECT * FROM users WHERE id = ?";
-  dbc.query(sql1, [req.params.id], (error, result, fields) => {
-    if (error) {
-      return res.status(400).json(error);
-    }
-  });
-  let sql2 = "DELETE FROM users WHERE id = ?";
+  // let sql1 = "SELECT * FROM users WHERE id = ?";
+  // dbc.query(sql1, [req.params.id], (error, result, fields) => {
+  //   if (error) {
+  //     return res.status(400).json(error);
+  //   }
+  // });
+  let sql2 = "DELETE FROM users WHERE id = ${req.params.id}";
   dbc.query(sql2, [req.params.id], (err, result, fields) => {
     if (err) {
       return res.status(404).json({ err });
     }
-    res.status(200).json({ message: "Compte utilisateur supprimé." });
+    return result.status(200).json({ message: "Compte utilisateur supprimé." });
   });
 }

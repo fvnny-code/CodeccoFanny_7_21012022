@@ -26,7 +26,7 @@
         <div class="form-row">
           <label for="email">Email</label>
           <input
-            v-model="email"
+            v-model="dataLogin.email"
             class="form-row__input"
             type="email"
             placeholder="email@mail.com"
@@ -37,7 +37,7 @@
         <div class="form-row" v-if="mode == 'create'">
           <label for="pseudo">Pseudo</label>
           <input
-            v-model="pseudo"
+            v-model="dataLogin.pseudo"
             class="form-row__input"
             type="text"
             placeholder="Votre pseudo"
@@ -50,7 +50,7 @@
             >Mot de passe (8 caractères minimum)</label
           >
           <input
-            v-model="password"
+            v-model="dataLogin.password"
             class="form-row__input"
             type="password"
             placeholder="Mot de passe"
@@ -105,7 +105,7 @@ export default {
       pseudo: "",
       password: "",
 
-      dataSignup: {},
+      // dataSignup: {},
       dataSignupS: "",
       
       dataLogin: {},
@@ -148,10 +148,10 @@ export default {
 
     // sans stateManagement
     signup() {
-      this.dataSignupS = JSON.stringify(this.dataSignup);
+      this.dataSignupS = JSON.stringify(this.dataLogin);
       axios
         .post("http://localhost:300/api/auth/signup", this.dataSignupS, {
-          headers: { "Content-Type": "application.json" },
+          headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
           let sign = JSON.parse(response.data);
@@ -167,15 +167,14 @@ export default {
     },
     login() {
       this.dataLoginS = JSON.stringify(this.dataLogin);
-      axios
-        .post("http://localhost:300/api/auth/login", this.dataLoginS, {
-          headers: { "Content-Type": "application.json" },
+      axios.post("http://localhost:300/api/auth/login", this.dataLoginS, {
+          headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
           let log = JSON.parse(response.data);
           localStorage.userId = log.userId;
           localStorage.token = log.token;
-          localStorage.moderation = log.moderation;
+          // localStorage.moderation = log.moderation;
           this.$router.push("/home");
         })
         .catch((error) => {
