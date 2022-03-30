@@ -24,35 +24,41 @@
         </p>
 
         <div class="form-row">
+          <label for="email">Email</label>
           <input
             v-model="email"
             class="form-row__input"
-            type="text"
-            placeholder="Adresse mail"
+            type="email"
+            placeholder="email@mail.com"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            required
           />
         </div>
         <div class="form-row" v-if="mode == 'create'">
+          <label for="pseudo">Pseudo</label>
           <input
             v-model="pseudo"
             class="form-row__input"
             type="text"
             placeholder="Votre pseudo"
+            pattern="[a-zA-Z0-9]"
+            required
           />
         </div>
         <div class="form-row">
+          <label for="password"
+            >Mot de passe (8 caractères minimum)</label
+          >
           <input
             v-model="password"
             class="form-row__input"
             type="password"
             placeholder="Mot de passe"
+            pattern=".{8,}"
+            required
           />
         </div>
-        <!-- <div class="form-row" v-if="mode == 'login' && status == 'error_login'">
-      Adresse mail et/ou mot de passe invalide
-    </div>
-    <div class="form-row" v-if="mode == 'create' && status == 'error_create'">
-      Adresse mail déjà utilisée
-    </div> -->
+
         <div class="form-row">
           <button
             @click="login()"
@@ -79,19 +85,22 @@
 <script>
 // import LoginForm from "../components/LoginForm.vue";
 // import TheFooter from "@/components/TheFooter.vue";
-
 import axios from "axios";
-// import { response } from "express";
+// import { mapState } from "vuex";
 
 export default {
   name: "AuthView",
+
+  mounted: function () {
+    if (this.$store.state.user.userId != -1) {
+      this.$router.push("/post");
+      return;
+    }
+  },
   data() {
     return {
       mode: "login",
-      
-      // email: "",
-      // pseudo: "",
-      // password: "",
+
       dataSignup: {
         email: "",
         pseudo: "",
@@ -108,14 +117,20 @@ export default {
       message: "",
     };
   },
+  validations: {},
+
   computed: {
+    // ...mapState({
+    //   status: "status",
+    // }),
+
     validatedFields: function () {
       if (this.mode == "login") {
-       if(this.email != "" && this.password != ""){
-         return true 
-       } else{
-         return false;
-       }
+        if (this.email != "" && this.password != "") {
+          return true;
+        } else {
+          return false;
+        }
       } else {
         if (this.email != "" && this.pseudo != "" && this.password != "") {
           return true;
@@ -132,20 +147,9 @@ export default {
     switchToLogin: function () {
       this.mode = "login";
     },
+
+    // sans stateManagement
     signup() {
-      // this.$store
-      //   .dispatch("signup", {
-      //     email: this.email,
-      //     pseudo: this.pseudo,
-      //     password: this.password,
-      //   })
-      //   .then(
-      //     function (response) {
-      //       console.log(response);
-      //     }, function(error){
-      //       console.log(error);
-      //     }
-      //   )
       this.dataSignupS = JSON.stringify(this.dataSignup);
       axios
         .post("http://localhost:300/api/auth/signup", this.dataSignupS, {
@@ -226,6 +230,7 @@ export default {
   gap: 1rem;
   flex-wrap: wrap;
 }
+
 .form-row__input {
   padding: 0.5rem;
   border: none;
