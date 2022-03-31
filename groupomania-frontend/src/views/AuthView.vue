@@ -150,7 +150,7 @@ export default {
     signup() {
       this.dataSignupS = JSON.stringify(this.dataLogin);
       axios
-        .post("http://localhost:300/api/auth/signup", this.dataSignupS, {
+        .post("http://localhost:3000/api/auth/signup", this.dataSignupS, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
@@ -167,15 +167,19 @@ export default {
     },
     login() {
       this.dataLoginS = JSON.stringify(this.dataLogin);
-      axios.post("http://localhost:300/api/auth/login", this.dataLoginS, {
+      axios.post("http://localhost:3000/api/auth/login", this.dataLoginS, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
-          let log = JSON.parse(response.data);
-          localStorage.userId = log.userId;
-          localStorage.token = log.token;
+          // console.log(response.data);
+          // let log = JSON.parse(response.data);
+   
+          localStorage.userId = response.data.userId;
+          localStorage.token = response.data.token;
+         
           // localStorage.moderation = log.moderation;
           this.$router.push("/home");
+          
         })
         .catch((error) => {
           console.log(error);

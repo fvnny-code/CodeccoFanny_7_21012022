@@ -9,6 +9,7 @@ const mysql = require("mysql");
 // Routes control : checks the user's TOKEN. If it matches the userID in the request, changing the corresponding data will be allowed
 module.exports = (req, res, next) => {
   try {
+    console.log(req.headers.authorization);
     const token = req.headers.authorization.split(" ")[1]; // récupération du token de l'entête
     const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // Vérification du token davec la "clé secrète"
     const userId = decodedToken.userId; // On obtient un objet JS qu'on place dans une constante, et on y récupère l'userId pour comparaison le cas échéant.

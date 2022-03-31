@@ -36,7 +36,7 @@
         <i
           aria-label="To disconnect"
           class="fas fa-power-off"
-          @click="onDisconnect()"
+          @click="logout"
         ></i>
       </nav>
     </div>
@@ -44,6 +44,22 @@
 </template>
 
 <script>
+export default {
+  name: "TheHeader",
+  data(){
+    return {
+
+    }
+  },
+  methods: {
+    logout(){
+      localStorage.userId ="";
+      localStorage.token = "";
+      this.$router.push('/');
+    }
+  }
+}
+
 
 </script>
 <style scoped>

@@ -46,14 +46,18 @@ exports.login = (req, res, next) => {
   const userReq = req.body.userName;
   const emailReq = req.body.email;
   const passReq = req.body.password;
+ 
   if (emailReq && passReq) {
     const sql = "SELECT * FROM users WHERE email = ?";
     dbc.query(sql, emailReq, (err, results, fields) => {
       if (results.length > 0) {
+        console.log("l'email existe !");
         bcrypt.compare(passReq, results[0].password).then((valid) => {
           if (!valid) {
+            console.log("le password n'est pas valide :(")
             res.status(401).json({ message: "mot de passe incorrect." });
           } else {
+            console.log("le password est valide :)")
             res.status(200).json({
               userId:  results[0].id,
               userName: results[0].userName,
@@ -76,11 +80,12 @@ exports.login = (req, res, next) => {
       //       return res.status(403).json({ message: "mot de passe incorrect" });
       //     }
          
-        })
-        .catch((error) =>
-          res.status(500).json({ message: "Utilisateur inconnu." })
-        );
-    };
+        // })
+        // .catch((error) =>
+        //   res.status(500).json({ message: "Utilisateur inconnu." })
+        // );
+    });
+  }
 }
 // Afficher un utilisateur
 exports.getMyProfile = (req, res, next) => {
