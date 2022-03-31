@@ -1,12 +1,13 @@
 <template>
   <div class="feed__container">
     <h1>Le Mur</h1>
-    <button v-on:click="getAllPosts()">Afficher les posts</button>
+    <!-- <button v-on:click="getAllPosts()">Afficher les posts</button>
     <ul>
       <li v-for="post in posts" v-bind:key="post.id">
         {{ post.title }} {{ post.content }}
       </li>
-    </ul>
+    </ul> -->
+    
   </div>
 </template>
 <script>
