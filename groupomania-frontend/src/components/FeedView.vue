@@ -58,9 +58,7 @@ export default {
   mounted() {
     this.userId = localStorage.userId;
     axios
-      .get("http://localhost:3000/api/post", {
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
+      .get("http://localhost:3000/api/post", { headers: { Authorization: 'Bearer ' + localStorage.token }})
       .then((response) => {
         console.log(response.data);
         let posts = response.data;

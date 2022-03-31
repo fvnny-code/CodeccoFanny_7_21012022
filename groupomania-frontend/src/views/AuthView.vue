@@ -35,9 +35,9 @@
           />
         </div>
         <div class="form-row" v-if="mode == 'create'">
-          <label for="pseudo">Pseudo</label>
+          <label for="userName">Pseudo</label>
           <input
-            v-model="dataLogin.pseudo"
+            v-model="dataLogin.userName"
             class="form-row__input"
             type="text"
             placeholder="Votre pseudo"
@@ -92,7 +92,7 @@ export default {
       mode: "login",
 
       email: "",
-      pseudo: "",
+      userName: "",
       password: "",
 
       dataSignupS: "",
@@ -115,7 +115,7 @@ export default {
           return false;
         }
       } else {
-        if (this.email != "" && this.pseudo != "" && this.password != "") {
+        if (this.email != "" && this.userName != "" && this.password != "") {
           return true;
         } else {
           return false;
@@ -137,10 +137,15 @@ export default {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
-          let sign = JSON.parse(response.data);
-          this.message = sign.message;
-          this.form = false;
-          this.msg = true;
+          console.log(response.data);
+          // let sign = response.data;
+          // this.message = sign.message;
+          // this.form = false;
+          // this.msg = true;
+          localStorage.email = response.data.email;
+          localStorage.userId = response.data.userId;
+          localStorage.token =response.data.token;
+          this.$router.push("/home");
         })
         .catch((error) => {
           console.log(error);
@@ -156,7 +161,6 @@ export default {
         })
         .then((response) => {
           // console.log(response.data);
-
           localStorage.userId = response.data.userId;
           localStorage.token = response.data.token;
 

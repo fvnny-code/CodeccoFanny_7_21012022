@@ -19,10 +19,11 @@ exports.signup = (req, res, next) => {
       //   } else {
           let sql2 =
             "INSERT INTO users SET ?";
+            console.log(sql2);
           dbc.query(
             sql2,
             user,
-            (err, results, fields) => {
+            (error, results, fields) => {
               if (!results) {
                 console.log(error)
                 res.status(400).json(error.sqlMessage);
