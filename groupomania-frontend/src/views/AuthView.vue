@@ -144,7 +144,8 @@ export default {
           // this.msg = true;
           localStorage.email = response.data.email;
           localStorage.userId = response.data.userId;
-          localStorage.token =response.data.token;
+          localStorage.userName = response.data.userName;
+          localStorage.token = response.data.token;
           this.$router.push("/home");
         })
         .catch((error) => {
@@ -160,7 +161,8 @@ export default {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
-          // console.log(response.data);
+          localStorage.userName = response.data.userName;
+          localStorage.email = response.data.email;
           localStorage.userId = response.data.userId;
           localStorage.token = response.data.token;
 
@@ -174,7 +176,7 @@ export default {
         });
     },
   },
-  components: {TheFooter},
+  components: { TheFooter },
 };
 </script>
 <style scoped>
