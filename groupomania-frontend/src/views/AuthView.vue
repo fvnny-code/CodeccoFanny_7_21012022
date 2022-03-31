@@ -46,9 +46,7 @@
           />
         </div>
         <div class="form-row">
-          <label for="password"
-            >Mot de passe (8 caractères minimum)</label
-          >
+          <label for="password">Mot de passe (8 caractères minimum)</label>
           <input
             v-model="dataLogin.password"
             class="form-row__input"
@@ -79,24 +77,16 @@
         </div>
       </div>
     </div>
-    <!-- <TheFooter></TheFooter> -->
+    <TheFooter></TheFooter>
   </div>
 </template>
 <script>
-// import LoginForm from "../components/LoginForm.vue";
-// import TheFooter from "@/components/TheFooter.vue";
+import TheFooter from "@/components/TheFooter.vue";
 import axios from "axios";
-// import { mapState } from "vuex";
 
 export default {
   name: "AuthView",
-
-  mounted: function () {
-    // if (this.$store.state.user.userId != -1) {
-    //   this.$router.push("/post");
-    //   return;
-    // }
-  },
+  mounted: function () {},
   data() {
     return {
       mode: "login",
@@ -105,9 +95,8 @@ export default {
       pseudo: "",
       password: "",
 
-      // dataSignup: {},
       dataSignupS: "",
-      
+
       dataLogin: {},
       dataLoginS: "",
       form: true,
@@ -118,10 +107,6 @@ export default {
   validations: {},
 
   computed: {
-    // ...mapState({
-    //   status: "status",
-    // }),
-
     validatedFields: function () {
       if (this.mode == "login") {
         if (this.email != "" && this.password != "") {
@@ -145,8 +130,6 @@ export default {
     switchToLogin: function () {
       this.mode = "login";
     },
-
-    // sans stateManagement
     signup() {
       this.dataSignupS = JSON.stringify(this.dataLogin);
       axios
@@ -167,19 +150,18 @@ export default {
     },
     login() {
       this.dataLoginS = JSON.stringify(this.dataLogin);
-      axios.post("http://localhost:3000/api/auth/login", this.dataLoginS, {
+      axios
+        .post("http://localhost:3000/api/auth/login", this.dataLoginS, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
           // console.log(response.data);
-          // let log = JSON.parse(response.data);
-   
+
           localStorage.userId = response.data.userId;
           localStorage.token = response.data.token;
-         
+
           // localStorage.moderation = log.moderation;
           this.$router.push("/home");
-          
         })
         .catch((error) => {
           console.log(error);
@@ -188,7 +170,7 @@ export default {
         });
     },
   },
-  components: {},
+  components: {TheFooter},
 };
 </script>
 <style scoped>

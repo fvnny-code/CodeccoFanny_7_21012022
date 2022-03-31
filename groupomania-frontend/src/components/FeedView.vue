@@ -1,34 +1,74 @@
 <template>
   <div class="feed__container">
-    <h1>Le Mur</h1>
     <!-- <button v-on:click="getAllPosts()">Afficher les posts</button>
     <ul>
       <li v-for="post in posts" v-bind:key="post.id">
         {{ post.title }} {{ post.content }}
       </li>
     </ul> -->
-    
+    <h2 class="feed__title">Le Mur</h2>
+    <div class="container__allPosts">
+      <div
+        class="card__post"
+        v-for="(post, index) in allPosts"
+        v-bind:key="index"
+      >
+        <h3 class="post__title">{{ post.title }}</h3>
+        <p class="post__subtitle">
+          Par {{ post.userName }}, le {{ post.date_creation }}
+        </p>
+        <p class="post__content">
+          {{ post.content }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-
   name: "TheFeed",
   data() {
     return {
-      posts: [],
+      userId: "",
+      allPosts: [],
+      postId: "",
+
+      dataPost: {
+        id: "",
+        title: "",
+        content: "",
+        userId: "",
+      },
+      dataPostS: "",
+
+      form: true,
     };
   },
   methods: {
-    getAllPosts() {
-      axios
-        .get("http://localhost:3000/api/post")
-        .then((response) => (this.posts = response.data))
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // getAllPosts() {
+    //   axios
+    //     .get("http://localhost:3000/api/post")
+    //     .then((response) => (this.posts = response.data))
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
+  },
+  mounted() {
+    this.userId = localStorage.userId;
+    axios
+      .get("http://localhost:3000/api/post", {
+        headers: { Authorization: "Bearer " + localStorage.token },
+      })
+      .then((response) => {
+        console.log(response.data);
+        let posts = response.data;
+        this.allPosts = posts;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
@@ -37,14 +77,31 @@ export default {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
-  width: 80%;
+  align-items: center;;
+  gap: 1rem;
+  width: 100%;
   height: 100vh;
   margin: 0 auto;
   padding: 2rem;
+}
+.container__allPosts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-h1, button {
+.post__subtitle {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+button {
   width: fit-content;
   margin: 0 auto;
 }
