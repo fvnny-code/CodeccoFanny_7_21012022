@@ -200,6 +200,7 @@ export default {
   border: 1px solid #8a8a8a;
   user-select: none;
   display: inline-block;
+ 
   top: 10px;
   // width: 200px;
    min-width: 10rem;

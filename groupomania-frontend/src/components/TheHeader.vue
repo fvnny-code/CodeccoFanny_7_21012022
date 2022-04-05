@@ -15,14 +15,14 @@
           v-slot="{ navigate }"
           ><i class="fas fa-home" @click="navigate"></i
         ></router-link>
-        <!-- <router-link
+        <router-link
           aria-label="To create post page"
           tag="a"
-          to="/AddPost"
+          to="home/feed/post"
           custom
           v-slot="{ navigate }"
           ><i class="fas fa-pen" @click="navigate"></i
-        ></router-link> -->
+        ></router-link>
         <router-link
           aria-label="To my profile"
           tag="a"
