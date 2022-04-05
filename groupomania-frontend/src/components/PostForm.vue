@@ -83,7 +83,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -95,14 +95,19 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  max-width: 100%;
+  max-width: 90%;
   /* height: 100vh; */
   margin: 0 auto;
   padding: 2rem;
 }
+.postForm__card {
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+}
 .postForm__title {
   text-align: center;
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 .postForm__form {
   display: flex;

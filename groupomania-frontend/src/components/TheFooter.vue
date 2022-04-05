@@ -50,7 +50,7 @@ export default {
   font-size: .8rem;
 
   border-top: 2px solid black;
-
+  background-color: white;
 }
 
 .legal-notice,
