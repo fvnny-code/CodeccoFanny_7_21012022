@@ -53,8 +53,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.userId = "";
-      localStorage.token = "";
+      localStorage.clear();
       this.$router.push("/");
     },
   },
