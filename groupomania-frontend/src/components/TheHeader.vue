@@ -41,7 +41,7 @@
         <span></span>
       </label>
     </div>
-    <hr>
+    <hr />
   </div>
 </template>
 
@@ -69,12 +69,6 @@ export default {
   padding: O;
   max-width: 100%;
 }
-/* .header__container {
-  width: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-} */
 .header__banner {
   background-color: white;
   text-align: center;
@@ -104,25 +98,18 @@ export default {
   display: flex;
   align-items: flex-start;
 }
-.fa-power-off {
-  font-size: 2rem !important;
+i {
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
   color: rgb(51, 49, 49);
 }
-.fa-home:hover,
-.fa-pen:hover,
-.fa-user:hover,
-.fa-power-off:hover {
+
+i:hover {
   transition: 0.6s;
   cursor: pointer;
   color: teal;
 }
-.fa-home,
-.fa-pen,
-.fa-user,
-.fa-power-off {
-  font-size: 2rem;
-  padding: 0.5rem 2rem;
-}
+
 .fa-power-off:hover {
   color: red;
 }
@@ -158,6 +145,7 @@ nav {
   padding: 3rem 0;
   color: rgb(51, 49, 49);
   background: white;
+  opacity: 0.85;
   width: 100%;
   transform: scale(1, 0);
   transform-origin: top;
@@ -183,12 +171,12 @@ nav {
   .header__banner img {
     grid-column: 2 / 3;
   }
-  nav{
-     grid-column: 3 / 4;
+  nav {
+    grid-column: 3 / 4;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
+
     position: relative;
     text-align: left;
     transition: none;
@@ -197,6 +185,5 @@ nav {
     top: initial;
     left: initial;
   }
- 
 }
 </style>
