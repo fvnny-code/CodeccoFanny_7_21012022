@@ -2,7 +2,7 @@
   <div class="postForm__container">
     <div class="postForm__card">
       <h2 class="postForm__title">Nouveau post</h2>
-      <form action="" onsubmit="return false" class="postForm__form">
+      <form action="" class="postForm__form">
         <div class="form-row">
           <label for="title">Titre : </label>
           <input
@@ -32,6 +32,24 @@
           </textarea>
           <span class="required"> * Ce champs est requis</span>
         </div>
+        <form action="" enctype="multipart/form-data">
+          <div class="dropbox">
+            <input
+              aria-label="Click to choose your article image"
+              class="input-upload"
+              @change="fileChange()"
+              accept=".jpg, .jpeg, .png, .gif"
+              type="file"
+              ref="image"
+              name="images"
+              id="images"
+            />
+            <p>
+              Déposez votre fichier ici <br />
+              Ou cliquez pour parcourir vos fichiers.
+            </p>
+          </div>
+        </form>
         <div class="form-row">
           <button class="btn-success" @click="sendPost">Poster</button>
         </div>
@@ -48,16 +66,19 @@ export default {
     return {
       valid: true,
       dataPost: {
+        userId: localStorage.userId,
         title: "",
         content: "",
-        userId: localStorage.userId,
+        image_url: "",
       },
       dataPostS: "",
       msg: false,
       message: "",
     };
   },
+
   methods: {
+    
     sendPost() {
       this.dataPostS = JSON.stringify(this.dataPost);
       console.log(this.dataPostS);
@@ -69,7 +90,6 @@ export default {
           },
         })
         .then((response) => {
-          // console.log(response.data);
           let rep = response.data;
           this.message = rep.message;
           this.msg = true;
@@ -138,6 +158,31 @@ textarea {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 0.5rem;
   padding: 1rem;
+}
+.dropbox {
+  outline: 2px dashed grey; /* the dash box */
+  outline-offset: -10px;
+  border-radius: 0.5rem;
+
+  color: dimgray;
+  padding: 10px 10px;
+  min-height: 200px; /* minimum height */
+  position: relative;
+  cursor: pointer;
+}
+.dropbox:hover {
+  background: #bbb;
+}
+.dropbox p {
+  text-align: center;
+  padding: 4rem 0;
+}
+.input-upload {
+  opacity: 0; /* invisible but it's there! */
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  cursor: pointer;
 }
 .required {
   color: crimson;

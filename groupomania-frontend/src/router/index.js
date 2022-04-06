@@ -7,6 +7,7 @@ import ProfileView from "../views/ProfileView.vue";
 import TheHeader from "../components/TheHeader.vue";
 import FeedView from "../components/FeedView.vue";
 import PostForm from "../components/PostForm.vue";
+
 import TheFooter from "../components/TheFooter.vue";
 
 Vue.use(VueRouter);
@@ -42,6 +43,7 @@ const routes = [
     name: "PostForm",
     component: PostForm,
   },
+ 
   {
     path: "/TheFoter",
     name: "TheFooter",

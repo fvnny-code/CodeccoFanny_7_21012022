@@ -16,8 +16,6 @@ exports.getAllPosts = (req, res, next) => {
 };
 // afficher un post
 exports.getOnePost = (req, res, next) => {
-  // console.log("getOnePost");
-  // console.log(req.params.id)
   let sql = "SELECT * FROM posts WHERE id = ?";
   dbc.query(sql, [req.params.id], (err, result, fields) => {
     if (err) {
@@ -30,7 +28,7 @@ exports.getOnePost = (req, res, next) => {
 exports.createPost = (req, res, next) => {
   let sql =
     "INSERT INTO posts (userId, title, content, image_url) VALUES(?, ?, ?, ?)";
-  // console.log("AAAAAAAAAAAAAAAAA =>", req.body);
+ 
   dbc.query(
     sql,
     [req.body.userId, req.body.title, req.body.content, req.body.image_url],

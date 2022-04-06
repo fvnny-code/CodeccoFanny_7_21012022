@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       userId: "",
+      userName:"",
       allPosts: [],
       postId: "",
 
@@ -72,7 +73,7 @@ export default {
         id: "",
         title: "",
         content: "",
-        userId: "",
+        userName: "",
       },
       dataPostS: "",
 

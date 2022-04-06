@@ -61,7 +61,7 @@
           <button
             @click="login()"
             class="button"
-            :class="{ 'button--disabled': !validatedFields }"
+           
             v-if="mode == 'login'"
           >
             Connexion
@@ -69,7 +69,7 @@
           <button
             @click="signup()"
             class="button"
-            :class="{ 'button--disabled': !validatedFields }"
+           
             v-else
           >
             Créer un compte
@@ -95,7 +95,7 @@ export default {
       userName: "",
       password: "",
 
-      dataSignupS: "",
+      // dataSignupS: "",
 
       dataLogin: {},
       dataLoginS: "",
@@ -107,21 +107,21 @@ export default {
   validations: {},
 
   computed: {
-    validatedFields: function () {
-      if (this.mode == "login") {
-        if (this.email != "" && this.password != "") {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        if (this.email != "" && this.userName != "" && this.password != "") {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    },
+    // validatedFields: function () {
+    //   if (this.mode == "login") {
+    //     if (this.email != "" && this.password != "") {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   } else {
+    //     if (this.email != "" && this.userName != "" && this.password != "") {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   }
+    // },
   },
   methods: {
     switchToCreateAccount: function () {
@@ -131,22 +131,22 @@ export default {
       this.mode = "login";
     },
     signup() {
-      this.dataSignupS = JSON.stringify(this.dataLogin);
+      this.dataLoginS = JSON.stringify(this.dataLogin);
       axios
-        .post("http://localhost:3000/api/auth/signup", this.dataSignupS, {
+        .post("http://localhost:3000/api/auth/signup", this.dataLoginS, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
           console.log(response.data);
-          // let sign = response.data;
-          // this.message = sign.message;
-          // this.form = false;
-          // this.msg = true;
+          let sign = response.data;
+          this.message = sign.message;
+          this.form = false;
+          this.msg = true;
           localStorage.email = response.data.email;
           localStorage.userId = response.data.userId;
           localStorage.userName = response.data.userName;
           localStorage.token = response.data.token;
-          this.$router.push("/home");
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log(error);
