@@ -22,19 +22,20 @@ app.use(helmet());
 //Routes files
 const postRouter = require('./routes/postRoute');
 const userRouter = require('./routes/userRoute');
-const uploadRouter = require('./routes/uploadRoute')
+// const uploadRouter = require('./routes/uploadRoute');
 // const adminRouter = require('./routes/adminRoute');
 
 
+//Static management of image ressource
+//To load files that are in the images directory.
+app.use('/images', express.static(path.join(__dirname, 'images')));
 //Routes
 app.use('/api/post', postRouter); // posts
 app.use('/api/auth', userRouter); // users
+// app.use('/api/upload', uploadRouter); // upload
 
 // app.use('/api/admin', adminRouter); // admin
 
-//To load files that are in the images directory.
-app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 module.exports = app;
-
-

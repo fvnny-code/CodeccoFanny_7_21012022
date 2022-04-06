@@ -2,9 +2,10 @@
   <div class="postForm__container">
     <div class="postForm__card">
       <h2 class="postForm__title">Nouveau post</h2>
-      <form action="" class="postForm__form">
+      <!-- <form action="" class="postForm__form"> -->
         <div class="form-row">
           <label for="title">Titre : </label>
+          <span class="required"> * Ce champs est requis</span>
           <input
             v-model="dataPost.title"
             type="title"
@@ -16,8 +17,9 @@
             autofocus
             required
           />
-          <span class="required"> * Ce champs est requis</span>
+          
           <label for="post-content">Que voulez-vous partager ?</label>
+           <span class="required"> * Ce champs est requis</span>
           <textarea
             v-model="dataPost.content"
             id="content"
@@ -30,30 +32,27 @@
             required
           >
           </textarea>
-          <span class="required"> * Ce champs est requis</span>
+         
         </div>
-        <form action="" enctype="multipart/form-data">
           <div class="dropbox">
             <input
-              aria-label="Click to choose your article image"
               class="input-upload"
-              @change="fileChange()"
+              @change="onFileSelected"
               accept=".jpg, .jpeg, .png, .gif"
               type="file"
-              ref="image"
-              name="images"
+              name="image_url"
               id="images"
             />
             <p>
-              Déposez votre fichier ici <br />
-              Ou cliquez pour parcourir vos fichiers.
+              ... Ou déposez votre fichier ici
             </p>
-          </div>
-        </form>
+            <button @click="onUpload">Télécharger
+            </button>
+          </div>      
         <div class="form-row">
           <button class="btn-success" @click="sendPost">Poster</button>
         </div>
-      </form>
+      <!-- </form> -->
     </div>
   </div>
 </template>
@@ -64,7 +63,9 @@ export default {
   name: "PostForm",
   data() {
     return {
-      valid: true,
+      // valid: true,
+      selectedFile: "",
+
       dataPost: {
         userId: localStorage.userId,
         title: "",
@@ -78,14 +79,31 @@ export default {
   },
 
   methods: {
-    
+    onFileSelected(event) {  
+      console.log(event)
+      this.selectedFile = event.target.files[0];
+    },
+    onUpload() {
+  
+      
+      axios.post("http://localhost:3000/api/post/", this.dataPost.image_url.JSON.stringify, 
+      {   headers: {
+          "Content-Type" : "multipart/form-data",
+          Authorization: "Bearer " + localStorage.token,
+        },
+      }
+      )
+      .then((response)=>{
+        console.log(response)
+      })
+    },
     sendPost() {
       this.dataPostS = JSON.stringify(this.dataPost);
       console.log(this.dataPostS);
       axios
         .post("http://localhost:3000/api/post/", this.dataPostS, {
           headers: {
-            "Content-type": "application/json",
+          "content-Type": "application/json",
             Authorization: "Bearer " + localStorage.token,
           },
         })
@@ -105,7 +123,6 @@ export default {
   },
 };
 </script>
-
 <style>
 * {
   margin: 0;
@@ -149,7 +166,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin: auto;
-  gap: 1rem;
+  gap: .8rem;
   max-width: 100%;
 }
 input,
@@ -160,39 +177,42 @@ textarea {
   padding: 1rem;
 }
 .dropbox {
-  outline: 2px dashed grey; /* the dash box */
-  outline-offset: -10px;
+  /* outline: 2px dashed grey; the dash box */
+  /* outline-offset: -10px; */
   border-radius: 0.5rem;
-
   color: dimgray;
-  padding: 10px 10px;
+  /* padding: 10px 10px; */
+  margin-top: 2rem;
   min-height: 200px; /* minimum height */
   position: relative;
+
+ 
   cursor: pointer;
 }
-.dropbox:hover {
-  background: #bbb;
-}
+/* .dropbox:hover {
+  background: #eee;
+} */
 .dropbox p {
   text-align: center;
   padding: 4rem 0;
 }
 .input-upload {
-  opacity: 0; /* invisible but it's there! */
+  opacity: 1;
   width: 100%;
   height: 200px;
   position: absolute;
+  top: .5rem;
+  left: .6rem;
   cursor: pointer;
 }
 .required {
   color: crimson;
   font-size: 0.8rem;
   font-style: italic;
-  margin: 0.1rem;
 }
 button {
   border: none;
-  margin: auto;
+  margin: 2rem auto;
   max-width: 100%;
   min-width: 200px;
   padding: 0.5rem;

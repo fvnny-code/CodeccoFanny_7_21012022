@@ -28,7 +28,6 @@ exports.getOnePost = (req, res, next) => {
 exports.createPost = (req, res, next) => {
   let sql =
     "INSERT INTO posts (userId, title, content, image_url) VALUES(?, ?, ?, ?)";
- 
   dbc.query(
     sql,
     [req.body.userId, req.body.title, req.body.content, req.body.image_url],
