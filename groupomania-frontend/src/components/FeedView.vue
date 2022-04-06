@@ -80,9 +80,9 @@ export default {
     };
   },
   // components: { PostForm },
-  created() {
-    this.getAllUsers();
-  },
+  // created() {
+  //   this.getAllUsers();
+  // },
   methods: {
     getAllUsers() {
       axios
@@ -94,7 +94,6 @@ export default {
         })
         .then((response) => {
           this.users = response.data;
-          this.getAllposts();
         });
     },
 
@@ -139,6 +138,7 @@ export default {
   },
   mounted() {
     this.userId = localStorage.userId;
+    this.userName = localStorage.userName;
     axios
       .get("http://localhost:3000/api/post", {
         headers: { Authorization: "Bearer " + localStorage.token },

@@ -9,6 +9,7 @@ const userCtrl = require("../controllers/userCtrl");
 try {
   apiRouter.post("/signup", userCtrl.signup);
   apiRouter.post("/login", userCtrl.login);
+  apiRouter.get('/',auth, userCtrl.getAllUsers);
   apiRouter.get('/:id',auth, userCtrl.getMyProfile);
   apiRouter.put('/:id', auth, userCtrl.updateUser);
   apiRouter.delete('/:id', auth, userCtrl.deleteUser);

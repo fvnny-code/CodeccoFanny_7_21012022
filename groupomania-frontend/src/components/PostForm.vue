@@ -2,13 +2,14 @@
   <div class="postForm__container">
     <div class="postForm__card">
       <h2 class="postForm__title">Nouveau post</h2>
-      <form action="" method="post" class="postForm__form">
+      <form action="" onsubmit="return false" class="postForm__form">
         <div class="form-row">
           <label for="title">Titre : </label>
           <input
+            v-model="dataPost.title"
             type="title"
             id="title"
-            name="post_title"
+            name="title"
             rows="8"
             cols="30"
             wrap="on"
@@ -18,6 +19,7 @@
           <span class="required"> * Ce champs est requis</span>
           <label for="post-content">Que voulez-vous partager ?</label>
           <textarea
+            v-model="dataPost.content"
             id="content"
             name="content"
             placeholder="Dites quelque chose..."
@@ -59,25 +61,26 @@ export default {
     sendPost() {
       this.dataPostS = JSON.stringify(this.dataPost);
       console.log(this.dataPostS);
-      axios.post("http://localhost:3000/api/post/", this.dataPost, {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + localStorage.token,
-        },
-      })
-      .then((response)=>{
-          console.log(response.data)
+      axios
+        .post("http://localhost:3000/api/post/", this.dataPostS, {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Bearer " + localStorage.token,
+          },
+        })
+        .then((response) => {
+          // console.log(response.data);
           let rep = response.data;
           this.message = rep.message;
           this.msg = true;
-          this.form= false;
-          this.$router.push('/home')
-      })
-      .catch((error)=>{
+          this.form = false;
+          this.$router.push("/home");
+        })
+        .catch((error) => {
           console.log(error);
           this.message = error;
-          this.msg = true
-      });
+          this.msg = true;
+        });
     },
   },
 };
@@ -101,9 +104,9 @@ export default {
   padding: 2rem;
 }
 .postForm__card {
-    max-width: 90%;
-    display: flex;
-    flex-direction: column;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
 }
 .postForm__title {
   text-align: center;

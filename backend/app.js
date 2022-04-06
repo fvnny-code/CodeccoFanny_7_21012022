@@ -33,6 +33,7 @@ const userRouter = require('./routes/userRoute');
 //Routes
 app.use('/api/post', postRouter); // posts
 app.use('/api/auth', userRouter); // users
+
 // app.use('/api/admin', adminRouter); // admin
 
 //To load files that are in the images directory.
