@@ -17,7 +17,6 @@
             autofocus
             required
           />
-          
           <label for="post-content">Que voulez-vous partager ?</label>
            <span class="required"> * Ce champs est requis</span>
           <textarea
@@ -32,8 +31,8 @@
             required
           >
           </textarea>
-         
         </div>
+        <div class="form-row">
           <div class="dropbox">
             <input
               class="input-upload"
@@ -46,8 +45,9 @@
             <p>
               ... Ou déposez votre fichier ici
             </p>
-            <button @click="onUpload">Télécharger
-            </button>
+            <!-- <button @click="onUpload">Télécharger
+            </button> -->
+          </div>
           </div>      
         <div class="form-row">
           <button class="btn-success" @click="sendPost">Poster</button>
@@ -85,7 +85,6 @@ export default {
     },
     onUpload() {
   
-      
       axios.post("http://localhost:3000/api/post/", this.dataPost.image_url.JSON.stringify, 
       {   headers: {
           "Content-Type" : "multipart/form-data",
@@ -177,23 +176,30 @@ textarea {
   padding: 1rem;
 }
 .dropbox {
-  /* outline: 2px dashed grey; the dash box */
-  /* outline-offset: -10px; */
+  outline: 2px dashed grey; /* the dash box */
+  /* outline-offset: -5px; */
   border-radius: 0.5rem;
   color: dimgray;
-  /* padding: 10px 10px; */
+ 
   margin-top: 2rem;
   min-height: 200px; /* minimum height */
   position: relative;
-
- 
   cursor: pointer;
 }
-/* .dropbox:hover {
+.dropbox:hover {
   background: #eee;
-} */
+}
+#images{
+ 
+  margin: -.5rem;
+ 
+  
+  
+}
 .dropbox p {
   text-align: center;
+  margin: 1rem 2rem;
+  
   padding: 4rem 0;
 }
 .input-upload {

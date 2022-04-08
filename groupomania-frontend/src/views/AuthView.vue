@@ -146,7 +146,7 @@ export default {
           localStorage.userId = response.data.userId;
           localStorage.userName = response.data.userName;
           localStorage.token = response.data.token;
-          this.$router.push("/");
+          this.$router.push("/home");
         })
         .catch((error) => {
           console.log(error);
