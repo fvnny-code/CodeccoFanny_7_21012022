@@ -2,72 +2,107 @@
   <div class="feed__container">
     <h2 class="feed__title">Le Mur</h2>
     <div class="container__allPosts">
-      <button class="button" @click="displayPostForm">Créer un post</button>
-
-      <!-- tous les posts -->
+      <button class="creatPostBtn" @click="displayPostForm">
+        Créer un post
+      </button>
+      <!-- un post -->
       <div class="card__post" v-for="(post, index) in allPosts" :key="index">
-        <h3 class="post__title">{{ post.title }}</h3>
-        <p class="post__subtitle">
-          Par {{ post.userName }}, le {{ dateFormat(post.date_creation) }}
-        </p>
-        <p class="post__content">
-          {{ post.content }}
-        </p>
-      </div>
-    </div>
-<!-- essai de fenêtre modale : non conluant -->
+        <div class="card__title">
+          <div class="card-actions" v-if="post.userId == userId">
+            <i
+              class="fas fa-pen card__action--icon"
+              title="modifier le post"
+              @click.stop="showDialogUpdatePost(post.title, post.content, post.id)"
+            ></i>
+            <i
+              class="fas fa-trash"
+              @click="deletePost(post.id)"
+              title="supprimer le post"
+            ></i>
+          </div>
+          <h3 class="post__title">{{ post.title }}</h3>
+          <p class="post__subtitle">
+            Par {{ post.userName }}, le {{ dateFormat(post.date_creation) }}
+          </p>
+        </div>
+        <div class="card__content">
+          <p class="post__content">{{ post.content }}</p>
+        </div>
+        <div class="card-actions">
+          <button
+            title="Commenter le post"
+            class="card-actions__button"
+            @click="displayCommentForm()"
+          >
+            Commenter
+          </button>
+          <i
+            class="fas fa-eye"
+            @click="displayComment(post.id)"
+            title="voir les commentaires"
+          ></i>
 
-    <!-- <label>
-      <span class="button showForm"> Créer un post </span>
-      <input type="checkbox" />
-      <div class="confirm-modal">
-        <form action="#do-something" method="get">
-          <div class="form-row">
-            <label for="title">Titre : </label>
-            <input
-              type="title"
-              id="title"
-              name="post_title"
-              rows="8"
-              cols="30"
-              wrap="on"
-              autofocus
-              required
-            />
-            <span class="required"> * Ce champs est requis</span>
-            <label for="post-content">Que voulez-vous partager ?</label>
+          <!-- nouveau commentaire - formulaire -->
+          <!-- <div class="CommentForm__card">
             <textarea
-              id="content"
-              name="content"
-              placeholder="Dites quelque chose..."
-              rows="5"
-              cols="50"
-              maxlength="500"
+              v-model="dataCom.content"
+              background-color="rgba(255,215,215,0.3)"
+              label="commentaire"
               autofocus
               required
+              placeholder="Votre commentaire..."
             >
             </textarea>
-            <span class="required"> * Ce champs est requis</span>
+            <button class="card-actions__button" @click="sendComment(post.id)">
+              Poster
+            </button>
+          </div> -->
+        </div>
+        <!-- modifier un post - boîte de dialogue -->
+        <dialog @onchange="dialogUpdatePost" max-width="400px" >
+          <div class="updateForm__card">
+            <h3 class="updateForm__title">Modifier mon post</h3>
+            <div class="form-row">
+              <input v-model="dataPost.title" label="Titre" type="title" />
+              <textarea v-model="dataPost.content" label="Commentaire">
+              </textarea>
+              <div class="card__actions">
+                <button
+                  class="card-actions__button cancel"
+                  @click="dialogUpdatePost = false"
+                >
+                  Annuler
+                </button>
+                <button
+                  class="card-actions__button success"
+                  @click="updatePost()"
+                >
+                  Valider
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="form-row">
-            <button class="btn-success" @click="sendPost">Poster</button>
-          </div>
-        </form>
+        </dialog>
       </div>
-    </label> -->
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-// import PostForm from "../components/PostForm.vue";
+
 export default {
   name: "TheFeed",
   data() {
     return {
       userId: "",
-      userName:"",
+      userName: "",
       allPosts: [],
+      allComments: [],
       postId: "",
+      dialogUpdatePost: false,
+      dialogUpdateComment: false,
+
+      valid: true,
 
       dataPost: {
         id: "",
@@ -77,13 +112,16 @@ export default {
       },
       dataPostS: "",
 
+      dataCom: {
+        id: "",
+        content: "",
+        userName: "",
+      },
+      dataComS: "",
+
       form: true,
     };
   },
-  // components: { PostForm },
-  // created() {
-  //   this.getAllUsers();
-  // },
   methods: {
     getAllUsers() {
       axios
@@ -97,7 +135,6 @@ export default {
           this.users = response.data;
         });
     },
-
     dateFormat(date) {
       const postCreatedAt = new Date(date);
       const options = {
@@ -109,33 +146,42 @@ export default {
       };
       return postCreatedAt.toLocaleString("en-GB", options);
     },
-    displayPostForm(){
-      this.$router.push('/home/feed/post')
-    }
-    // avec fenêtre modale pour formulaire
-    // sendPost() {
-    //   this.dataPostS = JSON.stringify(this.dataPost);
-    //   console.log(this.dataPostS);
-    //   axios.post("http://localhost:3000/api/post/", this.dataPost, {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //       Authorization: "Bearer " + localStorage.token,
-    //     },
-    //   })
-    //   .then((response)=>{
-    //       console.log(response.data)
-    //       let rep = response.data;
-    //       this.message = rep.message;
-    //       this.msg = true;
-    //       this.form= false;
-    //       this.$router.push('/home')
-    //   })
-    //   .catch((error)=>{
-    //       console.log(error);
-    //       this.message = error;
-    //       this.msg = true
-    //   });
-    // },
+    displayPostForm() {
+      this.$router.push("/home/feed/post");
+    },
+    showDialogUpdatePost(postTitle, postContent, postId) {
+      this.dataPost.title = postTitle;
+      this.dataPost.content = postContent;
+      this.dataPost.id = postId;
+      this.dialogUpdatePost = true;
+    },
+    updatePost() {
+      this.dataPost.userId = localStorage.userId;
+      this.dataPostS = JSON.stringify(this.dataPost);
+      axios
+        .put(
+          "http://localhost:3000/api/post/" + this.dataPost.id,
+          this.dataPostS,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer" + localStorage.token,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data.message);
+          this.dataPost.title = "";
+          this.dataPost.content = "";
+          this.dataPost.userId = "";
+          this.dataPost.id = "";
+          this.dialogUpdatePost = false;
+          window.location.assign("http://localhost:8080/home/feed");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     this.userId = localStorage.userId;
@@ -155,7 +201,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .feed__container {
   display: flex;
   flex-direction: column;
@@ -182,103 +228,66 @@ export default {
   font-size: 0.8rem;
   font-style: italic;
 }
-// Modal //
-// input[type="checkbox"] {
-//   position: relative;
-//   width: 20px;
-//   top: -20px;
-//   left: 20px;
-//   display: none;
-// }
-.button {
+.creatPostBtn {
   transition: background-color 0.2s;
   background-color: transparent;
   color: #8a8a8a;
- 
-  padding: .8rem;
+
+  padding: 0.8rem;
   cursor: pointer;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   border: 1px solid #8a8a8a;
   user-select: none;
   display: inline-block;
- 
   top: 10px;
-  // width: 200px;
-   min-width: 10rem;
+
+  min-width: 10rem;
   margin: 0 auto;
   text-align: center;
   &:hover {
     color: #fafafa;
-    background-color: #8a8a8a;
+    background-color: teal;
   }
   &:active,
   &:focus {
     color: #fafafa;
-    background-color: #a0a0a0;
+    background-color: teal;
   }
 }
-// button:hover {
-//   transform: scale(1.2);
-//   transition: 0.6s;
-//   cursor: pointer;
-//   background-color: teal;
-// }
+.card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+i {
+  color: rgb(51, 49, 49);
+  font-size: 1.5rem;
 
-.confirm-modal {
-  display: block;
-  pointer-events: none;
-  transition: opacity 0.5s;
-  .btn-success {
-    width: auto;
-    max-width: auto;
-    margin: auto;
-  }
-  &::before {
-    content: "";
-    display: block;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    min-height: 200px;
-    z-index: 99;
-    opacity: 1;
-    // pointer-events: all;
-  }
-  form {
-    position: absolute;
-    z-index: 99;
-    top: 50px;
-    transition: transform 0.75s;
-    max-width: 90%;
-    width: 450px;
-    background-color: #fafafa;
-    padding: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
-    color: #080808;
-    border-radius: 5px;
-    pointer-events: none;
+  padding: 0.5rem 1rem;
+  &:hover {
+    transition: 0.6s;
+    cursor: pointer;
+    color: teal;
   }
 }
-input:not(:checked) + .confirm-modal {
-  &,
-  & * {
-    opacity: 0;
+.fa-trash:hover {
+  color: red;
+}
+.card-actions__button {
+  border: none;
+  max-width: 100%;
+  min-width: 100px;
+  margin: 0 0.2rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: #bbb;
+  &:hover {
+    background-color: teal;
   }
-  &::before {
-    height: 0;
-    width: 0;
-  }
 }
-input:not(:checked) + .confirm-modal form {
-  transform: translate(-50%, 100px);
+.cancel:hover {
+  background-color: red;
 }
-.confirm-modal button {
-  pointer-events: all;
-}
-
 </style>

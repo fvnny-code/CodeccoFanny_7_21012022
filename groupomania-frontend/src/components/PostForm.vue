@@ -50,7 +50,7 @@
           </div>
           </div>      
         <div class="form-row">
-          <button class="btn-success" @click="sendPost">Poster</button>
+          <button title="Poster" class="btn-success" @click="sendPost">Poster</button>
         </div>
       <!-- </form> -->
     </div>
@@ -63,7 +63,7 @@ export default {
   name: "PostForm",
   data() {
     return {
-      // valid: true,
+      valid: true,
       selectedFile: "",
 
       dataPost: {
@@ -135,7 +135,7 @@ export default {
   align-items: center;
   gap: 1rem;
   max-width: 90%;
-  /* height: 100vh; */
+ 
   margin: 0 auto;
   padding: 2rem;
 }
@@ -189,12 +189,8 @@ textarea {
 .dropbox:hover {
   background: #eee;
 }
-#images{
- 
+#images{ 
   margin: -.5rem;
- 
-  
-  
 }
 .dropbox p {
   text-align: center;
@@ -220,7 +216,7 @@ button {
   border: none;
   margin: 2rem auto;
   max-width: 100%;
-  min-width: 200px;
+  min-width: 100px;
   padding: 0.5rem;
   border-radius: 0.5rem;
   color: white;
