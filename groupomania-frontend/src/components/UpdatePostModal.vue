@@ -131,49 +131,5 @@ export default {
   background-color: red;
 }
 
-/* .modal__header,
-  .modal__footer {
-    padding: 15px;
-    display: flex;
-  }
-  .modal__header {
-    position: relative;
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
-    justify-content: space-between;
-  }
 
-  .modal__footer {
-    border-top: 1px solid #eeeeee;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
- .modal__body {
-    position: relative;
-    padding: 20px 10px;
-  }
-.btn--close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: none;
-    font-size: 1.5rem;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4AAE9B;
-    background: transparent;
-  }
-  .btn--success {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
-  }
-   .btn--cancel {
-    color: white;
-    background: red;
-    border: 1px solid red;
-    border-radius: 2px;
-  } */
 </style>

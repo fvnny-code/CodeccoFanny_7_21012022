@@ -1,5 +1,5 @@
 <template>
-  <div class="feed__container">
+  <div class="feed__container scroller">
     <h2 class="feed__title">Le Mur</h2>
     <div class="container__allPosts">
       <button class="creatPostBtn" @click="displayPostForm">
@@ -9,11 +9,6 @@
       <div class="card__post" v-for="(post, index) in allPosts" :key="index">
         <div class="card__title">
           <div class="card-actions" v-if="post.userId == userId">
-            <!-- <i id="showDialogUpdatePost"
-              class="fas fa-pen card__action--icon"
-              title="modifier le post"
-              @click="showDialogUpdatePost(post.title, post.content, post.id)"
-            ></i> -->
             <i
               id="showModal"
               class="fas fa-pen card__action--icon"
@@ -35,104 +30,70 @@
         <div class="card__content">
           <p class="post__content">{{ post.content }}</p>
         </div>
+        <!-- formulaire - nouveau commentaire -->
+        <div class="card-comment__form">
+          <form class="form-row" ref="form" v-if="form">
+            <label for="comment">Nouveau commentaire</label>
+            <textarea v-model="dataCom.content" label="commentaire" autofocus>
+            </textarea>
+            <div class="card-actions">
+              <button class="btn--cancel" @click="close">Annuler</button>
+              <button class="btn--succes" @click="sendCom(post.id)">OK</button>
+            </div>
+          </form>
+        </div>
         <div class="card-actions">
+          <button
+            title="Commenter le post"
+            class="card-actions__button"
+            @click="displayCommentForm()"
+          >
+            Commenter
+          </button>
           <i
             class="fas fa-eye"
             @click="displayComment(post.id)"
             title="voir les commentaires"
           ></i>
-
-          <!-- nouveau commentaire - formulaire -->
-          <!-- <div class="CommentForm__card">
-            <textarea
-              v-model="dataCom.content"
-              background-color="rgba(255,215,215,0.3)"
-              label="commentaire"
-              autofocus
-              required
-              placeholder="Votre commentaire..."
-            >
-            </textarea>
-            <button class="card-actions__button" @click="sendComment(post.id)">
-              Poster
-            </button>
-          </div> -->
         </div>
-        <!-- modifier un post - boîte de dialogue -->
-        <!-- KO -->
-        <!-- <dialog @onchange="dialogUpdatePost" max-width="400px" >
-          <div class="updateForm__card">
-            <div class="form-row">
-              <label for="updatePost">modifier le post : </label>
-              <input v-model="dataPost.title" label="Titre" type="title" />
-              <textarea v-model="dataPost.content" label="Commentaire">
-              </textarea>
-              <div class="card__actions">
-                <button
-                  class="card-actions__button cancel"
-                  @click="dialogUpdatePost = false"
-                >
-                  Annuler
-                </button>
-                <button
-                  class="card-actions__button success"
-                  @click="updatePost()"
-                >
-                  Valider
-                </button>
-              </div>
-            </div>
-          </div>
-        </dialog> -->
       </div>
       <!-- Commentaires -->
-      <div class="container__allComments" v-if="commentId === comment.id">
-        <div
-          class="card__comment"
-          v-for="(comment, index) in allComments"
-          :key="index"
-          outlined
-        >
-          <p class="comment__subtitle">
-            le {{ dateFormat(comment.date_creation) }},
-            {{ comment.userName }} commente :
-          </p>
-          <div class="card__content">
-            <p class="comment__content">{{ comment.comContent }}</p>
-          </div>
-          <!-- modifier le commentaire - formulaire -->
-          <div class="card-actions">
-            <i
-              id="showModal"
-              class="fas fa-pen card__action--icon"
-              title="modifier le commentaire"
-              @click="showModal"
-            ></i>
-            <UpdateComModal v-show="isModalVisible" @close="closeModal" />
-            <i
-              class="fas fa-trash"
-              @click="deleteComment(comment.id)"
-              title="supprimer le commentaire"
-            ></i>
-          </div>
-        </div>
-      </div>
-      <button
-        v-if="!displayFrmCm"
-        title="Commenter le post"
-        class="card-actions__button"
-        @click="displayCommentForm()"
+      <!-- <div class="container__allComments"> -->
+      <div
+        class="card__comment"
+        v-for="comment of allComments"
+        :key="comment.id"
       >
-        Commenter
-      </button>
-      <!-- formulaire - nouveau commentaire -->
-      <div class="card-comment__form" v-if="displayFrmCm">
-        <form class="form-row" ref="form" v-if="form">
-          <textarea v-model="dataCom.content" label="commentaire" autofocus>
-          </textarea>
-          <button class="btn--succes" @click="sendCom(post.id)">Poster</button>
-        </form>
+        <div class="card-actions">
+          <button class="btn--close" @click="close">X</button>
+        </div>
+
+        <p class="comment__subtitle">
+          le {{ dateFormat(comment.date_creation) }},
+          {{ comment.userName }} commente :
+        </p>
+        <div class="card__content">
+          <p class="comment__content">{{ comment.comContent }}</p>
+        </div>
+        <div class="card-actions"></div>
+
+        <!-- modifier le commentaire - formulaire -->
+        <div class="card-actions" v-if="comment.userId == userId">
+          <i
+            id="showModal"
+            class="fas fa-pen card__action--icon"
+            title="modifier le commentaire"
+            @click="showModal"
+          ></i>
+          <i
+            class="fas fa-trash"
+            @click="deleteComment(comment.id)"
+            title="supprimer le commentaire"
+          ></i>
+        </div>
+        <UpdateComModal v-show="isModalVisible" @close="closeModal" />
       </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -141,7 +102,6 @@ import axios from "axios";
 import UpdatePostModal from "./UpdatePostModal.vue";
 import UpdateComModal from "./UpdateComModal.vue";
 
-
 export default {
   name: "TheFeed",
   components: { UpdatePostModal, UpdateComModal },
@@ -149,6 +109,7 @@ export default {
     return {
       userId: "",
       userName: "",
+      afficheFrmCm: false,
       allPosts: [],
       allComments: [],
       postId: "",
@@ -173,6 +134,15 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.$emit("close");
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
     getAllUsers() {
       axios
         .get("http://localhost:3000/api/auth", {
@@ -206,23 +176,24 @@ export default {
     //   // console.log(postTitle, postContent, postId)//ok
     //   this.dialogUpdatePost= true;
     // },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
+
     displayComment(postId) {
-      this.displayFrmCm = false;
+      // this.displayFrmCm = false;
+      console.log("Aaaaaaaaaaaaaa");
+
       axios
-        .get("http://localhost:3000/api/post" + postId + "/comments", {
-          headers: { Authorization: "Bearer " + localStorage.token },
+        .get("http://localhost:3000/api/post/" + postId + "/comments", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.token,
+          },
         })
         .then((response) => {
+          console.log("bbbbbbbbbbbbbbbbbbbbbbb");
           this.allComments = response.data;
         })
-        .catch((error)=>{
-          console.log(error)
+        .catch((error) => {
+          console.log(error);
         });
     },
     // updatePost() {
@@ -280,21 +251,34 @@ export default {
   width: 100%;
   height: 100vh;
   margin: 5rem auto;
-  padding: 2rem;
+  padding: 3rem;
+}
+.scroller {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scroll-behaviour: smooth;
 }
 .container__allPosts {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.card__post {
+.card__post,
+.card__comment,
+.card-comment__form {
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   width: 95%;
-  margin: 0 auto;
+  margin: 0.5rem auto;
   padding: 1rem;
 }
-.post__subtitle {
+.card__content {
+  margin: 1rem 0;
+}
+.post__subtitle,
+.comment__subtitle {
   font-size: 0.8rem;
   font-style: italic;
 }
@@ -330,6 +314,7 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
+
 i {
   color: rgb(51, 49, 49);
   font-size: 1.5rem;
@@ -343,6 +328,9 @@ i {
 }
 .fa-trash:hover {
   color: red;
+}
+button {
+  margin: 0.1rem;
 }
 .card-actions__button {
   border: none;
@@ -359,5 +347,14 @@ i {
 }
 .cancel:hover {
   background-color: red;
+}
+.btn--close {
+  background-color: red;
+  color: rgb(51, 49, 49);
+  width: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 0.1rem;
+  padding: 0;
 }
 </style>

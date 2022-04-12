@@ -39,6 +39,7 @@ export default {
   position: fixed;
   bottom: 0px;
   padding: 0 1rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
