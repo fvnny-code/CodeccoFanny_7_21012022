@@ -9,11 +9,18 @@
       <div class="card__post" v-for="(post, index) in allPosts" :key="index">
         <div class="card__title">
           <div class="card-actions" v-if="post.userId == userId">
-            <i
+            <!-- <i id="showDialogUpdatePost"
               class="fas fa-pen card__action--icon"
               title="modifier le post"
-              @click.stop="showDialogUpdatePost(post.title, post.content, post.id)"
+              @click="showDialogUpdatePost(post.title, post.content, post.id)"
+            ></i> -->
+            <i
+              id="showModal"
+              class="fas fa-pen card__action--icon"
+              title="modifier le post"
+              @click="showModal"
             ></i>
+            <UpdateModal v-show="isModalVisible" @close="closeModal" />
             <i
               class="fas fa-trash"
               @click="deletePost(post.id)"
@@ -59,10 +66,10 @@
           </div> -->
         </div>
         <!-- modifier un post - boîte de dialogue -->
-        <dialog @onchange="dialogUpdatePost" max-width="400px" >
+        <!-- <dialog @onchange="dialogUpdatePost" max-width="400px" >
           <div class="updateForm__card">
-            <h3 class="updateForm__title">Modifier mon post</h3>
             <div class="form-row">
+              <label for="updatePost">modifier le post : </label>
               <input v-model="dataPost.title" label="Titre" type="title" />
               <textarea v-model="dataPost.content" label="Commentaire">
               </textarea>
@@ -82,16 +89,18 @@
               </div>
             </div>
           </div>
-        </dialog>
+        </dialog> -->
       </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
+import UpdateModal from "./UpdateModal.vue";
 
 export default {
   name: "TheFeed",
+  components: { UpdateModal },
   data() {
     return {
       userId: "",
@@ -99,11 +108,10 @@ export default {
       allPosts: [],
       allComments: [],
       postId: "",
-      dialogUpdatePost: false,
-      dialogUpdateComment: false,
-
+      // dialogUpdatePost: false,
+      // dialogUpdateComment: false,
+      isModalVisible: false,
       valid: true,
-
       dataPost: {
         id: "",
         title: "",
@@ -111,15 +119,13 @@ export default {
         userName: "",
       },
       dataPostS: "",
-
       dataCom: {
         id: "",
         content: "",
         userName: "",
       },
       dataComS: "",
-
-      form: true,
+      // form: true,
     };
   },
   methods: {
@@ -149,39 +155,46 @@ export default {
     displayPostForm() {
       this.$router.push("/home/feed/post");
     },
-    showDialogUpdatePost(postTitle, postContent, postId) {
-      this.dataPost.title = postTitle;
-      this.dataPost.content = postContent;
-      this.dataPost.id = postId;
-      this.dialogUpdatePost = true;
+    // showDialogUpdatePost(postTitle, postContent, postId) {
+    //   this.dataPost.title = postTitle;
+    //   this.dataPost.content = postContent;
+    //   this.dataPost.id = postId;
+    //   // console.log(postTitle, postContent, postId)//ok
+    //   this.dialogUpdatePost= true;
+    // },
+    showModal() {
+      this.isModalVisible = true;
     },
-    updatePost() {
-      this.dataPost.userId = localStorage.userId;
-      this.dataPostS = JSON.stringify(this.dataPost);
-      axios
-        .put(
-          "http://localhost:3000/api/post/" + this.dataPost.id,
-          this.dataPostS,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer" + localStorage.token,
-            },
-          }
-        )
-        .then((response) => {
-          console.log(response.data.message);
-          this.dataPost.title = "";
-          this.dataPost.content = "";
-          this.dataPost.userId = "";
-          this.dataPost.id = "";
-          this.dialogUpdatePost = false;
-          window.location.assign("http://localhost:8080/home/feed");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    closeModal(){
+      this.isModalVisible = false;
     },
+    // updatePost() {
+    //   this.dataPost.userId = localStorage.userId;
+    //   this.dataPostS = JSON.stringify(this.dataPost);
+    //   axios
+    //     .put(
+    //       "http://localhost:3000/api/post/" + this.dataPost.id,
+    //       this.dataPostS,
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: "Bearer" + localStorage.token,
+    //         },
+    //       }
+    //     )
+    //     .then((response) => {
+    //       console.log(response.data.message);
+    //       this.dataPost.title = "";
+    //       this.dataPost.content = "";
+    //       this.dataPost.userId = "";
+    //       this.dataPost.id = "";
+    //       this.dialogUpdatePost = false;
+    //       window.location.assign("http://localhost:8080/home/feed");
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
   },
   mounted() {
     this.userId = localStorage.userId;
