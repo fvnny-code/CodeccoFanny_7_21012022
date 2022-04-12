@@ -7,7 +7,8 @@ import ProfileView from "../views/ProfileView.vue";
 import TheHeader from "../components/TheHeader.vue";
 import FeedView from "../components/FeedView.vue";
 import PostForm from "../components/PostForm.vue";
-
+import UpdatePostModal from "../components/UpdatePostModal.vue";
+import UpdateComModal from "../components/UpdateComModal.vue";
 import TheFooter from "../components/TheFooter.vue";
 
 Vue.use(VueRouter);
@@ -43,7 +44,16 @@ const routes = [
     name: "PostForm",
     component: PostForm,
   },
- 
+  {
+    path: "/UpdatePostModal",
+    name: "UpdatePostModal",
+    component: UpdatePostModal,
+  },
+  {
+    path: "/UpdateComModal",
+    name: "UpdateComModal",
+    component: UpdateComModal,
+  },
   {
     path: "/TheFoter",
     name: "TheFooter",

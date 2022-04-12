@@ -1,20 +1,6 @@
 <template>
   <div class="modal-backdrop">
     <div class="modal">
-      <!-- <header class="modal__header">
-        <button type="button" class="btn--close" @click="close">X</button>
-        <slot name="title">Titre du post</slot>
-      </header>
-      <section class="modal__body">
-        <slot name="content">Contenu à modifier</slot>
-      </section>
-      <footer class="modal__footer">
-        <slot name="validation"></slot>
-        <button type="button" class="btn--success" @click="close">OK</button>
-        <button type="button" class="btn--cancel" @click="close">
-          Annuler
-        </button>
-      </footer> -->
       <form id="modal" class="form-row" action="" @submit="Update">
       <button class="btn--close" @click="close">X</button>
         <label for="title">Titre : </label>

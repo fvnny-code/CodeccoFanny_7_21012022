@@ -20,7 +20,7 @@
               title="modifier le post"
               @click="showModal"
             ></i>
-            <UpdateModal v-show="isModalVisible" @close="closeModal" />
+            <UpdatePostModal v-show="isModalVisible" @close="closeModal" />
             <i
               class="fas fa-trash"
               @click="deletePost(post.id)"
@@ -36,13 +36,6 @@
           <p class="post__content">{{ post.content }}</p>
         </div>
         <div class="card-actions">
-          <button
-            title="Commenter le post"
-            class="card-actions__button"
-            @click="displayCommentForm()"
-          >
-            Commenter
-          </button>
           <i
             class="fas fa-eye"
             @click="displayComment(post.id)"
@@ -66,6 +59,7 @@
           </div> -->
         </div>
         <!-- modifier un post - boîte de dialogue -->
+        <!-- KO -->
         <!-- <dialog @onchange="dialogUpdatePost" max-width="400px" >
           <div class="updateForm__card">
             <div class="form-row">
@@ -91,16 +85,66 @@
           </div>
         </dialog> -->
       </div>
+      <!-- Commentaires -->
+      <div class="container__allComments" v-if="commentId === comment.id">
+        <div
+          class="card__comment"
+          v-for="(comment, index) in allComments"
+          :key="index"
+          outlined
+        >
+          <p class="comment__subtitle">
+            le {{ dateFormat(comment.date_creation) }},
+            {{ comment.userName }} commente :
+          </p>
+          <div class="card__content">
+            <p class="comment__content">{{ comment.comContent }}</p>
+          </div>
+          <!-- modifier le commentaire - formulaire -->
+          <div class="card-actions">
+            <i
+              id="showModal"
+              class="fas fa-pen card__action--icon"
+              title="modifier le commentaire"
+              @click="showModal"
+            ></i>
+            <UpdateComModal v-show="isModalVisible" @close="closeModal" />
+            <i
+              class="fas fa-trash"
+              @click="deleteComment(comment.id)"
+              title="supprimer le commentaire"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <button
+        v-if="!displayFrmCm"
+        title="Commenter le post"
+        class="card-actions__button"
+        @click="displayCommentForm()"
+      >
+        Commenter
+      </button>
+      <!-- formulaire - nouveau commentaire -->
+      <div class="card-comment__form" v-if="displayFrmCm">
+        <form class="form-row" ref="form" v-if="form">
+          <textarea v-model="dataCom.content" label="commentaire" autofocus>
+          </textarea>
+          <button class="btn--succes" @click="sendCom(post.id)">Poster</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import UpdateModal from "./UpdateModal.vue";
+import UpdatePostModal from "./UpdatePostModal.vue";
+import UpdateComModal from "./UpdateComModal.vue";
+
 
 export default {
   name: "TheFeed",
-  components: { UpdateModal },
+  components: { UpdatePostModal, UpdateComModal },
   data() {
     return {
       userId: "",
@@ -122,10 +166,10 @@ export default {
       dataCom: {
         id: "",
         content: "",
-        userName: "",
+        userId: "",
       },
       dataComS: "",
-      // form: true,
+      form: true,
     };
   },
   methods: {
@@ -165,8 +209,21 @@ export default {
     showModal() {
       this.isModalVisible = true;
     },
-    closeModal(){
+    closeModal() {
       this.isModalVisible = false;
+    },
+    displayComment(postId) {
+      this.displayFrmCm = false;
+      axios
+        .get("http://localhost:3000/api/post" + postId + "/comments", {
+          headers: { Authorization: "Bearer " + localStorage.token },
+        })
+        .then((response) => {
+          this.allComments = response.data;
+        })
+        .catch((error)=>{
+          console.log(error)
+        });
     },
     // updatePost() {
     //   this.dataPost.userId = localStorage.userId;
