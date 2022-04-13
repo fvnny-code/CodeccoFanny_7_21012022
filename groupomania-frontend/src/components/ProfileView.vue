@@ -76,8 +76,11 @@ h2 {
   text-align: center;
 }
 .user__avatar {
-  max-width: 100px;
+  
   margin: auto;
+}
+.avatar{
+  max-width: 100px;
 }
 .card {
   display: flex;

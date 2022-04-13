@@ -261,11 +261,19 @@ export default {
 .card__post,
 .card__comment,
 .card-comment__form {
+ 
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  width: 95%;
+  width: 90%;
   margin: 0.5rem auto;
   padding: 1rem;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap: 0.8rem;
+  max-width: 100%;
 }
 .card__content {
   margin: 1rem 0;
@@ -307,7 +315,16 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
-
+button {
+  border: none;
+  margin: 2rem;
+  max-width: 100%;
+  min-width: 100px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: #bbb;
+}
 i {
   color: rgb(51, 49, 49);
   font-size: 1.5rem;
@@ -322,9 +339,7 @@ i {
 .fa-trash:hover {
   color: red;
 }
-button {
-  margin: 0.1rem;
-}
+
 .card-actions__button {
   border: none;
   max-width: 100%;
