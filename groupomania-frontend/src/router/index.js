@@ -2,13 +2,15 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthView from "../views/AuthView.vue";
-import ProfileView from "../views/ProfileView.vue";
+
 
 import TheHeader from "../components/TheHeader.vue";
 import FeedView from "../components/FeedView.vue";
+import ProfileView from "../components/ProfileView.vue";
 import PostForm from "../components/PostForm.vue";
 import UpdatePostModal from "../components/UpdatePostModal.vue";
 import UpdateComModal from "../components/UpdateComModal.vue";
+import UpdateProfileModal from "../components/UpdateProfileModal.vue";
 import TheFooter from "../components/TheFooter.vue";
 
 Vue.use(VueRouter);
@@ -53,6 +55,11 @@ const routes = [
     path: "/UpdateComModal",
     name: "UpdateComModal",
     component: UpdateComModal,
+  },
+  {
+    path: "/UpdateProfileModal",
+    name: "UpdateProfileModal",
+    component: UpdateProfileModal,
   },
   {
     path: "/TheFoter",

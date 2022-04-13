@@ -26,7 +26,7 @@
         <router-link
           aria-label="To my profile"
           tag="a"
-          to="/MyProfile"
+          to="/home/profile"
           custom
           v-slot="{ navigate }"
           ><i class="fas solid fa-user" @click="navigate"></i
@@ -81,7 +81,7 @@ export default {
   left: -9999px !important;
 }
 .header__banner img {
-  height: 6.8rem;
+  height: 7rem;
   width: 50vw;
   object-fit: cover;
   margin-left: 2rem;

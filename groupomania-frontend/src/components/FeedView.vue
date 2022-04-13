@@ -156,7 +156,7 @@ export default {
         });
     },
     dateFormat(date) {
-      const postCreatedAt = new Date(date);
+     
       const options = {
         year: "numeric",
         month: "long",
@@ -164,7 +164,7 @@ export default {
         hour: "numeric",
         minute: "numeric",
       };
-      return postCreatedAt.toLocaleString("en-GB", options);
+      return new Date(date).toLocaleString("en-GB", options);
     },
     displayPostForm() {
       this.$router.push("/home/feed/post");
