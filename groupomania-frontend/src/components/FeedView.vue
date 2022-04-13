@@ -169,13 +169,6 @@ export default {
     displayPostForm() {
       this.$router.push("/home/feed/post");
     },
-    // showDialogUpdatePost(postTitle, postContent, postId) {
-    //   this.dataPost.title = postTitle;
-    //   this.dataPost.content = postContent;
-    //   this.dataPost.id = postId;
-    //   // console.log(postTitle, postContent, postId)//ok
-    //   this.dialogUpdatePost= true;
-    // },
 
     displayComment(postId) {
       // this.displayFrmCm = false;
