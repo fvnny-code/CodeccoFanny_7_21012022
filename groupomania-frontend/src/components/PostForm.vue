@@ -133,6 +133,13 @@ export default {
 };
 </script>
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  scroll-behavior: smooth;
+}
 .modal-backdrop {
   position: fixed;
   top: 0;

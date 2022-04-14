@@ -236,22 +236,30 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+ 
+}
 .feed__container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  width: 100%;
+  max-width: 100%;
   height: 100vh;
   margin: 5rem auto;
   padding: 3rem;
+  scroll-behavior: smooth;
 }
 .scroller {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: thin;
-  scroll-behaviour: smooth;
+  
 }
 .container__allPosts {
   display: flex;
@@ -264,8 +272,8 @@ export default {
  
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  width: 90%;
-  margin: 0.5rem auto;
+  max-width: 90%;
+  // margin: 0.5rem auto;
   padding: 1rem;
 }
 .form-row {
@@ -311,14 +319,15 @@ export default {
 }
 .card-actions {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 }
 button {
   border: none;
-  margin: 2rem;
-  max-width: 100%;
+  margin: 1.5rem auto;
+  // max-width: 100%;
   min-width: 100px;
   padding: 0.5rem;
   border-radius: 0.5rem;
