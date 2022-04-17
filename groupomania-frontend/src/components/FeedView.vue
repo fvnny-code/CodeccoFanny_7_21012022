@@ -30,70 +30,82 @@
         <div class="card__content">
           <p class="post__content">{{ post.content }}</p>
         </div>
-        <!-- formulaire - nouveau commentaire -->
-        <div class="card-comment__form">
-          <form class="form-row" ref="form" v-if="form">
-            <label for="comment">Nouveau commentaire</label>
-            <textarea v-model="dataCom.content" label="commentaire" autofocus>
-            </textarea>
-            <div class="card-actions">
-              <button class="btn--cancel" @click="close">Annuler</button>
-              <button class="btn--succes" @click="sendCom(post.id)">OK</button>
+        <!-- checkbox - toggle -->
+        <div class="custom-checkbox">
+          <i class="fas fa-pen"></i>
+          <input type="checkbox" class="comment-toggle" @click="view = !view" />
+          <!-- <span>Commenter</span> -->
+          <!-- / -->
+          <!-- formulaire - nouveau commentaire -->
+          <transition name="fade" mode="in-out">
+            <div class="card-comment__form">
+              <form class="form-row" v-if="view">
+                <button @click="toggleNewComment" class="btn--close">X</button>
+                <label for="comment">Nouveau commentaire</label>
+                <textarea
+                  v-model="dataCom.content"
+                  label="commentaire"
+                  autofocus
+                >
+                </textarea>
+                <div class="card-actions">
+                  <button class="btn--cancel" @click="close">Annuler</button>
+                  <button class="btn--succes" @click="sendCom(post.id)">
+                    OK
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-        <div class="card-actions">
-          <button
-            title="Commenter le post"
-            class="card-actions__button"
-            @click="displayCommentForm()"
-          >
-            Commenter
-          </button>
+          </transition>
           <i
             class="fas fa-eye"
-            @click="displayComment(post.id)"
+            @click="displayComments(post.id)"
             title="voir les commentaires"
           ></i>
+          <!-- / -->
+        </div>
+        <!-- affichage des commentaires relatifs au post - toggle -->
+        <div class="container__allComments">
+          <div
+            class="card__comment"
+            v-for="comment of allComments"
+            :key="comment.id"
+          >
+            <div class="card-actions">
+              <!-- ne fonctionne pas -->
+              <button class="btn--close" @click="viewComments = ! viewComments">X</button> 
+              <!-- / -->
+            </div>
+            <p class="comment__subtitle">
+              le {{ dateFormat(comment.date_creation) }},
+              {{ comment.userName }} commente :
+            </p>
+            <div class="card__content">
+              <p class="comment__content">{{ comment.comContent }}</p>
+            </div>
+            <!-- modifier le commentaire - formulaire modal-->
+            <div class="card-actions">
+              <i
+                id="showUpdateComModal"
+                class="fas fa-pen card__action--icon"
+                title="modifier le commentaire"
+                @click="showUpdateComModal"
+              ></i>
+              <!-- ne fonctionne pas -->
+              <button class="btn cancel">Annuler</button>
+              <!-- / -->
+              <i
+                class="fas fa-trash"
+                @click="deleteComment(comment.id)"
+                title="supprimer le commentaire"
+              ></i>
+            </div>
+            <!-- / -->
+            <UpdateComModal v-show="isModalVisible" @close="closeModal" />
+          </div>
         </div>
       </div>
       <!-- Commentaires -->
-      <!-- <div class="container__allComments"> -->
-      <div
-        class="card__comment"
-        v-for="comment of allComments"
-        :key="comment.id"
-      >
-        <div class="card-actions">
-          <button class="btn--close" @click="close">X</button>
-        </div>
-
-        <p class="comment__subtitle">
-          le {{ dateFormat(comment.date_creation) }},
-          {{ comment.userName }} commente :
-        </p>
-        <div class="card__content">
-          <p class="comment__content">{{ comment.comContent }}</p>
-        </div>
-        <div class="card-actions"></div>
-
-        <!-- modifier le commentaire - formulaire -->
-        <div class="card-actions" v-if="comment.userId == userId">
-          <i
-            id="showModal"
-            class="fas fa-pen card__action--icon"
-            title="modifier le commentaire"
-            @click="showModal"
-          ></i>
-          <i
-            class="fas fa-trash"
-            @click="deleteComment(comment.id)"
-            title="supprimer le commentaire"
-          ></i>
-        </div>
-        <UpdateComModal v-show="isModalVisible" @close="closeModal" />
-      </div>
-      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -113,10 +125,10 @@ export default {
       allPosts: [],
       allComments: [],
       postId: "",
-      // dialogUpdatePost: false,
-      // dialogUpdateComment: false,
-      isModalVisible: false,
       valid: true,
+      isModalVisible: false,
+      view: false,
+      viewComments: false, // ne fonctione pas
       dataPost: {
         id: "",
         title: "",
@@ -130,18 +142,24 @@ export default {
         userId: "",
       },
       dataComS: "",
-      form: true,
     };
   },
   methods: {
     close() {
       this.$emit("close");
+      this.$router.push("/home");
     },
     showModal() {
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    toggleNewComment() {
+      this.view = !this.view;
+    },
+    toggleAllComments(){ // ne fonctione pas
+      this.viewComments = ! this.viewComments;
     },
     getAllUsers() {
       axios
@@ -156,7 +174,6 @@ export default {
         });
     },
     dateFormat(date) {
-     
       const options = {
         year: "numeric",
         month: "long",
@@ -170,9 +187,9 @@ export default {
       this.$router.push("/home/feed/post");
     },
 
-    displayComment(postId) {
+    displayComments(postId) {
       // this.displayFrmCm = false;
-      console.log("Aaaaaaaaaaaaaa");
+      console.log("Aaaaaaaaaaaaaa" + postId);
 
       axios
         .get("http://localhost:3000/api/post/" + postId + "/comments", {
@@ -183,12 +200,17 @@ export default {
         })
         .then((response) => {
           console.log("bbbbbbbbbbbbbbbbbbbbbbb");
+          console.log(response.data);
           this.allComments = response.data;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    showUpdateComModal() {
+      this.$router.push("/UpdateComModal");
+    },
+
     // updatePost() {
     //   this.dataPost.userId = localStorage.userId;
     //   this.dataPostS = JSON.stringify(this.dataPost);
@@ -236,12 +258,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   max-width: 100%;
- 
 }
 .feed__container {
   display: flex;
@@ -259,37 +280,11 @@ export default {
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: thin;
-  
 }
 .container__allPosts {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-.card__post,
-.card__comment,
-.card-comment__form {
- 
-  border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  max-width: 90%;
-  // margin: 0.5rem auto;
-  padding: 1rem;
-}
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  gap: 0.8rem;
-  max-width: 100%;
-}
-.card__content {
-  margin: 1rem 0;
-}
-.post__subtitle,
-.comment__subtitle {
-  font-size: 0.8rem;
-  font-style: italic;
 }
 .creatPostBtn {
   transition: background-color 0.2s;
@@ -317,6 +312,43 @@ export default {
     background-color: teal;
   }
 }
+.card__post,
+.card__comment,
+.card-comment__form {
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+.collapse {
+  &-enter,
+  &-leave-to {
+    flex: 0;
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+  gap: 0.8rem;
+  max-width: 100%;
+  & .btn--close {
+    align-self: flex-end;
+    padding: 0;
+    margin: 0;
+  }
+}
+.card__content {
+  margin: 1rem 0;
+}
+.post__subtitle,
+.comment__subtitle {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 .card-actions {
   display: flex;
   flex-wrap: wrap;
@@ -324,20 +356,46 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
-button {
-  border: none;
-  margin: 1.5rem auto;
-  // max-width: 100%;
-  min-width: 100px;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  color: white;
-  background-color: #bbb;
+
+.custom-checkbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 100%;
+  & input[type="checkbox"] {
+    margin-left: -3.5rem;
+    margin-top: 1rem;
+    opacity: 0;
+    width: 3rem;
+  }
+  & i {
+    font-size: 2rem;
+  }
 }
+.card-comment__form {
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 3rem 0;
+  opacity: 0.85;
+  transform: scale(1, 0);
+  transform-origin: bottom;
+  transition: transform 400ms ease-in-out;
+}
+.comment-toggle:checked ~ .card-comment__form {
+  transform: scale(1, 1);
+}
+.comment-toggle:checked ~ .card-comment__form .form-row {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out 250ms;
+}
+
+
 i {
   color: rgb(51, 49, 49);
   font-size: 1.5rem;
-
   padding: 0.5rem 1rem;
   &:hover {
     transition: 0.6s;
@@ -345,11 +403,12 @@ i {
     color: teal;
   }
 }
+
 .fa-trash:hover {
   color: red;
 }
 
-.card-actions__button {
+button {
   border: none;
   max-width: 100%;
   min-width: 100px;
@@ -366,12 +425,16 @@ i {
   background-color: red;
 }
 .btn--close {
-  background-color: red;
+  background-color: transparent;
   color: rgb(51, 49, 49);
   width: 5px;
   font-size: 1rem;
   font-weight: bold;
   margin-right: 0.1rem;
   padding: 0;
+  &:hover {
+    color: red;
+    background-color: transparent !important;
+  }
 }
 </style>

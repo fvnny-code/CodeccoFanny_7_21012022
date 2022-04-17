@@ -61,7 +61,6 @@
           <button
             @click="login()"
             class="button"
-           
             v-if="mode == 'login'"
           >
             Connexion
@@ -69,7 +68,6 @@
           <button
             @click="signup()"
             class="button"
-           
             v-else
           >
             Créer un compte
@@ -146,7 +144,8 @@ export default {
           localStorage.userId = response.data.userId;
           localStorage.userName = response.data.userName;
           localStorage.token = response.data.token;
-          this.$router.push("/home");
+          this.$router.push("/");
+          alert("Votre compte a bien été crée. Vous pouvez à présent vous connecter")
         })
         .catch((error) => {
           console.log(error);

@@ -75,17 +75,18 @@ export default {
   z-index: 999;
   width: 100%;
 }
-.nav-toggle {
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-}
 .header__banner img {
   height: 7rem;
   width: 50vw;
   object-fit: cover;
   margin-left: 2rem;
 }
+.nav-toggle {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
 .nav-toggle:focus ~ .nav-toggle-label {
   outline: 3px solid rgba(whitesmoke, 0.75);
 }
