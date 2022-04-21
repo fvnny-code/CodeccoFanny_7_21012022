@@ -73,6 +73,10 @@
             @click="displayComments(post.id)"
             title="voir les commentaires"
           ></i>
+          <div :id="'list-comment' + post.id">
+            <!-- la div va contenir la liste des commentaires correspondant à CE post précis -->
+
+          </div>
           <!-- / -->
         </div>
         <!-- /checkbox - toggle/FIN -->
@@ -82,7 +86,7 @@
           <!-- carte UN commentaire -->
           <div
             class="card__comment"
-            v-for="comment of allComments"
+           
             :key="comment.id"
           >
             <div class="card-actions">
@@ -180,7 +184,7 @@ export default {
       this.view = !this.view;
     },
     toggleAllComments() {
-      // ne fonctione pas
+      // ne fonctionne pas
       this.viewComments = !this.viewComments;
     },
     getAllUsers() {
@@ -223,7 +227,11 @@ export default {
         .then((response) => {
           console.log("bbbbbbbbbbbbbbbbbbbbbbb");
           console.log(response.data);
-          this.allComments = response.data;
+          let divComment = document.getElementById("list-comment" + postId) // récup de la div stockant tous les des commentaires de CE post
+          divComment.innerHTML = response.data; // traduire en VueJS
+          
+          // this.allComments = response.data;
+          
         })
         .catch((error) => {
           console.log(error);
