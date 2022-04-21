@@ -84,46 +84,42 @@
         <div class="container__allComments">
 
           <!-- carte UN commentaire -->
-          <div
-            class="card__comment"
-           
-            :key="comment.id"
-          >
-            <div class="card-actions">
+          <!-- <div class="card__comment">
+            <div class="card-actions"> -->
               <!-- ne fonctionne pas -->
-              <button class="btn--close" @click="viewComments = !viewComments">
+              <!-- <button class="btn--close" @click="viewComments = !viewComments">
                 X
-              </button>
+              </button> -->
               <!-- / -->
-            </div>
+            <!-- </div>
             <p class="comment__subtitle">
-              le {{ dateFormat(comment.date_creation) }},
-              {{ comment.userName }} commente :
+              le {{ dateFormat(dataCom.date_creation) }},
+              {{ dataCom.userId }} commente :
             </p>
             <div class="card__content">
-              <p class="comment__content">{{ comment.comContent }}</p>
-            </div>
+              <p class="comment__content">{{ dataCom.comContent }}</p>
+            </div> -->
             <!-- modifier le commentaire - formulaire modal-->
-            <div class="card-actions">
+            <!-- <div class="card-actions">
               <i
                 id="showUpdateComModal"
                 class="fas fa-pen card__action--icon"
                 title="modifier le commentaire"
                 @click="showUpdateComModal"
-              ></i>
+              ></i> -->
               <!-- ne fonctionne pas -->
-              <button class="btn cancel">Annuler</button>
+              <!-- <button class="btn cancel">Annuler</button> -->
               <!-- / -->
-              <i
+              <!-- <i
                 class="fas fa-trash"
-                @click="deleteComment(comment.id)"
+                @click="deleteComment(dataCom.id)"
                 title="supprimer le commentaire"
               ></i>
             </div>
-            <UpdateComModal v-show="isModalVisible" @close="closeModal" />
+            <UpdateComModal v-show="isModalVisible" @close="closeModal" /> -->
              <!-- /modifier le commentaire/FIN -->
 
-          </div>
+          <!-- </div> -->
             <!-- /carte UN commentaire/FIN -->
 
         </div>
@@ -137,11 +133,12 @@
 <script>
 import axios from "axios";
 import UpdatePostModal from "./UpdatePostModal.vue";
-import UpdateComModal from "./UpdateComModal.vue";
+// import UpdateComModal from "./UpdateComModal.vue";
 
 export default {
   name: "TheFeed",
-  components: { UpdatePostModal, UpdateComModal },
+  // components: { UpdatePostModal, UpdateComModal },
+  components: { UpdatePostModal},
   data() {
     return {
       userId: "",
@@ -229,8 +226,7 @@ export default {
           console.log(response.data);
           let divComment = document.getElementById("list-comment" + postId) // récup de la div stockant tous les des commentaires de CE post
           divComment.innerHTML = response.data; // traduire en VueJS
-          
-          // this.allComments = response.data;
+          this.allComments = response.data;
           
         })
         .catch((error) => {
