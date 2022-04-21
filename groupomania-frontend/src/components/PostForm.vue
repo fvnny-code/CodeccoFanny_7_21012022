@@ -48,11 +48,11 @@
           </div>
         </div>
         <div class="card-actions">
-          <button title="Poster" class="btn-success" @click="sendPost">
-            Poster
-          </button>
           <button title="Annuler" class="btn--cancel" @click="close">
             Annuler
+          </button>
+           <button title="Poster" class="btn-success" @click="sendPost">
+            Poster
           </button>
         </div>
       </form>

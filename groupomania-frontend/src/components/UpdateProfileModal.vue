@@ -40,8 +40,10 @@
           autofocus
         />
         <div class="form-row">
-          <button type="submit" class="btn--success" @click="close">OK</button>
           <button type="submit" class="btn--cancel" @click="close">
+            <button type="submit" class="btn--success" @click="close">
+              OK
+            </button>
             Annuler
           </button>
         </div>
@@ -130,13 +132,11 @@ export default {
 }
 h2 {
   text-align: center;
-
 }
 .user__avatar {
   max-width: 100px;
   display: flex;
   flex-direction: column;
-  
 }
 .form-row {
   display: flex;
@@ -150,7 +150,7 @@ h2 {
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px;
   position: relative;
-  left: -.1rem;
+  left: -0.1rem;
 }
 .btn--close {
   background-color: transparent;

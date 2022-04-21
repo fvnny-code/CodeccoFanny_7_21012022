@@ -30,11 +30,11 @@
         <div class="card__content">
           <p class="post__content">{{ post.content }}</p>
         </div>
-          <!-- affichage des commentaires relatifs au post -->
+        <!-- affichage des commentaires relatifs au post -->
 
         <!-- checkbox - toggle -->
         <div class="custom-checkbox">
-          <i class="fas fa-pen"></i>
+          <i class="fas fa-comment"></i>
           <input
             type="checkbox"
             name="checkbox"
@@ -75,22 +75,21 @@
           ></i>
           <div :id="'list-comment' + post.id">
             <!-- la div va contenir la liste des commentaires correspondant à CE post précis -->
-
           </div>
           <!-- / -->
         </div>
         <!-- /checkbox - toggle/FIN -->
 
         <div class="container__allComments">
-
-          <!-- carte UN commentaire -->
-          <!-- <div class="card__comment">
+          <div>
+            <!-- carte UN commentaire -->
+            <!-- <div class="card__comment">
             <div class="card-actions"> -->
-              <!-- ne fonctionne pas -->
-              <!-- <button class="btn--close" @click="viewComments = !viewComments">
+            <!-- ne fonctionne pas -->
+            <!-- <button class="btn--close" @click="viewComments = !viewComments">
                 X
               </button> -->
-              <!-- / -->
+            <!-- / -->
             <!-- </div>
             <p class="comment__subtitle">
               le {{ dateFormat(dataCom.date_creation) }},
@@ -107,29 +106,29 @@
                 title="modifier le commentaire"
                 @click="showUpdateComModal"
               ></i> -->
-              <!-- ne fonctionne pas -->
-              <!-- <button class="btn cancel">Annuler</button> -->
-              <!-- / -->
-              <!-- <i
+            <!-- ne fonctionne pas -->
+            <!-- <button class="btn cancel">Annuler</button> -->
+            <!-- / -->
+            <!-- <i
                 class="fas fa-trash"
                 @click="deleteComment(dataCom.id)"
                 title="supprimer le commentaire"
               ></i>
             </div>
             <UpdateComModal v-show="isModalVisible" @close="closeModal" /> -->
-             <!-- /modifier le commentaire/FIN -->
+            <!-- /modifier le commentaire/FIN -->
 
-          <!-- </div> -->
+            <!-- </div> -->
             <!-- /carte UN commentaire/FIN -->
-
+          </div>
         </div>
         <!-- /afficher les commentaires relatifs à un post/FIN -->
-
       </div>
       <!-- / un post/FIN -->
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import UpdatePostModal from "./UpdatePostModal.vue";
@@ -138,7 +137,7 @@ import UpdatePostModal from "./UpdatePostModal.vue";
 export default {
   name: "TheFeed",
   // components: { UpdatePostModal, UpdateComModal },
-  components: { UpdatePostModal},
+  components: { UpdatePostModal },
   data() {
     return {
       userId: "",
@@ -169,7 +168,7 @@ export default {
   methods: {
     close() {
       this.$emit("close");
-      this.$router.push("/home");
+    
     },
     showModal() {
       this.isModalVisible = true;
@@ -224,10 +223,9 @@ export default {
         .then((response) => {
           console.log("bbbbbbbbbbbbbbbbbbbbbbb");
           console.log(response.data);
-          let divComment = document.getElementById("list-comment" + postId) // récup de la div stockant tous les des commentaires de CE post
+          let divComment = document.getElementById("list-comment" + postId); // récup de la div stockant tous les des commentaires de CE post
           divComment.innerHTML = response.data; // traduire en VueJS
           this.allComments = response.data;
-          
         })
         .catch((error) => {
           console.log(error);

@@ -15,10 +15,10 @@
         >
         </textarea>
         <div class="form-row">
-          <button type="submit" class="btn--success" @click="close">OK</button>
           <button type="submit" class="btn--cancel" @click="close">
             Annuler
           </button>
+          <button type="submit" class="btn--success" @click="close">OK</button>
         </div>
       </form>
     </div>

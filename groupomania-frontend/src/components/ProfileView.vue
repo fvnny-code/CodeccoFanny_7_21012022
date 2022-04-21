@@ -23,7 +23,6 @@
         </button>
         <button
           class="btn--cancel"
-          
           title="supprimer mon profil"
         >
           Supprimer
