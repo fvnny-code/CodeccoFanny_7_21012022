@@ -30,18 +30,29 @@
         <div class="card__content">
           <p class="post__content">{{ post.content }}</p>
         </div>
+          <!-- affichage des commentaires relatifs au post -->
+
         <!-- checkbox - toggle -->
         <div class="custom-checkbox">
           <i class="fas fa-pen"></i>
-          <input type="checkbox" class="comment-toggle" @click="view = !view" />
-          <!-- <span>Commenter</span> -->
+          <input
+            type="checkbox"
+            name="checkbox"
+            class="comment-toggle"
+            @click="view = !view"
+          />
           <!-- / -->
           <!-- formulaire - nouveau commentaire -->
-          <transition name="fade" mode="in-out">
-            <div class="card-comment__form">
-              <form class="form-row" v-if="view">
+          <transition name="form-anim" mode="in-out">
+            <div class="card-comment__form container">
+              <!-- il faut binder le commentaire au post concerné. -->
+              <form
+                class="form__comment form-row"
+                v-bind="dataPost.id"
+                v-if="view"
+              >
                 <button @click="toggleNewComment" class="btn--close">X</button>
-                <label for="comment">Nouveau commentaire</label>
+                <label :for="dataPost.id">Nouveau commentaire</label>
                 <textarea
                   v-model="dataCom.content"
                   label="commentaire"
@@ -64,8 +75,11 @@
           ></i>
           <!-- / -->
         </div>
-        <!-- affichage des commentaires relatifs au post - toggle -->
+        <!-- /checkbox - toggle/FIN -->
+
         <div class="container__allComments">
+
+          <!-- carte UN commentaire -->
           <div
             class="card__comment"
             v-for="comment of allComments"
@@ -73,7 +87,9 @@
           >
             <div class="card-actions">
               <!-- ne fonctionne pas -->
-              <button class="btn--close" @click="viewComments = ! viewComments">X</button> 
+              <button class="btn--close" @click="viewComments = !viewComments">
+                X
+              </button>
               <!-- / -->
             </div>
             <p class="comment__subtitle">
@@ -100,12 +116,17 @@
                 title="supprimer le commentaire"
               ></i>
             </div>
-            <!-- / -->
             <UpdateComModal v-show="isModalVisible" @close="closeModal" />
+             <!-- /modifier le commentaire/FIN -->
+
           </div>
+            <!-- /carte UN commentaire/FIN -->
+
         </div>
+        <!-- /afficher les commentaires relatifs à un post/FIN -->
+
       </div>
-      <!-- Commentaires -->
+      <!-- / un post/FIN -->
     </div>
   </div>
 </template>
@@ -158,8 +179,9 @@ export default {
     toggleNewComment() {
       this.view = !this.view;
     },
-    toggleAllComments(){ // ne fonctione pas
-      this.viewComments = ! this.viewComments;
+    toggleAllComments() {
+      // ne fonctione pas
+      this.viewComments = !this.viewComments;
     },
     getAllUsers() {
       axios
@@ -391,7 +413,6 @@ export default {
   opacity: 1;
   transition: opacity 250ms ease-in-out 250ms;
 }
-
 
 i {
   color: rgb(51, 49, 49);
