@@ -5,9 +5,10 @@
       <button class="creatPostBtn" @click="displayPostForm">
         Créer un post
       </button>
-      <!-- un post -->
+  <!-- un post -->
       <div class="card__post" v-for="(post, index) in allPosts" :key="index">
         <div class="card__title">
+           <!-- affiche le formulaire de modification de post SI l'utilisation en est l'auteur-->
           <div class="card-actions" v-if="post.userId == userId">
             <i
               id="showModal"
@@ -16,6 +17,7 @@
               @click="showModal"
             ></i>
             <UpdatePostModal v-show="isModalVisible" @close="closeModal" />
+             <!-- FIN /affiche le formulaire de modification de post/ -->
             <i
               class="fas fa-trash"
               @click="deletePost(post.id)"
@@ -30,9 +32,7 @@
         <div class="card__content">
           <p class="post__content">{{ post.content }}</p>
         </div>
-        <!-- affichage des commentaires relatifs au post -->
-
-        <!-- checkbox - toggle -->
+    <!-- affichage des commentaires relatifs au post -->
         <div class="custom-checkbox">
           <i class="fas fa-comment"></i>
           <input
@@ -41,8 +41,7 @@
             class="comment-toggle"
             @click="view = !view"
           />
-          <!-- / -->
-          <!-- formulaire - nouveau commentaire -->
+      <!-- nouveau commentaire - affichage formulaire  -->
           <transition name="form-anim" mode="in-out">
             <div class="card-comment__form container">
               <!-- il faut binder le commentaire au post concerné. -->
@@ -68,24 +67,21 @@
               </form>
             </div>
           </transition>
-          <i
-            class="fas fa-eye"
-            @click="displayComments(post.id)"
-            title="voir les commentaires"
-          ></i>
+      <!-- FIN/ nouveau commentaire - affichage formulaire -->
+          <i class="fas fa-eye" @click="displayComments(post.id)" title="voir les commentaires"></i>
+             <!-- la div va contenir la liste des commentaires correspondant à CE post précis -->
           <div :id="'list-comment' + post.id">
-            <!-- la div va contenir la liste des commentaires correspondant à CE post précis -->
+         
           </div>
           <!-- / -->
         </div>
-        <!-- /checkbox - toggle/FIN -->
-
+    <!-- FIN/ affichage des commentaires relatifs au post/ -->
         <div class="container__allComments">
           <div>
-            <!-- carte UN commentaire -->
+    <!-- carte UN commentaire -->
             <!-- <div class="card__comment">
             <div class="card-actions"> -->
-            <!-- ne fonctionne pas -->
+              <!-- ne fonctionne pas -->
             <!-- <button class="btn--close" @click="viewComments = !viewComments">
                 X
               </button> -->
@@ -98,7 +94,7 @@
             <div class="card__content">
               <p class="comment__content">{{ dataCom.comContent }}</p>
             </div> -->
-            <!-- modifier le commentaire - formulaire modal-->
+        <!-- modifier le commentaire - formulaire modal-->
             <!-- <div class="card-actions">
               <i
                 id="showUpdateComModal"
@@ -106,7 +102,7 @@
                 title="modifier le commentaire"
                 @click="showUpdateComModal"
               ></i> -->
-            <!-- ne fonctionne pas -->
+              <!-- ne fonctionne pas -->
             <!-- <button class="btn cancel">Annuler</button> -->
             <!-- / -->
             <!-- <i
@@ -116,15 +112,13 @@
               ></i>
             </div>
             <UpdateComModal v-show="isModalVisible" @close="closeModal" /> -->
-            <!-- /modifier le commentaire/FIN -->
-
+        <!-- FIN/modifier le commentaire - formulaire modal/ -->
             <!-- </div> -->
-            <!-- /carte UN commentaire/FIN -->
+    <!-- FIN/carte UN commentaire/ -->
           </div>
         </div>
-        <!-- /afficher les commentaires relatifs à un post/FIN -->
       </div>
-      <!-- / un post/FIN -->
+  <!-- FIN/ un post/ -->
     </div>
   </div>
 </template>
@@ -142,14 +136,14 @@ export default {
     return {
       userId: "",
       userName: "",
-      afficheFrmCm: false,
+      // afficheFrmCm: false,
       allPosts: [],
-      allComments: [],
+      // allComments: [],
       postId: "",
-      valid: true,
+      // valid: true,
       isModalVisible: false,
       view: false,
-      viewComments: false, // ne fonctione pas
+      // viewComments: false,
       dataPost: {
         id: "",
         title: "",
@@ -179,10 +173,10 @@ export default {
     toggleNewComment() {
       this.view = !this.view;
     },
-    toggleAllComments() {
-      // ne fonctionne pas
-      this.viewComments = !this.viewComments;
-    },
+    // toggleAllComments() {
+    //   // ne fonctionne pas
+    //   this.viewComments = !this.viewComments;
+    // },
     getAllUsers() {
       axios
         .get("http://localhost:3000/api/auth", {
@@ -231,10 +225,9 @@ export default {
           console.log(error);
         });
     },
-    showUpdateComModal() {
-      this.$router.push("/UpdateComModal");
-    },
-
+    // showUpdateComModal() {
+    //   this.$router.push("/UpdateComModal");
+    // },
     // updatePost() {
     //   this.dataPost.userId = localStorage.userId;
     //   this.dataPostS = JSON.stringify(this.dataPost);
