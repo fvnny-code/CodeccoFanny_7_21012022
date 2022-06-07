@@ -2,7 +2,7 @@ const dbc = require("../database/db-config");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// Import the filesystem module
+// Import du module filesystem
 const fs = require('fs');
 
 // SignUp
