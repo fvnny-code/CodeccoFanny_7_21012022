@@ -4,8 +4,9 @@
     <div class=" card postCard">
         <div class="space-btwn">
             <h3 class="card__title"> {{ title }}</h3>
-            <img v-if="avatar" v-bind:src="'http://127.0.0.1:3000/images/' + avatar" alt="avatar" class="user__avatar--small">
-            <img v-else  class="user__avatar--small" src="../assets/avatar.jpg">
+            <img v-if="avatar" v-bind:src="'http://127.0.0.1:3000/images/' + avatar" alt="avatar"
+                class="user__avatar--small">
+            <img v-else class="user__avatar--small" src="../assets/avatar.jpg">
         </div>
 
         <p class="card__subtitle">
@@ -18,7 +19,7 @@
         <div class="space-btwn">
             <router-link :to="{ name: 'detailPost', params: { id: id } }">Voir le détail</router-link>
 
-            <i v-if="userId == connectedUserId" @click="deletePost(id)"
+            <i v-if="userId == connectedUserId || userId.isAdmin === 1" @click="deletePost(id)"
                 class="fas fa-trash i-red" title="Supprimer le post"></i>
         </div>
     </div>
@@ -33,15 +34,16 @@ import { defineComponent } from "vue";
 export default defineComponent({
     name: "SinglePost",
     emits: ['refreshListPost'],
-    // Ces props viennent du "parent", c'est à lire ici ListPost.vue. 
+
     data() {
         return {
             connectedUserId: localStorage.getItem("userId"),
             isAdmin: '',
-            user:{},
+            user: {},
 
         }
     },
+    // Ces props viennent du "parent", c'est à dire ici ListPost.vue. 
     props: {
         id: {
             type: Number,

@@ -127,7 +127,7 @@ export default defineComponent({
                     localStorage.email = response.data.email;
                     localStorage.userId = response.data.userId;
                     localStorage.username = response.data.username;
-                    localStorage.isAdmins = response.data.isAdmin;
+                    localStorage.isAdmin = response.data.isAdmin;
                     localStorage.token = response.data.token;
                     this.$router.push("/login");
                     alert(
@@ -150,7 +150,9 @@ export default defineComponent({
                     localStorage.username = response.data.username;
                     localStorage.email = response.data.email;
                     localStorage.userId = response.data.userId;
+                    localStorage.isAdmin = response.data.isAdmin;
                     localStorage.token = response.data.token;
+                    
                     // localStorage.moderation = log.moderation;
                     this.$router.push("/home");
                 })
