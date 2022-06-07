@@ -121,21 +121,18 @@ export default defineComponent({
         },
         deleteComment(id) {
             if (confirm("Voulez vous supprimer ce commentaire ?")) {
-                console.log('tentative de suppression du commentaire ' + id);
+                //console.log('tentative de suppression du commentaire ' + id);
 
                 axios.delete(`http://localhost:3000/api/post/${this.postId}/comments/${id}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                     .then((response) => {
-                        console.log(response);
+
                         confirm(`Le commentaire ${id} a bien été supprimé.
                         `)
-
-                        // this.$router.push('/home')
-
                         window.location.reload();
-                        // Remonter un message au parent (ListPost.vue) pour lui dire de recharger la liste des posts.
+
                     })
                     .catch(() => {
-                        this.$emit('refreshDetailPost');
+                        //this.$emit('refreshDetailPost');
                         console.log("ERREUR dans la suppression du post.");
                         alert("ERREUR dans la suppression du post.")
                     })
@@ -143,7 +140,6 @@ export default defineComponent({
         },
         
         formatDate(date) {
-            // console.log(date);
             return Utils.formatDateToJJMMAAAA(date);
         },
     },
