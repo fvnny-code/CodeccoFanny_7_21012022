@@ -1,6 +1,6 @@
 const dbc = require("../database/db-config");
 const jwt = require("jsonwebtoken");
-// Import the filesystem module
+// Import du module filesystem
 const fs = require('fs');
 
 
@@ -42,11 +42,11 @@ exports.createPost = async (req, res, next) => {
 
     console.log("Req.body : ", req.body);
     console.log("Req.file : ", req.file);
-    //console.log("Req.image : ", req.image);
+
     let image_url = null;
 
     if (typeof req.file != "undefined") {
-        //image_url = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
         image_url = `${req.file.filename}`
         console.log("image_url", image_url);
     }
@@ -102,10 +102,7 @@ exports.deletePost = (req, res, next) => {
         if (results.length > 0) {
 
             if (isAdmin || connectedUser == results[0].userId)
-
-
                 currentPost = results[0];
-            console.log("CurrentPost : ", currentPost);
             console.log("tentative de suppression de l'image : " + './images/' + currentPost.image_url);
 
             fs.unlink('./images/' + currentPost.image_url, (err => {
@@ -127,7 +124,7 @@ exports.deletePost = (req, res, next) => {
 
 };
 
-// COMMENTS
+// COMMENTAIRES
 // Récupération de tous les commentaires qui correspondent à l'id du post fourni en paramètre. 
 exports.getComments = (req, res, next) => {
     let sql = "SELECT comments.id as id, comments.*, users.username, users.avatar FROM comments JOIN users ON comments.userId = users.id  WHERE postId = ? ORDER BY comments.date_creation DESC";
@@ -199,5 +196,3 @@ exports.deleteComment = (req, res, next) => {
     })
 }
 
-
-// LIKES
