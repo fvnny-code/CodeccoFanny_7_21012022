@@ -11,7 +11,7 @@
             {{ comContent }}
         </div>
         <div class="card-actions">
-            <i v-if="userId == connectedUserId" @click="deleteComment(id)" class="fas fa-trash i-red"
+            <i v-if="userId == connectedUserId || isAdmin" @click="deleteComment(id)" class="fas fa-trash i-red"
                 title="Supprimer"></i>
         </div>
         <!-- update comment -->
@@ -70,6 +70,7 @@ export default defineComponent({
         return {
             // pour vérifier si l'utilisateur est connecté on va le chercher dans le localStorage
             connectedUserId: localStorage.getItem("userId"),
+            isAdmin: Number(localStorage.getItem("isAdmin")) === 1,
             isVisible: false,
             comments: [],
             newComment: {},

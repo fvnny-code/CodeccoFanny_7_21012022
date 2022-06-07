@@ -38,10 +38,10 @@ exports.signup = (req, res, next) => {
 
 // Login
 exports.login = (req, res, next) => {
-    const userReq = req.body.username;
+   
     const emailReq = req.body.email;
     const passReq = req.body.password;
-    const adminReq = req.body.isAdmin;
+  
 
     if (emailReq && passReq) {
         const sql = "SELECT * FROM users WHERE email = ?";
@@ -58,9 +58,10 @@ exports.login = (req, res, next) => {
                     if (!valid) {
                         res.status(401).json({ message: "mot de passe incorrect." });
                     } else {
+
                         res.status(200).json({
                             userId: results[0].id,
-                            userName: results[0].userName,
+                            username: results[0].username,
                             email: results[0].email,
                             avatar: results[0].avatar,
                             isAdmin: results[0].isAdmin,

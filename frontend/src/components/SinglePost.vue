@@ -17,9 +17,10 @@
             <img v-if="image_url" v-bind:src="'http://127.0.0.1:3000/images/' + image_url" alt="Image du post">
         </div>
         <div class="space-btwn">
+
             <router-link :to="{ name: 'detailPost', params: { id: id } }">Voir le détail</router-link>
 
-            <i v-if="userId == connectedUserId || userId.isAdmin === 1" @click="deletePost(id)"
+            <i v-if="userId == connectedUserId || isAdmin" @click="deletePost(id)"
                 class="fas fa-trash i-red" title="Supprimer le post"></i>
         </div>
     </div>
@@ -38,7 +39,7 @@ export default defineComponent({
     data() {
         return {
             connectedUserId: localStorage.getItem("userId"),
-            isAdmin: '',
+            isAdmin: Number(localStorage.getItem("isAdmin")) === 1,
             user: {},
 
         }
