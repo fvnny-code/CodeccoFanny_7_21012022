@@ -53,7 +53,7 @@
                 <!-- <span>{{ user.id }} &nbsp;</span>
                     <span>{{ user.username }} &nbsp;</span>
                     <span>{{ user.email }} &nbsp;</span> -->
-                <p>{{ user.id }}, {{ user.username }}, par : {{ user.email }}</p>
+                <p>{{ user.id }} | {{ user.username }} | par : {{ user.email }}</p>
                  
             </div>
            
@@ -65,7 +65,7 @@
                 <!-- <span>{{ post.id }} &nbsp;</span>
                     <span>{{ post.title }} &nbsp;</span>
                     <span>par : {{ post.username }} &nbsp;</span> -->
-                <p>{{ post.id }}, {{ post.title }}, par : {{ post.username }}</p>
+                <p>{{ post.id }} | {{ post.title }} | par : {{ post.username }}</p>
             </div>
 
         </div>

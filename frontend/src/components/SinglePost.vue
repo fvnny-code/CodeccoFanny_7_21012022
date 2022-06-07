@@ -88,8 +88,8 @@ export default defineComponent({
 
         deletePost(id) {
             if (confirm("Voulez vous supprimer ce post ?")) {
-                console.log(id);
-                // http://127.0.0.1:3000/api/post/31
+                //console.log(id);
+
 
                 axios.delete(`http://127.0.0.1:3000/api/post/${id}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                     .then(() => {
@@ -98,7 +98,7 @@ export default defineComponent({
                         confirm(`Le post a bien été supprimé.
                         `)
                         this.$emit('refreshListPost');
-                        // Remonter un message au parent (ListPost.vue) pour lui dire de recharger la liste des posts.
+
                     })
                     .catch(() => {
                         this.$emit('refreshListPost'); // TODO A ENELVER:

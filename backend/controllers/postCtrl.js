@@ -101,7 +101,6 @@ exports.deletePost = (req, res, next) => {
         }
         if (results.length > 0) {
 
-            if (isAdmin || connectedUser == results[0].userId)
                 currentPost = results[0];
             console.log("tentative de suppression de l'image : " + './images/' + currentPost.image_url);
 
