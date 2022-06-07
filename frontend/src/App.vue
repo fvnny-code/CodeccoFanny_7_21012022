@@ -19,6 +19,8 @@
     padding: 0;
     box-sizing: border-box;
     max-width: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 15rem;
     //color-scheme: light dark;    
 }
 
@@ -57,7 +59,7 @@ a {
 
 .feed {
     padding: 2rem;
-    scroll-behavior: smooth;
+    
 }
 
 @media screen and (min-width: 800px) {
