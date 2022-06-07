@@ -22,11 +22,10 @@ exports.getOnePost = (req, res, next) => {
         if (err) {
             return res.status(400).json(err);
         }
-        console.log("BBBBBBBB"+ {result})
-        console.log(req.params.id)
+
         // S'il n'y a pas d'erreur, est-ce qu'il y a un résultat ? 
         if (result[0] != undefined) {
-            console.log("AAAAAAAAA"+{result})
+
             // Ca marche, on retourne un résultat. 
             res.status(200).json(result[0]);
         } else {
@@ -102,10 +101,10 @@ exports.deletePost = (req, res, next) => {
         }
         if (results.length > 0) {
 
-            // if (isAdmin || connectedUser == results[0].userId)
+            if (isAdmin || connectedUser == results[0].userId)
 
 
-            currentPost = results[0];
+                currentPost = results[0];
             console.log("CurrentPost : ", currentPost);
             console.log("tentative de suppression de l'image : " + './images/' + currentPost.image_url);
 
@@ -127,7 +126,7 @@ exports.deletePost = (req, res, next) => {
     });
 
 };
- 
+
 // COMMENTS
 // Récupération de tous les commentaires qui correspondent à l'id du post fourni en paramètre. 
 exports.getComments = (req, res, next) => {
@@ -139,7 +138,7 @@ exports.getComments = (req, res, next) => {
         console.log(result);
         console.log(req.params.id);
         res.status(200).json(result);
-        
+
     });
 };
 
