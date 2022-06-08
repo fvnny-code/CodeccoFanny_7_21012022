@@ -32,7 +32,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .footer{
   position: fixed;
   bottom: 0px;
@@ -50,6 +50,7 @@ export default {
 
   border-top: 2px solid black;
   background-color: white;
+  color: var(--tertiary-color);
 }
 
 .legal-notice,

@@ -6,12 +6,11 @@
 </template>
 
 <style lang="scss" >
-
 :root {
     --primary-color: #FD2D01;
     --secondary-color: teal;
     --tertiary-color: #4E5166;
-    --text-color: #2c3e50;
+    --text-color: white;
 }
 
 * {
@@ -21,7 +20,8 @@
     max-width: 100%;
     scroll-behavior: smooth;
     scroll-padding-top: 15rem;
-    //color-scheme: light dark;    
+
+    color-scheme: light dark;
 }
 
 #app {
@@ -59,7 +59,7 @@ a {
 
 .feed {
     padding: 2rem;
-    
+
 }
 
 @media screen and (min-width: 800px) {
@@ -205,7 +205,7 @@ i {
 a {
     --outline: 3px solid var(--secondary-color);
     font-weight: bold;
-    color: var(--tertiary-color);
+    color: var(--text-color);
     cursor: pointer;
 
     &:hover {
@@ -228,7 +228,7 @@ a {
 }
 
 .form-row__input::placeholder {
-    color: #aaaaaa;
+    color: #bebebe;
 }
 
 input,
@@ -243,6 +243,7 @@ textarea {
 
 // Cards //
 .card {
+   
     border-radius: 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     width: 100%;

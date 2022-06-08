@@ -2,7 +2,7 @@
     <div id="auth">
         <div class="auth__container">
             <div class="header__banner">
-                       <img src="../assets/icon-left-font.png" alt="Logo Groupomania" />
+                <img src="../assets/icon-left-font.png" alt="Logo Groupomania" />
 
             </div>
             <div class="card">
@@ -23,11 +23,13 @@
 
                 <div class="form-row">
                     <label for="email">Email</label>
-                    <input v-model="dataLogin.email" class="form-row__input" type="email" placeholder="email@mail.com" :rules="emailRules" autofocus required />
+                    <input v-model="dataLogin.email" class="form-row__input" type="email" placeholder="email@mail.com"
+                        :rules="emailRules" autofocus required />
                 </div>
                 <div class="form-row" v-if="mode == 'create'">
                     <label for="userName">Pseudo</label>
-                    <input v-model="dataLogin.username" class="form-row__input" type="text" placeholder="Votre pseudo" :rules="usernameRules"  autofocus required />
+                    <input v-model="dataLogin.username" class="form-row__input" type="text" placeholder="Votre pseudo"
+                        :rules="usernameRules" autofocus required />
                 </div>
                 <div class="form-row">
                     <label for="password">Mot de passe (8 caractères minimum)</label>
@@ -64,7 +66,7 @@ export default defineComponent({
                 v => !!v || 'Username is required',
             ],
             emailRules: [
-                 v => !!v || 'E-mail is required',
+                v => !!v || 'E-mail is required',
                 v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
             ],
             passwordRules: [
@@ -152,7 +154,7 @@ export default defineComponent({
                     localStorage.userId = response.data.userId;
                     localStorage.isAdmin = response.data.isAdmin;
                     localStorage.token = response.data.token;
-                    
+
                     // localStorage.moderation = log.moderation;
                     this.$router.push("/home");
                 })
@@ -166,12 +168,13 @@ export default defineComponent({
     //   components: { TheFooter },
 });
 </script>
-<style scoped>
- p,
- input, 
- label {
-        font-size: 1.2rem;
-    }
+<style lang="scss" scoped>
+p,
+input,
+label {
+    font-size: 1.2rem;
+}
+
 .auth__container {
     text-align: center;
     font-size: 1rem;
@@ -183,9 +186,14 @@ export default defineComponent({
     margin: 1rem;
 }
 
-.header__banner img {
+.header__banner {
+    background-color: white;
     width: 100%;
-    object-fit: cover;
+
+    img {
+        //width: 100%;
+        object-fit: cover;
+    }
 }
 
 .card {
@@ -197,7 +205,7 @@ export default defineComponent({
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     max-width: 80%;
     margin: auto;
-    padding: 1rem;  
+    padding: 1rem;
 }
 
 .card__action:hover {
@@ -213,7 +221,7 @@ export default defineComponent({
     margin: 1.2rem;
     gap: 1rem;
     flex-wrap: wrap;
-    
+
 }
 
 .form-row__input {
@@ -222,7 +230,7 @@ export default defineComponent({
     border-radius: 0.5rem;
     /* background: #f2f2f2; */
     font-weight: 500;
-    
+
     width: 100%;
     color: black;
 }

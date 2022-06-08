@@ -52,12 +52,15 @@ export default defineComponent({
   top: 0;
   z-index: 999;
   width: 100%;
+
+  img {
+   width: 60vw;
+    margin-top: .5rem;
+    object-fit: cover;
+  }
 }
 
-.header__banner img {
-  width: 60vw;
-  margin-top: .5rem;
-}
+
 
 a {
   --outline: transparent;
