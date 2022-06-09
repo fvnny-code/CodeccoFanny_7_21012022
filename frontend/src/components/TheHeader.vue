@@ -60,8 +60,6 @@ export default defineComponent({
   }
 }
 
-
-
 a {
   --outline: transparent;
 
@@ -126,6 +124,9 @@ nav {
   transform: scale(1, 0);
   transform-origin: top;
   transition: transform 400ms ease-in-out;
+  i {
+    color: #4E5166;
+  }
 }
 
 .nav-toggle:checked~nav {

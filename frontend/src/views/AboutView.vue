@@ -16,7 +16,7 @@
         <div class="card-actions">
             <i v-on:click="show = !show" class="fas fa-pen" title="modifier mes informations"
                 @change="loadUserInfos(event)"></i>
-            <i @click="deleteUserProfile(user.id)" class="fas fa-trash i-red" title="Supprimer"></i>
+            <i @click="deleteUserProfile(this.connectedUserId)" class="fas fa-trash i-red" title="Supprimer"></i>
         </div>
 
         <!-- FORMULAIRE DE MODIFICATION -->
@@ -48,9 +48,6 @@
             <hr>
             <div v-for="user in users" :key="user.id" class="UsersList">
                 <i @click="deleteUserByAdmin(user.id)" class="fas fa-trash i-red"></i>
-                <!-- <span>{{ user.id }} &nbsp;</span>
-                    <span>{{ user.username }} &nbsp;</span>
-                    <span>{{ user.email }} &nbsp;</span> -->
                 <p>{{ user.id }} | {{ user.username }} | par : {{ user.email }}</p>
                  
             </div>
@@ -203,7 +200,7 @@ export default defineComponent({
                     .then(() => {
                         console.log("Votre profil a bien été supprimé");
                         localStorage.clear();
-                        window.location = "/Login";
+                        window.location = "/login";
                     })
                     .catch((error) => {
                         console.log(
@@ -314,6 +311,11 @@ p {
     margin: auto;
     max-width: 250px;
     clip-path: circle(100px at center);
+}
+
+input,
+textarea{
+    color: (var(--tertiary-color));
 }
 
 @media screen and (min-width: 800px) {

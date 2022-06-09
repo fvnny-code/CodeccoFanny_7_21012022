@@ -167,7 +167,7 @@ exports.deleteUser = (req, res, next) => {
     const isAdmin = decodedToken.isAdmin;
 
     // Si on est admin ou si on est l'utilisateur qu'on veut supprimer. 
-    if (isAdmin ) {
+    if (isAdmin || connectedUserId) {
         let sql2 = "DELETE FROM users WHERE users.id = ?";
         dbc.query(sql2, [req.params.id], (err, result, fields) => {
             if (err) {

@@ -10,6 +10,7 @@
     --primary-color: #FD2D01;
     --secondary-color: teal;
     --tertiary-color: #4E5166;
+    --quaternary-color: #bebebe;
     --text-color: white;
 }
 
@@ -170,7 +171,7 @@ a {
 i {
     font-size: 2rem;
     padding: 0.5rem 2rem;
-    color: var(--tertiary-color);
+    color: var(--quaternary-color);
 
     &:hover {
         transition: 0.6s;
@@ -223,15 +224,17 @@ a {
     padding: 0 0.5rem;
     gap: 0.8rem;
     width: 90%;
+    
 
 }
 
 .form-row__input::placeholder {
-    color: #bebebe;
+   color: var(--quaternary-color);
 }
 
 input,
 textarea {
+    background-color: white;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     border-radius: 0.5rem;
