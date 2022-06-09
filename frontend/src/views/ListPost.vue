@@ -8,8 +8,8 @@
             <input type="text" name="title" id="title" v-model="newPost.title">
 
             <label for="content">Contenu du post :</label>
-
-            <textarea name="content" id="content" cols="30" rows="10" v-model="newPost.content"></textarea>
+            <textarea name="content" id="content" cols="30" rows="5" v-model="newPost.content"></textarea>
+            <label for="file">Partager une image :</label>
             <div class="space-btwn">
                 <input type="file" name="img" id="img" @change="handleFileUpload($event)">
             </div>

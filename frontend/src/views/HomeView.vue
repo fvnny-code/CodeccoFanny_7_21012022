@@ -3,6 +3,7 @@
     
     <!-- <h1>Bienvenue</h1> -->
     <TheHeader></TheHeader>
+    <h1>Bienvenue sur le réseau interne Groupomania</h1>
     <ListPost></ListPost>
     <TheFooter></TheFooter>
   </div>

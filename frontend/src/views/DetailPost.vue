@@ -5,7 +5,7 @@
         <h1>Détail d'un post !</h1>
         <div class="card postCard">
             <div class="space-btwn">
-                <h3 class="card__title">{{ post.title }}</h3>
+                <h2 class="card__title">{{ post.title }}</h2>
                 <img v-if="post.avatar" v-bind:src="'http://127.0.0.1:3000/images/' + post.avatar" alt="avatar"
                     class="user__avatar--small">
                 <img v-else class="user__avatar--small" src="../assets/avatar.jpg">

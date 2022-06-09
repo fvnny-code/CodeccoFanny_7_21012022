@@ -21,10 +21,11 @@
     max-width: 100%;
     scroll-behavior: smooth;
     scroll-padding-top: 15rem;
-    color-scheme: dark light;
+    //color-scheme: dark light;
 }
 
 #app {
+    background-color: #1c1b22;
     font-family: Lato, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -224,12 +225,12 @@ a {
     padding: 0 0.5rem;
     gap: 0.8rem;
     width: 90%;
-    
+
 
 }
 
 .form-row__input::placeholder {
-   color: var(--quaternary-color);
+    color: var(--quaternary-color);
 }
 
 input,
@@ -246,7 +247,7 @@ textarea {
 
 // Cards //
 .card {
-   
+
     border-radius: 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     width: 100%;
