@@ -241,6 +241,7 @@ textarea {
     padding: 1rem;
     max-width: 100%;
     font-size: 1rem;
+    color: var(--tertiary-color);
 }
 
 // Cards //
