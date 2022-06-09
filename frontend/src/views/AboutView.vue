@@ -313,11 +313,6 @@ p {
     clip-path: circle(100px at center);
 }
 
-input,
-textarea{
-    color: (var(--tertiary-color));
-}
-
 @media screen and (min-width: 800px) {
     #profile {
         max-width: 60%;
