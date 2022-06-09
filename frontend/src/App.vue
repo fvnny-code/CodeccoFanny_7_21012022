@@ -22,10 +22,11 @@
     scroll-behavior: smooth;
     scroll-padding-top: 15rem;
     //color-scheme: dark light;
+    
 }
 
 #app {
-    background-color: #1c1b22;
+    background-color: #3b3946;
     font-family: Lato, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

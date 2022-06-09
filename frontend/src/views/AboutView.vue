@@ -281,6 +281,7 @@ export default defineComponent({
     margin: 2rem auto;
     text-align: center;
     max-width: 90%;
+     
 }
 
 p {
