@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const fs = require('fs');
 
 // SignUp
+
 exports.signup = (req, res, next) => {
     const user = req.body;
     bcrypt
@@ -13,13 +14,12 @@ exports.signup = (req, res, next) => {
         .then((hash) => {
             user.password = hash;
             let sql2 = "INSERT INTO users SET ?";
-            console.log(sql2);
             dbc.query(
                 sql2,
                 user,
                 (error, results, fields) => {
                     if (!results) {
-                        console.log(error)
+                        //console.log(error)
                         res.status(400).json(error.sqlMessage);
                     } else {
                         res
@@ -31,17 +31,15 @@ exports.signup = (req, res, next) => {
                     }
                 }
             );
-            // }
         })
         .catch((error) => res.status(500).json(error));
 };
 
 // Login
 exports.login = (req, res, next) => {
-   
+
     const emailReq = req.body.email;
     const passReq = req.body.password;
-  
 
     if (emailReq && passReq) {
         const sql = "SELECT * FROM users WHERE email = ?";
@@ -68,7 +66,6 @@ exports.login = (req, res, next) => {
                             token: jwt.sign({ userId: results[0].id, isAdmin: results[0].isAdmin }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }
                             )
                         })
-                        console.log("vous êtes connecté.e.");
                     }
                 });
             } else {
@@ -116,27 +113,24 @@ exports.updateUser = (req, res, next) => {
             if (isAdmin || connectedUserId == result[0].id) {
                 console.log("J'ai les droits de modifications");
                 if (typeof req.file != "undefined") {
-                    currentUser = result[0];
+                    let currentUser = result[0];
                     console.log("currentUser : ", currentUser);
-                
-                    console.log("tentative de suppression de l'image : " + './images/' + currentUser.avatar);
 
                     fs.unlink('./images/' + currentUser.avatar, (err => {
-                        if (err) { 
-                            console.log(err)                    
+                        if (err) {
+                            console.log(err)
                         } else {
                             console.log("Image supprimée");
                         }
-                    }))    
+                    }))
                 }
-                
                 const updatedUser = req.body;
                 delete updatedUser.image;
                 if (typeof req.file != "undefined") {
-                    updatedUser.avatar = req.file.filename;  
+                    updatedUser.avatar = req.file.filename;
                     console.log("avatar", updatedUser.avatar);
                 }
-            
+
                 let sql2 = " UPDATE users SET ? WHERE id = ?";
                 console.log(updatedUser);
                 dbc.query(sql2, [updatedUser, req.params.id], (err, result, fields) => {
@@ -151,10 +145,10 @@ exports.updateUser = (req, res, next) => {
                 // un profil qui n'est pas le sien
                 return res.status(401).json("Vous ne pouvez pas modifier ce profil !");
             }
-        } 
+        }
     });
 
-     
+
 };
 
 //Supprimer un compte utilisateur
@@ -162,22 +156,45 @@ exports.deleteUser = (req, res, next) => {
 
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    console.log({token, decodedToken});
+    console.log({ token, decodedToken });
     const connectedUserId = decodedToken.userId;
     const isAdmin = decodedToken.isAdmin;
 
     // Si on est admin ou si on est l'utilisateur qu'on veut supprimer. 
     if (isAdmin || connectedUserId) {
-        let sql2 = "DELETE FROM users WHERE users.id = ?";
-        dbc.query(sql2, [req.params.id], (err, result, fields) => {
+        let sql1 = "SELECT * FROM users WHERE id = ?";
+        dbc.query(sql1, [req.params.id], (err, result, fields) => {
             if (err) {
-                return res.status(404).json({ err });
+                return res.status(400).json(err);
             }
-            return res.status(200).json({ message: "Compte utilisateur supprimé." });
-        });
-    } else {
-        return res.status(401).json("Vous n'avez pas le droit de supprimer ce profil.");
-    }
 
-    
+            if (result.length > 0) {
+                if (isAdmin || connectedUserId == result[0].id) {
+                    currentUser = result[0];
+
+                    fs.unlink('./images/' + currentUser.avatar, (err => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log("Image supprimée");
+                        }
+                    }));
+
+                    let sql2 = "DELETE FROM users WHERE users.id = ?";
+                    dbc.query(sql2, [req.params.id], (err, result, fields) => {
+                        if (err) {
+                            return res.status(404).json({ err });
+                        }
+                        return res.status(200).json({ message: "Compte utilisateur supprimé." });
+                    });
+                } else {
+                    return res.status(401).json("Vous n'avez pas le droit de supprimer ce profil.");
+                }
+
+
+            }
+        })
+    }
 }
+
+

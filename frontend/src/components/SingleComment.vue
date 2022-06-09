@@ -2,7 +2,7 @@
     <div class="card">
         <div class="space-btwn">
             <p class="card__subtitle">
-                Posté le {{ formatDate(date_creation) }} Par <strong>{{ username }}</strong>.   
+                Posté le {{ formatDate(date_creation) }} Par <strong>{{ username }}</strong>.
             </p>
         </div>
 
@@ -71,6 +71,7 @@ export default defineComponent({
             // pour vérifier si l'utilisateur est connecté on va le chercher dans le localStorage
             connectedUserId: localStorage.getItem("userId"),
             isAdmin: Number(localStorage.getItem("isAdmin")) === 1,
+
             isVisible: false,
             comments: [],
             newComment: {},
@@ -109,7 +110,7 @@ export default defineComponent({
                 .catch(() => {
                     console.log("ERREUR dans la récupération de la liste des commentaires associés au post.");
                 })
-
+            // Récupération des utilisateurs correspondant au commentaire:
             axios.get("http://127.0.0.1:3000/api/auth", { headers: { Authorization: 'Bearer ' + localStorage.token } })
                 .then((data) => {
                     console.log("Utiliser DATA ICI", data)
@@ -139,28 +140,17 @@ export default defineComponent({
                     })
             }
         },
-        
+
         formatDate(date) {
-            // console.log(date);
             return Utils.formatDateToJJMMAAAA(date);
         },
     },
-
-    computed: {
-        // Comme ce genre de truc risque d'être utilisé à plusieurs endroits, il faudrait probablement 
-        // créer un petit composant pour afficher la date, ou trouver un moyen de faire un fichier "Utils"
-        formatedDateCreation() {
-            return Utils.formatDateToJJMMAAAA(this.date_creation);
-        },
-    },
-
-
 })
 
 </script>
 <style lang="scss" scoped>
-.card{
-   margin: .5rem .5rem 2rem .5rem;
+.card {
+    margin: .5rem .5rem 2rem .5rem;
 
 }
 </style>

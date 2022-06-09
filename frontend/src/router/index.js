@@ -9,8 +9,8 @@ import TheHeader from "../components/TheHeader.vue";
 // Définition des routes possibles. 
 const routes = [
     {
-        path: "/login", 
-        name: "login", 
+        path: "/login",
+        name: "login",
         component: () => import("../views/AuthView.vue")
     },
     {
@@ -26,9 +26,12 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+
         // component: AboutView,
-        meta: { toTop :true,
-        smoothScroll: true }
+        meta: {
+            toTop: true,
+            smoothScroll: true
+        }
     },
 
     {
@@ -49,15 +52,15 @@ const routes = [
         name: "TheHeader",
         component: TheHeader
     },
-   
+
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
-     scrollBehavior(to){
-        const scroll = {} 
-        if(to.meta.toTop) scroll.top = 0
+    scrollBehavior(to) {
+        const scroll = {}
+        if (to.meta.toTop) scroll.top = 0
         if (to.meta.smoothScroll) scroll.behavior = 'smooth'
         return scroll
     }

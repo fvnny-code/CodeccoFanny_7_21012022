@@ -20,3 +20,8 @@ export default defineComponent({
     components: { ListPost, TheHeader, TheFooter }
 })
 </script>
+<style scoped>
+h1{
+  display: none;
+}
+</style>

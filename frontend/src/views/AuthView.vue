@@ -159,13 +159,15 @@ export default defineComponent({
                     this.$router.push("/home");
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // pour récupérer le message d'erreur : on va chercher le mesage retourné par le serveur dans l'object error et on le parse, car le message d'erreur est retourné au format JSON.
+                    let errorMessage = JSON.parse(error.request.response);
+                    alert(errorMessage.message)
                     this.message = error;
                     this.msg = true;
                 });
         },
     },
-    //   components: { TheFooter },
+
 });
 </script>
 <style lang="scss" scoped>

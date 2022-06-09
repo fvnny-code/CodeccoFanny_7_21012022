@@ -6,7 +6,7 @@ const multer = require('../middlewares/multer-config');
 
 const userCtrl = require("../controllers/userCtrl");
 
-// Toutes les routes ici commencent par /api/auth 
+// Toutes les routes ici commencent par /api/auth (comme "authentification")
 try {
     apiRouter.post("/signup", userCtrl.signup);
     apiRouter.post("/login", userCtrl.login);

@@ -1,4 +1,4 @@
-// Import of jsonWebToken package
+// Import du package jsonWebToken 
 const jwt = require("jsonwebtoken");
 // DB connection
 const dbc = require("../database/db-config");

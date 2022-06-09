@@ -20,8 +20,8 @@
 
             <router-link :to="{ name: 'detailPost', params: { id: id } }">Voir le détail</router-link>
 
-            <i v-if="userId == connectedUserId || isAdmin" @click="deletePost(id)"
-                class="fas fa-trash i-red" title="Supprimer le post"></i>
+            <i v-if="userId == connectedUserId || isAdmin" @click="deletePost(id)" class="fas fa-trash i-red"
+                title="Supprimer le post"></i>
         </div>
     </div>
 
@@ -97,21 +97,19 @@ export default defineComponent({
                         console.log(`Le post ${id} a bien été supprimé.
                         `);
                         confirm(`Le post a bien été supprimé.
-                        `)
+                        `);                        
                         this.$emit('refreshListPost');
 
                     })
                     .catch(() => {
-                        this.$emit('refreshListPost'); // TODO A ENELVER:
-                        console.log("ERREUR dans la suppression du post.");
+                        this.$emit('refreshListPost');
                         alert("ERREUR dans la suppression du post.")
                     })
             }
         }
     },
     computed: {
-        // Comme ce genre de truc risque d'être utilisé à plusieurs endroits, il faudrait probablement 
-        // créer un petit composant pour afficher la date, ou trouver un moyen de faire un fichier "Utils"
+        // Récupéré à plusieurs reprises, on crée un petit composant pour afficher la date, dans un fichier "Utils"
         formatedDateCreation() {
             return Utils.formatDateToJJMMAAAA(this.date_creation);
         },

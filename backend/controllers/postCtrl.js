@@ -63,25 +63,18 @@ exports.createPost = async (req, res, next) => {
 
 // modifier un post
 exports.updatePost = (req, res, next) => {
-    console.log("Update post demandé !");
-    // const token = req.headers.authorization.split(' ')[1];
-    // const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    // const userId = decodedToken.userId;
-    // let title =  req.body.title;
-    // let content = req.body.content;
-    // let postId = req.params.id;
-    // let sqlInserts1 = [postId];
-    // let sqlInserts2 = [title, content, postId, userId];
+
     let sql1 = "SELECT * FROM posts WHERE id = ?";
-    console.log("id : ", req.params.id);
     dbc.query(sql1, [req.params.id], (err, results, fields) => {
         if (err) {
             return res.status(400).json(err);
         }
     });
+
     const updatedPost = req.body;
     let sql2 = "UPDATE posts SET title=?, content=? WHERE id=? and userId=?";
     console.log(updatedPost);
+
     dbc.query(sql2, [updatedPost.title, updatedPost.content, updatedPost.id, updatedPost.userId], (err, results, fields) => {
         if (err) {
             console.log(err);
@@ -100,10 +93,8 @@ exports.deletePost = (req, res, next) => {
             return res.status(400).json(error);
         }
         if (results.length > 0) {
-
-                currentPost = results[0];
+            currentPost = results[0];
             console.log("tentative de suppression de l'image : " + './images/' + currentPost.image_url);
-
             fs.unlink('./images/' + currentPost.image_url, (err => {
                 if (err) {
                     console.log(err)
@@ -147,7 +138,6 @@ exports.createComment = (req, res, next) => {
         [req.body.userId, req.body.postId, req.body.comContent],
         (err, results, fields) => {
             if (err) {
-                console.log(err);
                 return res.status(500).json(err);
             }
             res.status(200).json({ message: "commentaire créé." });
@@ -180,11 +170,6 @@ exports.deleteComment = (req, res, next) => {
         if (error) {
             return res.status(400).json(error);
         }
-
-        // if result
-        //    if (isAdmin || connectedUser == result[0].userId)
-        //     Et la suppression réel (let sql2= ....) se fera à l'intérieur de ce if. 
-
     })
     let sql2 = "DELETE FROM comments WHERE id = ?";
     dbc.query(sql2, [req.params.id], (error, results, fields) => {

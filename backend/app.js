@@ -1,41 +1,32 @@
 const express = require('express');
 // const bodyParser = require('body-parser');
 const path = require('path');
-//const helmet = require('helmet');
+
 const cors = require("cors");
 const morgan = require('morgan');
 
 // Création de l'application express
 const app = express();
+
 // intercepte toutes les requêtes JSON et met à disposition le corps de la requête dans req.body
 app.use(express.json());
 // accès aux differents champs de formulaires
 app.use(express.urlencoded({ extended: true }));
 
 // dev control dans le terminal
-// Ajoute des informations dans le terminal notamment sur les routes qui transitent. 
+// Ajoute des informations dans le terminal notamment sur les routes qui transitent.
+// Très utile pour aider au debug 
 app.use(morgan("dev"));
 
 //cors
 app.use(cors());
 
-
-//HTTP headers protection 
-//app.use(helmet());
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-});
-
-//Routes files
+//Fichiers Routes
 const postRouter = require('./routes/postRoute');
 const userRouter = require('./routes/userRoute');
 
-//Static management of image ressource
-//To load files that are in the images directory.
+
+// Gestion statique des fichiers image, afin de télécharger les images présentes dans le dossier "images"
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Routes
