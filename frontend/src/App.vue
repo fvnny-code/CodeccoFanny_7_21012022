@@ -20,8 +20,7 @@
     max-width: 100%;
     scroll-behavior: smooth;
     scroll-padding-top: 15rem;
-
-    color-scheme: light dark;
+    color-scheme: dark light;
 }
 
 #app {

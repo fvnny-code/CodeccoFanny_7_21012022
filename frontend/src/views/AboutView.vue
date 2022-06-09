@@ -1,7 +1,5 @@
 <template>
     <div id="profile" class="card">
-
-
         <div class="card-actions">
             <button class="btn btn--close" @click="close">X</button>
         </div>
