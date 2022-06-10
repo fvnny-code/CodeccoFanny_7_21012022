@@ -293,7 +293,7 @@ img {
 }
 
 .user__avatar--small {
-    max-width: 100px;
+    max-width: 5rem;
     clip-path: polygon(0% 0%, 100% 0, 100% 75%, 75% 75%, 42% 100%, 50% 75%, 0% 75%);
 }
 </style>
