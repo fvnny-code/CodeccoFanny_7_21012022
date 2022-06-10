@@ -289,7 +289,7 @@ textarea {
 
 //Images //
 img {
-    width: 50%;
+    width: 40%;
 }
 
 .user__avatar--small {

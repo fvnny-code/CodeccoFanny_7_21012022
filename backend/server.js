@@ -4,7 +4,6 @@ const app = require("./app");
 // renvoie un port valide sous forme de chaîne ou de numéro.
 const normalizePort = (val) => {
     const port = parseInt(val, 10);
-
     if (isNaN(port)) {
         return val;
     }
@@ -22,8 +21,7 @@ const errorHandler = (error) => {
         throw error;
     }
     const address = server.address();
-    const bind =
-        typeof address === "string" ? "pipe " + address : "port: " + port;
+    const bind = typeof address === "string" ? "pipe " + address : "port: " + port;
     switch (error.code) {
         case "EACCES": // accès refusé
             console.error(bind + " requires elevated privileges.");
@@ -37,18 +35,15 @@ const errorHandler = (error) => {
             throw error;
     }
 };
-
 // crée un serveur avec express qui utilise app, et crée une constante pour les appels au serveur (req + res).
 const server = http.createServer(app);
 // lance le serveur et écoute s'il y a des erreurs.
 server.on("error", errorHandler);
-
 // écouteur d'événements avec port d'écoute sur lequel le serveur s'exécute.
 server.on("listening", () => {
     const address = server.address();
     const bind = typeof address === "string" ? "pipe " + address : "port " + port;
     console.log("Listening on " + bind);
 });
-
 // le serveur écoute sur le port défini au dessus.
 server.listen(port);

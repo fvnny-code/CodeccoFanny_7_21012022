@@ -1,6 +1,6 @@
 <!-- Cette page correspond à l'affichage du détail d'un post.  -->
 <template>
-    <theHeader></theHeader>
+    <TheHeader></TheHeader>
     <div class="about feed container">
         <h1>Détail d'un post !</h1>
         <div class="card postCard">
@@ -61,15 +61,6 @@
         <SingleComment class="card" v-for="(comment) in comments" :key="comment.id" v-bind="comment"
             :listUser="listUser" />
     </div>
-    <div class="debug">
-        <!-- En dessous, c'est juste pour le debug, à enlever à la fin.  -->
-        <!-- <hr>
-        <strong> Detail post :</strong>
-        <pre> {{ post }}</pre>
-        <hr>
-        <strong> Detail commentaires :</strong>
-        <pre>{{ comments }}</pre> -->
-    </div>
 
     <TheFooter></TheFooter>
 </template>
@@ -96,7 +87,7 @@ export default defineComponent({
             show: false,
             listUser: [],
             post: {},
-            // Ici je peux récupérer mon id parce qu'il est dans l'url. 
+            // Ici je peux récupérer mon id de post parce qu'il est dans l'url. 
             // (la route pour appeler DetailPost.vue c'est par exemple http://localhost:8080/#/detailPost/3)
             postId: this.$route.params.id,
             comments: [],
@@ -121,7 +112,6 @@ export default defineComponent({
     methods: {
 
         formatDate(date) {
-
             return Utils.formatDateToJJMMAAAA(date);
         },
         sendComment(event) {
@@ -144,6 +134,7 @@ export default defineComponent({
                     this.loadAllComments();
                     // On vide le formulaire qui nous a permis de créer un commentaire. 
                     this.newComment = {};
+                    // on replie le formulaire
                     this.showCommentForm = false;
                 }
                 ).catch(err => {
@@ -247,5 +238,8 @@ export default defineComponent({
     padding: 0 3rem 3rem 3rem;
     margin: 0.5rem 0 2.7rem 0;
 
+}
+h1 {
+    color: var(--primary-color)
 }
 </style>

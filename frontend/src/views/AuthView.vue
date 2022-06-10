@@ -78,7 +78,7 @@ export default defineComponent({
                 username: "",
                 password: "",
             },
-            dataLoginS: "",
+            dataLoginS: "",// data stringuifiées
             form: true,
             msg: false,
             message: "",
@@ -154,8 +154,6 @@ export default defineComponent({
                     localStorage.userId = response.data.userId;
                     localStorage.isAdmin = response.data.isAdmin;
                     localStorage.token = response.data.token;
-
-                    // localStorage.moderation = log.moderation;
                     this.$router.push("/home");
                 })
                 .catch((error) => {

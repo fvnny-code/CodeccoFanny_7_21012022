@@ -11,7 +11,7 @@
             <img v-else src="../assets/avatar.jpg" class="avatar" />
         </div>
 
-        <p class="card__content">Username : {{ user.username }}</p>
+        <p class="card__content">Pseudo : {{ user.username }}</p>
         <p class="card__content">Email : {{ user.email }}</p>
         <div class="card-actions">
             <i v-on:click="show = !show" class="fas fa-pen" title="modifier mes informations"

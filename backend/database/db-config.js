@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 
 });
 
-db.pQuery = util.promisify(db.query)
+db.query = util.promisify(db.query)
 
 module.exports = db;
 
