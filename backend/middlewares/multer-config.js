@@ -1,17 +1,19 @@
-// Import of MULTER to manage images.
+
+// Import de MULTER pour la gestion des images.
 const multer = require("multer");
 const path = require('path');
 
-// List of accepted images formats (MIME_TYPES)
+
+// liste des formats acceptés (MIME_TYPES)
 const MIME_TYPES = {
     "image/jpg": "jpg",
     "image/jpeg": "jpg",
     "image/png": "png",
-    "image/webp": "webp",
     "image/gif" : "gif"
 };
 
-// Storage location an file name
+
+// Destination de sotackage et noms des fichiers
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "images");
