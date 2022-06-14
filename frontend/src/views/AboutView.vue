@@ -28,7 +28,7 @@
             <input type="file" ref="fileInput" accept=".jpg, .jpeg, .png, .gif" name="avatar"
                 @change="handleFileUpload($event)" />
 
-            <label for="title">Username : </label>
+            <label for="title">Pseudo : </label>
             <input type="text" id="username" name="username" rows="8" cols="30" wrap="on" autofocus
                 v-model="user.username" />
             <label for="title">Email : </label>
@@ -48,18 +48,14 @@
             <hr>
             <div v-for="user in users" :key="user.id" class="UsersList">
                 <i @click="deleteUserByAdmin(user.id)" class="fas fa-trash i-red"></i>
-                <p>{{ user.id }} | {{ user.username }} | par : {{ user.email }}</p>
+                <p>{{ user.id }} | {{ user.username }} | {{ user.email }}</p>
                  
             </div>
-           
+
             <p>liste des posts :</p>
             <hr>
             <div v-for="post in posts" :key="post.id" class="PostsList">
-
                 <i @click="deletePostByAdmin(post.id)" class="fas fa-trash i-red"></i>
-                <!-- <span>{{ post.id }} &nbsp;</span>
-                    <span>{{ post.title }} &nbsp;</span>
-                    <span>par : {{ post.username }} &nbsp;</span> -->
                 <p>{{ post.id }} | {{ post.title }} | par : {{ post.username }}</p>
             </div>
 
@@ -68,7 +64,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 import { Utils } from "../Utils.js";
 import { defineComponent } from "vue";
@@ -104,7 +99,6 @@ export default defineComponent({
             this.avatar = event.target.files[0];
         },
         formatDate(date) {
-
             return Utils.formatDateToJJMMAAAA(date);
         },
 
@@ -228,7 +222,6 @@ export default defineComponent({
                     .then(() => {
                         console.log("Ce profil de a bien été supprimé");
                         window.location.reload();
-
 
                     })
                     .catch((error) => {

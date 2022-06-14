@@ -19,7 +19,6 @@
         <div class="space-btwn">
 
             <router-link :to="{ name: 'detailPost', params: { id: id } }">Voir le détail</router-link>
-
             <i v-if="userId == connectedUserId || isAdmin" @click="deletePost(id)" class="fas fa-trash i-red"
                 title="Supprimer le post"></i>
         </div>
@@ -41,7 +40,6 @@ export default defineComponent({
             connectedUserId: localStorage.getItem("userId"),
             isAdmin: Number(localStorage.getItem("isAdmin")) === 1,
             user: {},
-
         }
     },
     // Ces props viennent du "parent", c'est à dire ici ListPost.vue. 
@@ -89,8 +87,6 @@ export default defineComponent({
 
         deletePost(id) {
             if (confirm("Voulez vous supprimer ce post ?")) {
-                //console.log(id);
-
 
                 axios.delete(`http://127.0.0.1:3000/api/post/${id}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                     .then(() => {
