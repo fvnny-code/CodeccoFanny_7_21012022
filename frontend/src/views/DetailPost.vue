@@ -49,19 +49,15 @@
                 </textarea>
                 <div class="card-actions">
                     <button type="submit" class="btn--outline"><i class="fas fa-check"></i></button>
-                    <!-- <button type="submit" class="btn btn-red" @click="close">Annuler</button> -->
                 </div>
             </form>
         </div>
     </div>
-
     <div class="container__comments">
         <h3>Et voici la liste des commentaires associés : </h3>
-
         <SingleComment class="card" v-for="(comment) in comments" :key="comment.id" v-bind="comment"
             :listUser="listUser" />
     </div>
-
     <TheFooter></TheFooter>
 </template>
 
@@ -76,7 +72,6 @@ import SingleComment from '../components/SingleComment.vue';
 
 export default defineComponent({
     components: { TheHeader, SingleComment, TheFooter },
-    // emits: ['refreshDetailPost'],
 
     data() {
         return {
@@ -130,7 +125,7 @@ export default defineComponent({
                 }
                 ).then((response) => {
                     console.log(response);
-                    // On charge les nouveaux commentaire
+                    // On charge les nouveaux commentaires
                     this.loadAllComments();
                     // On vide le formulaire qui nous a permis de créer un commentaire. 
                     this.newComment = {};
@@ -183,7 +178,7 @@ export default defineComponent({
                     console.log(error + "ERREUR dans la récupération des posts.");
                 })
 
-            // Maintenant on récupère la liste des commentaires qui correspondent :  
+            // Maintenant on récupère la liste des utilisateurs qui correspondent :  
             axios.get("http://127.0.0.1:3000/api/auth", { headers: { Authorization: 'Bearer ' + localStorage.token } })
                 .then((data) => {
                     this.listUser = data.data;
@@ -193,26 +188,6 @@ export default defineComponent({
                 })
 
         },
-
-        // updateComment(commentId) {
-        //     let dataJson = JSON.stringify(this.comments);
-        //     console.log(dataJson);
-        //     axios.put(`http://localhost:3000/api/post/${this.postId}/comments/${commentId}`, dataJson, {
-        //         headers:
-        //             { "Authorization": 'Bearer ' + localStorage.token, "Content-Type": "application/json" }
-        //     }).then((response) => {
-        //         // console.log("Update comment ok");
-        //         console.log(response);
-        //         confirm("votre commentaire a bien été modifié")
-        //         // replie le formulaire une fois cliqué sur OK
-        //         this.isVisible = false;
-        //     }).catch((err) => {
-        //         console.log("Echec de la mise à jour : ");
-        //         console.log(err);
-        //         confirm("Echec de la mise à jour")
-        //         this.isVisible = false;
-        //     })
-        // },
 
     },
 

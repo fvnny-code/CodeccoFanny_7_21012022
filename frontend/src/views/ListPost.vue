@@ -80,13 +80,10 @@ export default defineComponent({
 
             var formData = new FormData();
             formData.append('userId', this.newPost.userId);
-            //let file = document.getElementById('file').files[0]
             formData.append('image', this.newPost.file);
             formData.append('title', this.newPost.title);
             formData.append('content', this.newPost.content);
 
-            //let dataJson = JSON.stringify(this.newPost);
-            //console.log("Donnée : ", dataJson);
             console.log("Donnée", formData);
             axios
                 .post(
