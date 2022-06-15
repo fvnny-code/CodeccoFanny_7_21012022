@@ -144,24 +144,24 @@ exports.createComment = (req, res, next) => {
         }
     );
 };
-// Modifier un commentaire
+// Modifier un commentaire (non géré en front, code commenté mais conservé au cas où... le cas échéant)
 exports.updateComment = (req, res, next) => {
-    let sql1 = "SELECT * FROM comments WHERE id = ?";
-    dbc.query(sql1, [req.params.id], (err, results, fields) => {
-        if (err) {
-            return res.status(400).json(err);
-        }
-    });
-    const updatedComment = req.body;
-    let sql2 = "UPDATE comments SET comContent = ? WHERE postId = ?";
-    dbc.query(sql2, [updatedComment, req.params.id], (err, results, fiedls) => {
-        if (err) {
-            return res.status(400).json(err);
-        }
-        return res
-            .status(200)
-            .json({ message: "Le commentaire a bien été modifié !" });
-    });
+    // let sql1 = "SELECT * FROM comments WHERE id = ?";
+    // dbc.query(sql1, [req.params.id], (err, results, fields) => {
+    //     if (err) {
+    //         return res.status(400).json(err);
+    //     }
+    // });
+    // const updatedComment = req.body;
+    // let sql2 = "UPDATE comments SET comContent = ? WHERE postId = ?";
+    // dbc.query(sql2, [updatedComment, req.params.id], (err, results, fiedls) => {
+    //     if (err) {
+    //         return res.status(400).json(err);
+    //     }
+    //     return res
+    //         .status(200)
+    //         .json({ message: "Le commentaire a bien été modifié !" });
+    // });
 };
 // Supprimer un commentaire
 exports.deleteComment = (req, res, next) => {

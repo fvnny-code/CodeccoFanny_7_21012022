@@ -117,12 +117,15 @@ export default defineComponent({
 
                 axios.delete(`http://localhost:3000/api/post/${this.postId}/comments/${id}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                     .then((response) => {
-                        confirm(`Le commentaire ${id} a bien été supprimé.`)
+                        console.log(response);
+                        confirm(`Le commentaire ${id} a bien été supprimé.
+                        `)
                         window.location.reload();
 
                     })
                     .catch(() => {
                         window.location.reload();
+                        console.log("ERREUR dans la suppression du post.");
                         alert("ERREUR dans la suppression du post.")
                     })
             }
