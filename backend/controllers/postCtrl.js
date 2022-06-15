@@ -117,7 +117,7 @@ exports.deletePost = (req, res, next) => {
 // COMMENTAIRES
 // Récupération de tous les commentaires qui correspondent à l'id du post fourni en paramètre. 
 exports.getComments = (req, res, next) => {
-    let sql = "SELECT comments.id as id, comments.*, users.username, users.avatar FROM comments JOIN users ON comments.userId = users.id  WHERE postId = ? ORDER BY comments.date_creation DESC";
+    let sql = "SELECT comments.id as id, comments.*, users.username FROM comments JOIN users ON comments.userId = users.id  WHERE postId = ? ORDER BY comments.date_creation DESC";
     dbc.query(sql, [Number(req.params.id)], (err, result, fields) => {
         if (err) {
             return res.status(400).json(err);
