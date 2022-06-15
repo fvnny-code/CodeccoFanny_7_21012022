@@ -19,3 +19,10 @@ Doc :
     Pour plus d'info : 
         vue ui
 
+==================
+Dans le navigateur :
+pour afficher la page d'authentification, ajouter /login à l'url de base :
+
+=> http://localhost:8080/login
+
+==================
