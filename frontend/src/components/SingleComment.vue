@@ -14,17 +14,7 @@
             <i v-if="userId == connectedUserId || isAdmin" @click="deleteComment(id)" class="fas fa-trash i-red"
                 title="Supprimer"></i>
         </div>
-        <!-- update comment -->
-        <!-- <form v-show="isVisible" class=" form-row" action="" @submit="updateComment">
-            <label for="comContent">Contenu</label>
-            <textarea id="comContent" name="comContent" rows="5" cols="50" maxlength="500" autofocus></textarea>
-            <div class="card-actions">
-                <button type="submit" class="btn--outline"><i class="fas fa-check"></i></button>
-                <button type="submit" class="btn btn-red" @click="close">Annuler</button>
-            </div>
-        </form> -->
     </div>
-
 </template>
 
 <script>
@@ -34,7 +24,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "SingleComment",
-    emits: ['refreshDetailPost'],
+
     props: {
         id: {
             type: Number,
@@ -123,19 +113,16 @@ export default defineComponent({
         },
         deleteComment(id) {
             if (confirm("Voulez vous supprimer ce commentaire ?")) {
-                console.log('tentative de suppression du commentaire ' + id);
+
 
                 axios.delete(`http://localhost:3000/api/post/${this.postId}/comments/${id}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                     .then((response) => {
-                        console.log(response);
-                        confirm(`Le commentaire ${id} a bien été supprimé.
-                        `)
+                        confirm(`Le commentaire ${id} a bien été supprimé.`)
                         window.location.reload();
 
                     })
                     .catch(() => {
-                        this.$emit('refreshDetailPost');
-                        console.log("ERREUR dans la suppression du post.");
+                        window.location.reload();
                         alert("ERREUR dans la suppression du post.")
                     })
             }
