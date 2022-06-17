@@ -19,7 +19,7 @@ try {
     //Comments
     apiRouter.get('/:id/comments', auth, postCtrl.getComments); // On retourne l'ensemble des commentaires qui correspondent au post :id 
     apiRouter.post('/:id/comments', auth, postCtrl.createComment);
-    apiRouter.put('/comments/:id', auth, postCtrl.updateComment);
+    // apiRouter.put('/comments/:id', auth, postCtrl.updateComment);
     apiRouter.delete('/:idPost/comments/:id', auth, postCtrl.deleteComment);
 
 
