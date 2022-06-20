@@ -109,6 +109,7 @@ export default defineComponent({
         formatedDateCreation() {
             return Utils.formatDateToJJMMAAAA(this.date_creation);
         },
+        
     },
 
 })

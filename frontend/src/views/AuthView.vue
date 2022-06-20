@@ -23,18 +23,16 @@
 
                 <div class="form-row">
                     <label for="email">Email</label>
-                    <input v-model="dataLogin.email" class="form-row__input" type="email" placeholder="email@mail.com"
-                        :rules="emailRules" autofocus required />
+                    <input v-model="dataLogin.email" class="form-row__input" type="email" placeholder="email@mail.com" autofocus required />
                 </div>
                 <div class="form-row" v-if="mode == 'create'">
                     <label for="userName">Pseudo</label>
-                    <input v-model="dataLogin.username" class="form-row__input" type="text" placeholder="Votre pseudo"
-                        :rules="usernameRules" autofocus required />
+                    <input v-model="dataLogin.username" class="form-row__input" type="text" placeholder="Votre pseudo" autofocus required />
                 </div>
                 <div class="form-row">
                     <label for="password">Mot de passe (8 caractères minimum)</label>
                     <input v-model="dataLogin.password" class="form-row__input" type="password"
-                        placeholder="Mot de passe" :rules="passwordRules" autofocus required />
+                        placeholder="Mot de passe" autofocus required />
                 </div>
 
                 <div class="form-row">
@@ -62,16 +60,6 @@ export default defineComponent({
         return {
             mode: "login",
             valid: true,
-            usernameRules: [
-                v => !!v || 'Username is required',
-            ],
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-            ],
-            passwordRules: [
-                v => !!v || 'Password is required'
-            ],
 
             dataLogin: {
                 email: "",
@@ -124,6 +112,8 @@ export default defineComponent({
                     console.log(error);
                     this.message = error;
                     this.msg = true;
+                    let errorMessage = JSON.parse(error.request.response);
+                    alert(errorMessage.message)
                 });
         },
         login() {

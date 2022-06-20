@@ -9,6 +9,20 @@ const fs = require('fs');
 
 exports.signup = (req, res, next) => {
     const user = req.body;
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!user.email.match(regexEmail)) {
+        res.status(400).json({ message: "email invalide." });
+        return false;
+    }
+    if (user.username.length <=2){
+        res.status(400).json({ message: "pseudo invalide." });
+            return false;
+    }
+
+    if (user.password.length <= 8) {
+            res.status(400).json({ message: "mot de passe invalide." });
+            return false;
+        }
     bcrypt
         .hash(user.password, 10)
         .then((hash) => {
