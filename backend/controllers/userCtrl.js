@@ -11,16 +11,16 @@ exports.signup = (req, res, next) => {
     const user = req.body;
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!user.email.match(regexEmail)) {
-        res.status(400).json({ message: "email invalide." });
+        res.status(400).json({ message: "Email invalide." });
         return false;
     }
     if (user.username.length <=2){
-        res.status(400).json({ message: "pseudo invalide." });
+        res.status(400).json({ message: "Pseudo invalide. Veuillez composer un pseudo d'au moins 2 caractères." });
             return false;
     }
 
     if (user.password.length <= 8) {
-            res.status(400).json({ message: "mot de passe invalide." });
+            res.status(400).json({ message: "Mot de passe invalide. Il doit avoir au moins 8 caractères." });
             return false;
         }
     bcrypt
