@@ -159,7 +159,6 @@ export default defineComponent({
             // Ici on récupère le post correspondant à postId
             axios.get(`http://127.0.0.1:3000/api/post/${this.postId}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                 .then((data) => {
-                    // console.log(data);
                     this.post = data.data;
 
                     axios.get(`http://127.0.0.1:3000/api/post/${this.post.id}/comments`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
