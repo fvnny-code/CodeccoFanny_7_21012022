@@ -19,7 +19,7 @@ Pour lancer  l'application :
 
 
 Dans le navigateur :
-pour afficher la page d'authentification, ajouter /login à l'url de base :
+Lien pour afficher la page d'authentification :
 
  http://localhost:8080/login
 
