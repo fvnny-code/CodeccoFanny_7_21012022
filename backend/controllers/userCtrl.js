@@ -33,7 +33,6 @@ exports.signup = (req, res, next) => {
                 user,
                 (error, results, fields) => {
                     if (!results) {
-                        //console.log(error)
                         res.status(400).json(error.sqlMessage);
                     } else {
                         res
@@ -60,7 +59,6 @@ exports.login = (req, res, next) => {
         dbc.query(sql, emailReq, (err, results, fields) => {
             if (err) {
                 // En cas d'erreur (eg : bdd pas lancée), on retourne l'erreur 500 et on s'arrête ici. 
-                // console.log(err);
                 res.status(500).json({ message: "Problème serveur." });
                 return;
             }
@@ -125,10 +123,8 @@ exports.updateUser = (req, res, next) => {
 
         if (result.length > 0) {
             if (isAdmin || connectedUserId == result[0].id) {
-                // console.log("J'ai les droits de modifications");
                 if (typeof req.file != "undefined") {
                     let currentUser = result[0];
-                    // console.log("currentUser : ", currentUser);
 
                     fs.unlink('./images/' + currentUser.avatar, (err => {
                         if (err) {
@@ -142,7 +138,6 @@ exports.updateUser = (req, res, next) => {
                 delete updatedUser.image;
                 if (typeof req.file != "undefined") {
                     updatedUser.avatar = req.file.filename;
-                    // console.log("avatar", updatedUser.avatar);
                 }
 
                 let sql2 = " UPDATE users SET ? WHERE id = ?";
