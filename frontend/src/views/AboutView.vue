@@ -149,7 +149,7 @@ export default defineComponent({
                 });
         },
         sendProfileUpdate(event) {
-            console.log("Dans sendProfileUpdate");
+            // console.log("Dans sendProfileUpdate");
             event.preventDefault();
             let formData = new FormData();
             formData.append('username', this.user.username);
@@ -180,7 +180,7 @@ export default defineComponent({
             if (
                 confirm("Êtes-vous sûr.e de vouloir supprimer votre profil ?")
             ) {
-                console.log(this.connectedUserId);
+                // console.log(this.connectedUserId);
 
                 axios
                     .delete(
@@ -192,7 +192,7 @@ export default defineComponent({
                         }
                     )
                     .then(() => {
-                        console.log("Votre profil a bien été supprimé");
+                        alert("Votre profil a bien été supprimé");
                         localStorage.clear();
                         window.location = "/login";
                     })
@@ -208,8 +208,6 @@ export default defineComponent({
             if (
                 confirm("Êtes-vous sûr.e de vouloir supprimer ce profil ?")
             ) {
-                console.log(this.id);
-
                 axios
                     .delete(
                         `http://127.0.0.1:3000/api/auth/${id}`,
@@ -220,7 +218,7 @@ export default defineComponent({
                         }
                     )
                     .then(() => {
-                        console.log("Ce profil de a bien été supprimé");
+                        alert("Ce profil de a bien été supprimé");
                         window.location.reload();
 
                     })
@@ -237,7 +235,7 @@ export default defineComponent({
             if (
                 confirm("Êtes-vous sûr.e de vouloir supprimer ce post ?")
             ) {
-                console.log(id);
+
                 axios
                     .delete(
                         `http://127.0.0.1:3000/api/post/${id}`,
@@ -248,7 +246,7 @@ export default defineComponent({
                         }
                     )
                     .then(() => {
-                        console.log("Ce post de a bien été supprimé");
+                        alert("Ce post de a bien été supprimé");
                         window.location.reload();
 
                     })

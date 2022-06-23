@@ -110,13 +110,11 @@ export default defineComponent({
             return Utils.formatDateToJJMMAAAA(date);
         },
         sendComment(event) {
-            console.log("tentative de commentaire")
             event.preventDefault();
             this.newComment.postId = this.post.id
             this.newComment.userId = Number(localStorage.getItem("userId"));
 
             let dataJson = JSON.stringify(this.newComment);
-            console.log("Donnée : ", dataJson);
             axios
                 .post(
                     `http://localhost:3000/api/post/${this.postId}/comments`, dataJson, {
@@ -133,8 +131,7 @@ export default defineComponent({
                     this.showCommentForm = false;
                 }
                 ).catch(err => {
-                    console.log("Erreur dans l'enregistrement du commentaire");
-                    console.log(err);
+                    console.log(err + "Erreur dans l'enregistrement du commentaire");
                 })
         },
         updatePost(event) {
@@ -147,7 +144,6 @@ export default defineComponent({
                 headers:
                     { "Authorization": 'Bearer ' + localStorage.token, "Content-Type": "application/json" }
             }).then((response) => {
-
                 console.log(response);
                 confirm("votre post a bien été modifié")
                 // replie le formulaire une fois cliqué sur OK
@@ -163,7 +159,7 @@ export default defineComponent({
             // Ici on récupère le post correspondant à postId
             axios.get(`http://127.0.0.1:3000/api/post/${this.postId}`, { headers: { Authorization: 'Bearer ' + localStorage.token } })
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     this.post = data.data;
 
                     axios.get(`http://127.0.0.1:3000/api/post/${this.post.id}/comments`, { headers: { Authorization: 'Bearer ' + localStorage.token } })

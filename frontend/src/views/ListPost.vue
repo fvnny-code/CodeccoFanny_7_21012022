@@ -67,14 +67,12 @@ export default defineComponent({
         },
         handleFileUpload(event) {
             this.newPost.file = event.target.files[0];
-            console.log("récupération de l'url de l'image")
-            console.log(this.newPost.file);
+            // console.log(this.newPost.file);
         },
         sendPost(event) {
             // PréventDefault histoire de ne pas "poster" avec le bouton. 
             // On veut gérer le truc à la main. 
             event.preventDefault();
-            console.log("Tentative de sauvegarde d'un nouveau post !");
             this.newPost.userId = Number(localStorage.getItem("userId"));
             this.newPost.image_url = "fakeImage.jpg";
 
@@ -84,7 +82,6 @@ export default defineComponent({
             formData.append('title', this.newPost.title);
             formData.append('content', this.newPost.content);
 
-            console.log("Donnée", formData);
             axios
                 .post(
                     "http://127.0.0.1:3000/api/post/",
@@ -101,8 +98,7 @@ export default defineComponent({
                     console.log(response);
                     this.toggleShow(event);
                 }).catch(err => {
-                    console.log("Erreur dans l'enregistrement du post");
-                    console.log(err);
+                    console.log( err + "Erreur dans l'enregistrement du post");
                 })
         },
         loadAllPosts() {
@@ -123,10 +119,7 @@ export default defineComponent({
                 })
         },
 
-        onlyText(postImg) {
-            // ONIRIAN : pas utile pour l'instant. 
-            return postImg != "null";
-        },
+        
     },
 })
 </script>
