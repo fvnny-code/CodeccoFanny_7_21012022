@@ -49,7 +49,7 @@
             <div v-for="user in users" :key="user.id" class="UsersList">
                 <i @click="deleteUserByAdmin(user.id)" class="fas fa-trash i-red"></i>
                 <p>{{ user.id }} | {{ user.username }} | {{ user.email }}</p>
-                 
+
             </div>
 
             <p>liste des posts :</p>
@@ -149,7 +149,6 @@ export default defineComponent({
                 });
         },
         sendProfileUpdate(event) {
-            // console.log("Dans sendProfileUpdate");
             event.preventDefault();
             let formData = new FormData();
             formData.append('username', this.user.username);
@@ -180,8 +179,6 @@ export default defineComponent({
             if (
                 confirm("Êtes-vous sûr.e de vouloir supprimer votre profil ?")
             ) {
-                // console.log(this.connectedUserId);
-
                 axios
                     .delete(
                         `http://127.0.0.1:3000/api/auth/${this.connectedUserId}`,
@@ -235,7 +232,6 @@ export default defineComponent({
             if (
                 confirm("Êtes-vous sûr.e de vouloir supprimer ce post ?")
             ) {
-
                 axios
                     .delete(
                         `http://127.0.0.1:3000/api/post/${id}`,
@@ -287,7 +283,7 @@ p {
     i {
         font-size: 1rem;
         margin-top: 1.5rem;
-       
+
     }
 
     p {
